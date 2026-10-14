@@ -325,10 +325,12 @@
   }
   function eventList(){return Object.values(map?.events||{}).map(ev=>{const pg=getActivePage(ev);return pg?{ev,pg,motion:getEventMotion(ev,pg)}:null;}).filter(Boolean);}
   function playerVisualPosition(){
-    if(!player?.moveFrom)return {x:player.x,y:player.y};
+    if(!player)return {x:0,y:0};
+    const from=player.moveFrom;
+    if(!from)return {x:player.x,y:player.y};
     const t=Math.min(1,Math.max(0,(performance.now()-player.moveStarted)/133));
     if(t===1)player.moveFrom=null;
-    return {x:player.moveFrom.x+(player.x-player.moveFrom.x)*t,y:player.moveFrom.y+(player.y-player.moveFrom.y)*t};
+    return {x:from.x+(player.x-from.x)*t,y:from.y+(player.y-from.y)*t};
   }
   function camera(){const pos=playerVisualPosition(),maxX=Math.max(0,map.width*TILE-W),maxY=Math.max(0,map.height*TILE-H);return {x:Math.min(maxX,Math.max(0,pos.x*TILE-W/2+TILE/2)),y:Math.min(maxY,Math.max(0,pos.y*TILE-H/2+TILE/2))};}
   function drawCharacter(name,hue,pattern,direction,worldX,worldY,opacity=255, isPlayer=false) {
@@ -366,10 +368,11 @@
     return true;
   }
   function eventVisualPosition(motion){
-    if(!motion.moveFrom)return {x:motion.x,y:motion.y};
+    const from=motion.moveFrom;
+    if(!from)return {x:motion.x,y:motion.y};
     const duration=128/(2**(motion.moveSpeed||4))*1000/60,t=Math.min(1,Math.max(0,(performance.now()-motion.moveStarted)/duration));
     if(t===1)motion.moveFrom=null;
-    return {x:motion.moveFrom.x+(motion.x-motion.moveFrom.x)*t,y:motion.moveFrom.y+(motion.y-motion.moveFrom.y)*t};
+    return {x:from.x+(motion.x-from.x)*t,y:from.y+(motion.y-from.y)*t};
   }
   function checkPlayerTouch(x=player.x,y=player.y,triggers=[2]){for(const {ev,pg,motion} of eventList())if(triggers.includes(pg.trigger)&&motion.x===x&&motion.y===y)runEvent(ev,pg).catch(reportError);}
   function moveEvent(ev,pg,motion,dir){
