@@ -8,11 +8,12 @@
   ctx.imageSmoothingEnabled = false;
   const overlay = document.getElementById('overlay'), notice = document.getElementById('notice');
   const dialogEl = document.getElementById('dialog'), speakerEl = document.getElementById('dialog-speaker'), textEl = document.getElementById('dialog-text');
+  const dialogOptionsEl = document.getElementById('dialog-options'), dialogNextEl = document.getElementById('dialog-next');
   const choiceEl = document.getElementById('choice'), menuEl = document.getElementById('menu'), battleEl = document.getElementById('battle');
   const keys = new Set();
   const db = {};
   let assetIndex = {};
-  const imageCache = new Map(), audioCache = new Map(), autoTileCache = new Map();
+  const imageCache = new Map(), audioCache = new Map(), autoTileCache = new Map(), eventMotion = new Map();
   let scene = 'title', map = null, tileset = null, mapId = 1, mapInfo = {}, player = null;
   let mapBase = null, mapOverlay = [], renderedSignature = '', lastMoveAt = 0, lastFrame = 0, walkFrame = 0, autoFrameIndex = 0;
   let modal = false, currentEvent = null, runningEvents = new Set(), pageRunKey = '', saveAllowed = true, music = null, battleReturn = 'event';
@@ -23,7 +24,7 @@
     const s = db.System || {};
     const actor = db.Actors?.[1];
     const param = (idx) => actor?.parameters?.data?.[idx + (actor.parameters.xsize || 6)] ?? 0;
-    return { mapId: s.start_map_id || 1, x: s.start_x ?? 15, y: s.start_y ?? 10, direction: 2, switches: {}, variables: {}, selfSwitches: {}, gold: 0, items: {}, weapons: {}, armors: {}, hp: param(0) || 500, sp: param(1) || 500, level: actor?.initial_level || 1, exp: 0, skills: [], playFrames: 0, saveAllowed: true };
+    return { mapId: s.start_map_id || 1, x: s.start_x ?? 15, y: s.start_y ?? 10, direction: 2, switches: {}, variables: {}, selfSwitches: {}, eventPositions: {}, gold: 0, items: {}, weapons: {}, armors: {}, hp: param(0) || 500, sp: param(1) || 500, level: actor?.initial_level || 1, exp: 0, skills: [], playFrames: 0, saveAllowed: true };
   }
   function sayNotice(s) { notice.textContent = s || ''; }
   async function fetchJson(name) {
@@ -53,7 +54,7 @@
   function savedState() {
     try { const raw = localStorage.getItem(SAVE_KEY); return raw ? JSON.parse(raw) : null; } catch (_) { return null; }
   }
-  function applySave(s) { state = Object.assign(freshState(), s || {}); saveAllowed = state.saveAllowed !== false; }
+  function applySave(s) { state = Object.assign(freshState(), s || {}); eventMotion.clear(); saveAllowed = state.saveAllowed !== false; }
   function saveGame(quiet=false) {
     if (!saveAllowed) { if (!quiet) return showMessage(['Збереження гри зараз недоступне.']); return false; }
     try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); if (!quiet) sayNotice('Game saved locally.'); return true; }
@@ -62,37 +63,45 @@
   function showPanel(el) { overlay.classList.remove('hidden'); for (const item of [dialogEl, choiceEl, menuEl, battleEl]) item.classList.add('hidden'); el.classList.remove('hidden'); modal = true; }
   function hidePanels() { for (const item of [dialogEl, choiceEl, menuEl, battleEl]) item.classList.add('hidden'); overlay.classList.add('hidden'); modal = false; }
 
-  function showMessage(lines) {
+  function showMessage(lines, choice=null) {
     return new Promise(resolve => {
       const parts = [...lines].map(x => String(x ?? ''));
       let speaker = '';
       if (parts.length && /^.{1,24}:$/.test(parts[0].trim())) speaker = parts.shift().trim().slice(0, -1);
       speakerEl.textContent = speaker;
       textEl.textContent = parts.join('\n');
+      dialogOptionsEl.replaceChildren();
+      const options = choice?.options || [];
+      let choiceIndex = 0;
+      const buttons = options.map((label,index)=>{
+        const button=document.createElement('button');button.type='button';button.className='message-choice';button.textContent=String(label);
+        button.onclick=()=>finish(index);dialogOptionsEl.appendChild(button);return button;
+      });
+      dialogNextEl.classList.toggle('hidden',options.length>0);
       showPanel(dialogEl);
       let done = false;
-      const finish = () => { if (done) return; done = true; document.removeEventListener('keydown', onKey); hidePanels(); resolve(); };
-      const onKey = e => { if (['Enter',' ','z','Z'].includes(e.key)) { e.preventDefault(); finish(); } };
+      const finish = value => { if (done) return; done = true; document.removeEventListener('keydown', onKey); dialogOptionsEl.replaceChildren(); dialogNextEl.classList.add('hidden'); hidePanels(); resolve(value); };
+      const onKey = e => {
+        if(buttons.length&&['ArrowDown','ArrowUp'].includes(e.key)){e.preventDefault();choiceIndex=(choiceIndex+(e.key==='ArrowDown'?1:buttons.length-1))%buttons.length;buttons[choiceIndex].focus();return;}
+        if(e.key==='Escape'&&choice&&Number(choice.cancelType)>0&&Number(choice.cancelType)!==4){e.preventDefault();finish(Math.min(options.length-1,Number(choice.cancelType)-1));return;}
+        if(['Enter',' ','z','Z'].includes(e.key)){e.preventDefault();finish(buttons.length?choiceIndex:undefined);}
+      };
       document.addEventListener('keydown', onKey);
-      document.getElementById('dialog-next').onclick = finish;
+      dialogNextEl.onclick = () => finish(undefined);
+      if(buttons.length)buttons[0].focus();
       if (!parts.length && !speaker) textEl.textContent = '…';
     });
   }
   function showChoices(options, cancelType=4) {
     return new Promise(resolve => {
       choiceEl.replaceChildren();
-      const h = document.createElement('h2'); h.textContent = 'Choose'; choiceEl.appendChild(h);
       options.forEach((label, index) => {
         const b = document.createElement('button'); b.className = 'choice-button'; b.textContent = String(label); b.onclick = () => { hidePanels(); resolve(index); };
         choiceEl.appendChild(b);
       });
-      if (cancelType !== 4) {
-        const b = document.createElement('button'); b.className = 'choice-button'; b.textContent = 'Cancel'; b.onclick = () => { hidePanels(); resolve(Math.max(0, Math.min(options.length - 1, Number(cancelType) - 1))); };
-        choiceEl.appendChild(b);
-      }
       showPanel(choiceEl); choiceEl.querySelector('button')?.focus();
       const listener = e => {
-        if (e.key === 'Escape' && cancelType !== 4) { document.removeEventListener('keydown', listener); hidePanels(); resolve(Math.max(0, Math.min(options.length - 1, Number(cancelType) - 1))); }
+        if (e.key === 'Escape' && Number(cancelType)>0 && Number(cancelType)!==4) { document.removeEventListener('keydown', listener); hidePanels(); resolve(Math.min(options.length - 1, Number(cancelType) - 1)); }
         if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
           const bs=[...choiceEl.querySelectorAll('button')]; const ix=bs.indexOf(document.activeElement); const step=e.key==='ArrowDown'?1:-1;
           bs[(ix+step+bs.length)%bs.length]?.focus(); e.preventDefault();
@@ -281,7 +290,7 @@
     tileset=db.Tilesets?.[map.tileset_id];
     if(!tileset) throw new Error(`Map ${mapId} references missing tileset ${map.tileset_id}`);
     if(x!==null)state.x=x;if(y!==null)state.y=y;if(dir!==null&&dir!==0)state.direction=dir;
-    player={x:state.x,y:state.y,direction:state.direction||2,pattern:0,characterName:db.Actors?.[1]?.character_name||'001-Fighter01'};
+    player={x:state.x,y:state.y,direction:state.direction||2,pattern:0,originalPattern:0,animeCount:0,moveSpeed:4,characterName:db.Actors?.[1]?.character_name||'001-Fighter01'};
     const waits=[loadImage('Graphics/Tilesets/'+tileset.tileset_name)];
     (tileset.autotile_names||[]).filter(Boolean).forEach(n=>waits.push(loadImage('Graphics/Autotiles/'+n)));
     for(const ev of Object.values(map.events||{})){const pg=getActivePage(ev);const n=pg?.graphic?.character_name;if(n)waits.push(loadImage('Graphics/Characters/'+n));}
@@ -308,7 +317,13 @@
   function pageIndex(ev) { const pages=ev.pages||[];let found=-1;for(let i=0;i<pages.length;i++)if(pageValid(ev,pages[i]))found=i;return found; }
   function pageValid(ev,page){const c=page.condition||{};if(c.switch1_valid&&!state.switches[c.switch1_id])return false;if(c.switch2_valid&&!state.switches[c.switch2_id])return false;if(c.variable_valid&&(state.variables[c.variable_id]||0)<c.variable_value)return false;if(c.self_switch_valid&&!state.selfSwitches[`${mapId}:${ev.id}:${c.self_switch_ch}`])return false;return true;}
   function getActivePage(ev){const i=pageIndex(ev);return i<0?null:ev.pages[i];}
-  function eventList(){return Object.values(map?.events||{}).map(ev=>({ev,pg:getActivePage(ev)})).filter(x=>x.pg);}
+  function getEventMotion(ev,pg){
+    const key=`${mapId}:${ev.id}`,index=pageIndex(ev);let s=eventMotion.get(key);
+    if(!s){const saved=state.eventPositions?.[key]||{};s={pageIndex:index,x:saved.x??ev.x,y:saved.y??ev.y,direction:saved.direction??pg.graphic?.direction??2,pattern:saved.pattern??pg.graphic?.pattern??0,animeCount:0,stopCount:0,moveFrom:null,moveStarted:0};eventMotion.set(key,s);}
+    else if(s.pageIndex!==index){s.pageIndex=index;s.direction=pg.graphic?.direction||2;s.pattern=pg.graphic?.pattern||0;s.animeCount=0;s.stopCount=0;}
+    return s;
+  }
+  function eventList(){return Object.values(map?.events||{}).map(ev=>{const pg=getActivePage(ev);return pg?{ev,pg,motion:getEventMotion(ev,pg)}:null;}).filter(Boolean);}
   function playerVisualPosition(){
     if(!player?.moveFrom)return {x:player.x,y:player.y};
     const t=Math.min(1,Math.max(0,(performance.now()-player.moveStarted)/133));
@@ -330,41 +345,83 @@
     ctx.fillStyle='#111';ctx.fillRect(0,0,W,H);
     if(mapBase){const cam=camera();ctx.drawImage(mapBase,cam.x,cam.y,W,H,0,0,W,H);}
     const chars=[];
-    for(const {ev,pg} of eventList()){
+    for(const {ev,pg,motion} of eventList()){
       const g=pg.graphic||{};if(!g.character_name||g.tile_id>0)continue;
-      chars.push({name:g.character_name,hue:g.character_hue||0,pattern:g.pattern||0,direction:g.direction||2,x:ev.x,y:ev.y,opacity:g.opacity||255,top:pg.always_on_top?1:0});
+      const pos=eventVisualPosition(motion);
+      chars.push({name:g.character_name,hue:g.character_hue||0,pattern:motion.pattern,direction:motion.direction,x:pos.x,y:pos.y,sortY:motion.y,opacity:g.opacity||255,top:pg.always_on_top?1:0});
     }
     const visual=playerVisualPosition();
     chars.push({name:player.characterName,hue:0,pattern:player.pattern||0,direction:player.direction,x:visual.x,y:visual.y,sortY:player.y,opacity:255,top:0,isPlayer:true});
     chars.sort((a,b)=>((a.sortY??a.y)-(b.sortY??b.y))||(a.top-b.top));
     for(const c of chars)drawCharacter(c.name,c.hue,c.pattern,c.direction,c.x,c.y,c.opacity,c.isPlayer);
     const cam=camera();for(let p=1;p<=5;p++)if(mapOverlay[p])ctx.drawImage(mapOverlay[p],cam.x,cam.y,W,H,0,0,W,H);
-    ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillRect(8,8,184,25);ctx.fillStyle='#f5efd9';ctx.font='12px monospace';ctx.textAlign='left';ctx.fillText(`${db.MapInfos?.[String(mapId)]?.name||'Map'} · HP ${state.hp}`,16,25);
   }
-  function canPass(x,y,dir){
+  function canPass(x,y,dir,movingEventId=0,movingEventThrough=false){
     const dx=dir===4?-1:dir===6?1:0,dy=dir===8?-1:dir===2?1:0,nx=x+dx,ny=y+dy;
     if(nx<0||ny<0||nx>=map.width||ny>=map.height)return false;
-    // Events with a visible sprite block movement unless marked through.
-    for(const {ev,pg} of eventList()){if(ev.x===nx&&ev.y===ny&&!pg.through&&pg.graphic?.character_name&&pg.trigger!==1)return false;}
+    if(movingEventId&&!movingEventThrough&&nx===player.x&&ny===player.y)return false;
+    for(const {ev,pg,motion} of eventList())if(ev.id!==movingEventId&&motion.x===nx&&motion.y===ny&&!pg.through&&(pg.priority_type??1)===1)return false;
     const mask=({2:1,4:2,6:4,8:8})[dir];
     for(let z=2;z>=0;z--){const tid=table3(map.data,nx,ny,z);if(!tid)continue;const pri=tableValue(tileset.priorities,tid);const bits=tableValue(tileset.passages,tid);if(bits&mask)return false;if(pri===0)return true;}
     return true;
   }
-  function checkPlayerTouch(){for(const {ev,pg} of eventList()){if(pg.trigger===1&&ev.x===player.x&&ev.y===player.y)runEvent(ev,pg).catch(reportError);}}
+  function eventVisualPosition(motion){
+    if(!motion.moveFrom)return {x:motion.x,y:motion.y};
+    const duration=128/(2**(motion.moveSpeed||4))*1000/60,t=Math.min(1,Math.max(0,(performance.now()-motion.moveStarted)/duration));
+    if(t===1)motion.moveFrom=null;
+    return {x:motion.moveFrom.x+(motion.x-motion.moveFrom.x)*t,y:motion.moveFrom.y+(motion.y-motion.moveFrom.y)*t};
+  }
+  function checkPlayerTouch(x=player.x,y=player.y,triggers=[2]){for(const {ev,pg,motion} of eventList())if(triggers.includes(pg.trigger)&&motion.x===x&&motion.y===y)runEvent(ev,pg).catch(reportError);}
+  function moveEvent(ev,pg,motion,dir){
+    if(canPass(motion.x,motion.y,dir,ev.id,pg.through)){
+      if(!pg.direction_fix)motion.direction=dir;
+      const from={x:motion.x,y:motion.y},dx=dir===4?-1:dir===6?1:0,dy=dir===8?-1:dir===2?1:0;
+      motion.moveFrom=from;motion.moveStarted=performance.now();motion.moveSpeed=pg.move_speed||3;motion.x+=dx;motion.y+=dy;
+      state.eventPositions[`${mapId}:${ev.id}`]={x:motion.x,y:motion.y,direction:motion.direction,pattern:motion.pattern};
+      checkPlayerTouch(motion.x,motion.y,2);
+    }else{
+      const nx=motion.x+(dir===4?-1:dir===6?1:0),ny=motion.y+(dir===8?-1:dir===2?1:0);
+      if(nx===player.x&&ny===player.y&&pg.trigger===2)runEvent(ev,pg).catch(reportError);
+    }
+  }
+  function updateEvents(delta){
+    for(const {ev,pg,motion} of eventList()){
+      const elapsed=motion.moveFrom?performance.now()-motion.moveStarted:Infinity;
+      const duration=128/(2**(pg.move_speed||3))*1000/60;
+      if(motion.moveFrom&&elapsed>=duration)motion.moveFrom=null;
+      const moving=!!motion.moveFrom,scale=Math.max(0,delta)/(1000/60);
+      if(moving&&pg.walk_anime)motion.animeCount+=scale*1.5;
+      else if(pg.step_anime)motion.animeCount+=scale;
+      else if(!moving&&motion.pattern!==(pg.graphic?.pattern||0))motion.animeCount+=scale*1.5;
+      if(motion.animeCount>18-(pg.move_speed||3)*2){if(moving)motion.pattern=(motion.pattern+1)%4;else motion.pattern=pg.graphic?.pattern||0;motion.animeCount=0;}
+      if(moving||runningEvents.has(`busy:${mapId}:${ev.id}`))continue;
+      motion.stopCount+=scale;
+      const frequency=pg.move_frequency||3,threshold=(40-frequency*2)*(6-frequency);
+      if((pg.move_type===1||pg.move_type===2)&&motion.stopCount>threshold){
+        const action=Math.floor(Math.random()*6);motion.stopCount=0;
+        if(pg.move_type===1){if(action<4)moveEvent(ev,pg,motion,[2,4,6,8][action]);else if(action===4)moveEvent(ev,pg,motion,motion.direction);}
+        else if(action<4){
+          const sx=motion.x-player.x,sy=motion.y-player.y,ax=Math.abs(sx),ay=Math.abs(sy);
+          if(ax>=ay&&sx)moveEvent(ev,pg,motion,sx>0?4:6);else if(sy)moveEvent(ev,pg,motion,sy>0?8:2);
+        }else if(action===4)moveEvent(ev,pg,motion,[2,4,6,8][Math.floor(Math.random()*4)]);
+        else moveEvent(ev,pg,motion,motion.direction);
+      }
+    }
+  }
   async function step(dir){
     if(modal||scene!=='map'||!player)return;
     player.direction=dir;state.direction=dir;
     if(canPass(player.x,player.y,dir)){
       const dx=dir===4?-1:dir===6?1:0,dy=dir===8?-1:dir===2?1:0;
       player.moveFrom={x:player.x,y:player.y};player.moveStarted=performance.now();
-      player.x+=dx;player.y+=dy;state.x=player.x;state.y=player.y;player.pattern=(player.pattern+1)%4;state.playFrames++;checkPlayerTouch();
-    }else{player.pattern=0;}
+      player.x+=dx;player.y+=dy;state.x=player.x;state.y=player.y;state.playFrames++;checkPlayerTouch();
+    }else{checkPlayerTouch(player.x+(dir===4?-1:dir===6?1:0),player.y+(dir===8?-1:dir===2?1:0),[1,2]);}
     render();
   }
   async function interact(){
     if(modal||scene!=='map')return;
     const dx=player.direction===4?-1:player.direction===6?1:0,dy=player.direction===8?-1:player.direction===2?1:0;
-    const targets=eventList().filter(({ev,pg})=>pg.trigger===0&&((ev.x===player.x+dx&&ev.y===player.y+dy)||(ev.x===player.x&&ev.y===player.y)));
+    const targets=eventList().filter(({pg,motion})=>pg.trigger===0&&((motion.x===player.x+dx&&motion.y===player.y+dy)||(motion.x===player.x&&motion.y===player.y)));
     if(targets.length){targets.sort((a,b)=>a.ev.id-b.ev.id);await runEvent(targets[0].ev,targets[0].pg);}
   }
   function skipToBranch(list,i,indent){for(let j=i+1;j<list.length;j++)if([402,403,404].includes(list[j].code)&&list[j].indent===indent)return j;return list.length-1;}
@@ -381,7 +438,7 @@
       const c=list[i],p=c.parameters||[],code=c.code,indent=c.indent||0;
       switch(code){
         case 0: i++;break;
-        case 101:{const lines=[p[0]??''];let j=i+1;while(j<list.length&&list[j].code===401){lines.push(list[j].parameters?.[0]??'');j++;}await showMessage(lines);i=j;break;}
+      case 101:{const lines=[p[0]??''];let j=i+1;while(j<list.length&&list[j].code===401){lines.push(list[j].parameters?.[0]??'');j++;}if(list[j]?.code===102){const choiceParams=list[j].parameters||[];choiceResult=await showMessage(lines,{options:choiceParams[0]||[],cancelType:choiceParams[1]??4});i=j+1;}else{await showMessage(lines);i=j;}break;}
         case 102: choiceResult=await showChoices(p[0]||[],p[1]??4);i++;break;
         case 402: if(choiceResult!==Number(p[0])){i=skipToBranch(list,i,indent);}else{choiceResult=null;i++;}break;
         case 403: if(choiceResult!==-1){i=skipToBranch(list,i,indent);}else{choiceResult=null;i++;}break;
@@ -428,7 +485,7 @@
   function changeInventory(bucket,p){const id=Number(p[0]||0),op=Number(p[1]||0),type=Number(p[2]||0),n=type===0?Number(p[3]||0):Number(state.variables[p[3]]||0);state[bucket][id]=Math.max(0,(state[bucket][id]||0)+(op===0?n:-n));}
   function waitForMenuClose(){return new Promise(resolve=>{const poll=()=>{if(!modal){resolve();return;}setTimeout(poll,50);};poll();});}
   function startMapAudio(){const track=map?.bgm?.name;if(!track)return;const path=assetPath('Audio/BGM/'+track);if(!path)return;try{if(music){music.pause();}music=new Audio(path);music.loop=true;music.volume=Math.max(0,Math.min(1,(map.bgm.volume??80)/100));music.play().catch(()=>{});}catch(_){}}
-  async function enterNewGame(){state=freshState();saveAllowed=true;await loadMap(state.mapId,state.x,state.y,state.direction);saveGame(true);}
+  async function enterNewGame(){state=freshState();eventMotion.clear();saveAllowed=true;await loadMap(state.mapId,state.x,state.y,state.direction);saveGame(true);}
   async function continueGame(){const s=savedState();if(!s){await showMessage(['No saved game exists in this browser yet.']);scene='title';return;}applySave(s);await loadMap(state.mapId,state.x,state.y,state.direction);}
   function reportError(e){console.error(e);sayNotice('Runtime error: '+(e?.message||e));}
   function handleKeyDown(e){
@@ -451,9 +508,27 @@
     if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','W','A','S','D'].includes(e.key))keys.add(e.key);
   }
   function handleKeyUp(e){keys.delete(e.key);}
+  function updatePlayerAnimation(t,delta){
+    if(!player)return;
+    if(player.moveFrom&&t-player.moveStarted>=133)player.moveFrom=null;
+    const moving=!!player.moveFrom;
+    if(moving)player.animeCount+=Math.max(0,delta)/(1000/60)*1.5;
+    else if(player.pattern!==player.originalPattern)player.animeCount+=Math.max(0,delta)/(1000/60)*1.5;
+    if(player.animeCount>18-player.moveSpeed*2){
+      if(moving)player.pattern=(player.pattern+1)%4;
+      else player.pattern=player.originalPattern;
+      player.animeCount=0;
+    }
+  }
   function update(t){
     const delta=t-lastFrame;lastFrame=t;
-    if(scene==='map'&&!modal&&player&&t-lastMoveAt>145){let dir=0;if(keys.has('ArrowUp')||keys.has('w')||keys.has('W'))dir=8;else if(keys.has('ArrowDown')||keys.has('s')||keys.has('S'))dir=2;else if(keys.has('ArrowLeft')||keys.has('a')||keys.has('A'))dir=4;else if(keys.has('ArrowRight')||keys.has('d')||keys.has('D'))dir=6;if(dir){lastMoveAt=t;step(dir).catch(reportError);}}
+    updatePlayerAnimation(t,delta);
+    if(scene==='map'&&map)updateEvents(delta);
+    if(scene==='map'&&!modal&&player&&t-lastMoveAt>=133&&(!player.moveFrom||t-player.moveStarted>=133)){
+      const directions={'ArrowUp':8,'w':8,'W':8,'ArrowDown':2,'s':2,'S':2,'ArrowLeft':4,'a':4,'A':4,'ArrowRight':6,'d':6,'D':6};
+      const dir=[...keys].reverse().map(key=>directions[key]).find(Boolean)||0;
+      if(dir){lastMoveAt=t;step(dir).catch(reportError);}
+    }
     if(scene==='map'&&map){const f=Math.floor(t/280)%4;if(f!==autoFrameIndex){autoFrameIndex=f;buildTilemap();}render();}
     if(scene==='map')state.playFrames++;
     requestAnimationFrame(update);
