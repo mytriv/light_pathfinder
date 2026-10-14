@@ -1,0 +1,739 @@
+[
+  null,
+  {
+    "_class": "RPG::Armor",
+    "eva": 0,
+    "int_plus": 0,
+    "icon_name": "009-Shield01",
+    "mdef": 20,
+    "name": "Bronze Shield",
+    "auto_state_id": 0,
+    "price": 390,
+    "agi_plus": 0,
+    "pdef": 22,
+    "guard_state_set": [
+
+    ],
+    "kind": 0,
+    "dex_plus": 0,
+    "guard_element_set": [
+
+    ],
+    "description": "Shield for front position classes.",
+    "str_plus": 0,
+    "id": 1
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Iron Shield",
+    "mdef": 25,
+    "icon_name": "009-Shield01",
+    "agi_plus": 0,
+    "price": 970,
+    "auto_state_id": 0,
+    "pdef": 27,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 0,
+    "guard_element_set": [
+
+    ],
+    "id": 2,
+    "str_plus": 0,
+    "description": "Shield for front position classes."
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Steel Shield",
+    "mdef": 31,
+    "icon_name": "009-Shield01",
+    "agi_plus": 0,
+    "price": 2400,
+    "auto_state_id": 0,
+    "pdef": 34,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 0,
+    "guard_element_set": [
+
+    ],
+    "id": 3,
+    "str_plus": 0,
+    "description": "Shield for front position classes."
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Mythirl Shield",
+    "mdef": 39,
+    "icon_name": "009-Shield01",
+    "agi_plus": 0,
+    "price": 6000,
+    "auto_state_id": 0,
+    "pdef": 42,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 0,
+    "guard_element_set": [
+
+    ],
+    "id": 4,
+    "str_plus": 0,
+    "description": "Shield for front position classes."
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Bronze Helm",
+    "mdef": 47,
+    "icon_name": "010-Head01",
+    "agi_plus": 0,
+    "price": 320,
+    "auto_state_id": 0,
+    "pdef": 53,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 1,
+    "guard_element_set": [
+
+    ],
+    "id": 5,
+    "str_plus": 0,
+    "description": "Helmet for front & middle position classes."
+  },
+  {
+    "_class": "RPG::Armor",
+    "eva": 0,
+    "int_plus": 0,
+    "icon_name": "010-Head01",
+    "mdef": 58,
+    "name": "Iron Helm",
+    "auto_state_id": 0,
+    "price": 800,
+    "agi_plus": 0,
+    "pdef": 66,
+    "guard_state_set": [
+
+    ],
+    "kind": 1,
+    "dex_plus": 0,
+    "guard_element_set": [
+
+    ],
+    "description": "Helmet for front & middle position classes.",
+    "str_plus": 0,
+    "id": 6
+  },
+  {
+    "_class": "RPG::Armor",
+    "eva": 0,
+    "int_plus": 0,
+    "icon_name": "010-Head01",
+    "mdef": 73,
+    "name": "Steel Helm",
+    "auto_state_id": 0,
+    "price": 2000,
+    "agi_plus": 0,
+    "pdef": 82,
+    "guard_state_set": [
+
+    ],
+    "kind": 1,
+    "dex_plus": 0,
+    "guard_element_set": [
+
+    ],
+    "description": "Helmet for front & middle position classes.",
+    "str_plus": 0,
+    "id": 7
+  },
+  {
+    "_class": "RPG::Armor",
+    "eva": 0,
+    "int_plus": 0,
+    "icon_name": "010-Head01",
+    "mdef": 91,
+    "name": "Mythril Helm",
+    "auto_state_id": 0,
+    "price": 5000,
+    "agi_plus": 0,
+    "pdef": 103,
+    "guard_state_set": [
+
+    ],
+    "kind": 1,
+    "dex_plus": 0,
+    "guard_element_set": [
+
+    ],
+    "description": "Helmet for front & middle position classes.",
+    "str_plus": 0,
+    "id": 8
+  },
+  {
+    "_class": "RPG::Armor",
+    "eva": 0,
+    "int_plus": 0,
+    "icon_name": "011-Head02",
+    "mdef": 50,
+    "name": "Cotton hat",
+    "auto_state_id": 0,
+    "price": 250,
+    "agi_plus": 0,
+    "pdef": 46,
+    "guard_state_set": [
+
+    ],
+    "kind": 1,
+    "dex_plus": 0,
+    "guard_element_set": [
+
+    ],
+    "description": "Hat for rear position classes.",
+    "str_plus": 0,
+    "id": 9
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Felt Hat",
+    "mdef": 62,
+    "icon_name": "011-Head02",
+    "agi_plus": 0,
+    "price": 620,
+    "auto_state_id": 0,
+    "pdef": 57,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 1,
+    "guard_element_set": [
+
+    ],
+    "id": 10,
+    "str_plus": 0,
+    "description": "Hat for rear position classes."
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Magic Hat",
+    "mdef": 78,
+    "icon_name": "011-Head02",
+    "agi_plus": 0,
+    "price": 1500,
+    "auto_state_id": 0,
+    "pdef": 71,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 1,
+    "guard_element_set": [
+
+    ],
+    "id": 11,
+    "str_plus": 0,
+    "description": "Hat for rear position classes."
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Saint Hat",
+    "mdef": 97,
+    "icon_name": "011-Head02",
+    "agi_plus": 0,
+    "price": 3900,
+    "auto_state_id": 0,
+    "pdef": 89,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 1,
+    "guard_element_set": [
+
+    ],
+    "id": 12,
+    "str_plus": 0,
+    "description": "Hat for rear position classes."
+  },
+  {
+    "_class": "RPG::Armor",
+    "eva": 0,
+    "int_plus": 0,
+    "icon_name": "013-Body01",
+    "mdef": 71,
+    "name": "Bronze Armor",
+    "auto_state_id": 0,
+    "price": 550,
+    "agi_plus": 0,
+    "pdef": 78,
+    "guard_state_set": [
+
+    ],
+    "kind": 2,
+    "dex_plus": 0,
+    "guard_element_set": [
+
+    ],
+    "description": "Body armor for front position classes.",
+    "str_plus": 0,
+    "id": 13
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Iron Armor",
+    "mdef": 88,
+    "icon_name": "013-Body01",
+    "agi_plus": 0,
+    "price": 1300,
+    "auto_state_id": 0,
+    "pdef": 97,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 2,
+    "guard_element_set": [
+
+    ],
+    "id": 14,
+    "str_plus": 0,
+    "description": "Body armor for front position classes."
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Steel Armor",
+    "mdef": 110,
+    "icon_name": "013-Body01",
+    "agi_plus": 0,
+    "price": 3400,
+    "auto_state_id": 0,
+    "pdef": 121,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 2,
+    "guard_element_set": [
+
+    ],
+    "id": 15,
+    "str_plus": 0,
+    "description": "Body armor for front position classes."
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Mythril Armor",
+    "mdef": 138,
+    "icon_name": "013-Body01",
+    "agi_plus": 0,
+    "price": 8500,
+    "auto_state_id": 0,
+    "pdef": 152,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 2,
+    "guard_element_set": [
+
+    ],
+    "id": 16,
+    "str_plus": 0,
+    "description": "Body armor for front position classes."
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Bronze Plate",
+    "mdef": 69,
+    "icon_name": "014-Body02",
+    "agi_plus": 0,
+    "price": 470,
+    "auto_state_id": 0,
+    "pdef": 74,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 2,
+    "guard_element_set": [
+
+    ],
+    "id": 17,
+    "str_plus": 0,
+    "description": "Body armor for front & middle position classes."
+  },
+  {
+    "_class": "RPG::Armor",
+    "eva": 0,
+    "int_plus": 0,
+    "icon_name": "014-Body02",
+    "mdef": 86,
+    "name": "Iron Plate",
+    "auto_state_id": 0,
+    "price": 1100,
+    "agi_plus": 0,
+    "pdef": 92,
+    "guard_state_set": [
+
+    ],
+    "kind": 2,
+    "dex_plus": 0,
+    "guard_element_set": [
+
+    ],
+    "description": "Body armor for front & middle position classes.",
+    "str_plus": 0,
+    "id": 18
+  },
+  {
+    "_class": "RPG::Armor",
+    "eva": 0,
+    "int_plus": 0,
+    "icon_name": "014-Body02",
+    "mdef": 107,
+    "name": "Steel Plate",
+    "auto_state_id": 0,
+    "price": 2900,
+    "agi_plus": 0,
+    "pdef": 115,
+    "guard_state_set": [
+
+    ],
+    "kind": 2,
+    "dex_plus": 0,
+    "guard_element_set": [
+
+    ],
+    "description": "Body armor for front & middle position classes.",
+    "str_plus": 0,
+    "id": 19
+  },
+  {
+    "_class": "RPG::Armor",
+    "eva": 0,
+    "int_plus": 0,
+    "icon_name": "014-Body02",
+    "mdef": 134,
+    "name": "Mythril Plate",
+    "auto_state_id": 0,
+    "price": 7300,
+    "agi_plus": 0,
+    "pdef": 144,
+    "guard_state_set": [
+
+    ],
+    "kind": 2,
+    "dex_plus": 0,
+    "guard_element_set": [
+
+    ],
+    "description": "Body armor for front & middle position classes.",
+    "str_plus": 0,
+    "id": 20
+  },
+  {
+    "_class": "RPG::Armor",
+    "eva": 0,
+    "int_plus": 0,
+    "icon_name": "015-Body03",
+    "mdef": 74,
+    "name": "Cotton Robe",
+    "auto_state_id": 0,
+    "price": 440,
+    "agi_plus": 0,
+    "pdef": 70,
+    "guard_state_set": [
+
+    ],
+    "kind": 2,
+    "dex_plus": 0,
+    "guard_element_set": [
+
+    ],
+    "description": "Robe for rear position classes.",
+    "str_plus": 0,
+    "id": 21
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Felt Robe",
+    "mdef": 92,
+    "icon_name": "015-Body03",
+    "agi_plus": 0,
+    "price": 1100,
+    "auto_state_id": 0,
+    "pdef": 87,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 2,
+    "guard_element_set": [
+
+    ],
+    "id": 22,
+    "str_plus": 0,
+    "description": "Robe for rear position classes."
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Magic Robe",
+    "mdef": 115,
+    "icon_name": "015-Body03",
+    "agi_plus": 0,
+    "price": 2700,
+    "auto_state_id": 0,
+    "pdef": 109,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 2,
+    "guard_element_set": [
+
+    ],
+    "id": 23,
+    "str_plus": 0,
+    "description": "Robe for rear position classes."
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Saint Robe",
+    "mdef": 144,
+    "icon_name": "015-Body03",
+    "agi_plus": 0,
+    "price": 6800,
+    "auto_state_id": 0,
+    "pdef": 136,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 2,
+    "guard_element_set": [
+
+    ],
+    "id": 24,
+    "str_plus": 0,
+    "description": "Robe for rear position classes."
+  },
+  {
+    "_class": "RPG::Armor",
+    "eva": 0,
+    "int_plus": 0,
+    "icon_name": "016-Accessory01",
+    "mdef": 0,
+    "name": "Ring of Strength",
+    "auto_state_id": 0,
+    "price": 2000,
+    "agi_plus": 0,
+    "pdef": 0,
+    "guard_state_set": [
+
+    ],
+    "kind": 3,
+    "dex_plus": 0,
+    "guard_element_set": [
+
+    ],
+    "description": "Ring that raises STR.",
+    "str_plus": 15,
+    "id": 25
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Ring of Dextality",
+    "mdef": 0,
+    "icon_name": "016-Accessory01",
+    "agi_plus": 0,
+    "price": 2000,
+    "auto_state_id": 0,
+    "pdef": 0,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 15,
+    "kind": 3,
+    "guard_element_set": [
+
+    ],
+    "id": 26,
+    "str_plus": 0,
+    "description": "Ring that raises DEX."
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Ring of Agility",
+    "mdef": 0,
+    "icon_name": "016-Accessory01",
+    "agi_plus": 15,
+    "price": 2000,
+    "auto_state_id": 0,
+    "pdef": 0,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 3,
+    "guard_element_set": [
+
+    ],
+    "id": 27,
+    "str_plus": 0,
+    "description": "Ring that raises AGI."
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 15,
+    "eva": 0,
+    "name": "Ring of Intelligence",
+    "mdef": 0,
+    "icon_name": "016-Accessory01",
+    "agi_plus": 0,
+    "price": 2000,
+    "auto_state_id": 0,
+    "pdef": 0,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 3,
+    "guard_element_set": [
+
+    ],
+    "id": 28,
+    "str_plus": 0,
+    "description": "Ring that raises INT."
+  },
+  {
+    "_class": "RPG::Armor",
+    "eva": 0,
+    "int_plus": 0,
+    "icon_name": "016-Accessory01",
+    "mdef": 0,
+    "name": "Ring of Fire",
+    "auto_state_id": 0,
+    "price": 3000,
+    "agi_plus": 0,
+    "pdef": 0,
+    "guard_state_set": [
+
+    ],
+    "kind": 3,
+    "dex_plus": 0,
+    "guard_element_set": [
+      1
+    ],
+    "description": "Ring of the resistance to fire damage.",
+    "str_plus": 0,
+    "id": 29
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Ring of Ice",
+    "mdef": 0,
+    "icon_name": "016-Accessory01",
+    "agi_plus": 0,
+    "price": 3000,
+    "auto_state_id": 0,
+    "pdef": 0,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 3,
+    "guard_element_set": [
+      2
+    ],
+    "id": 30,
+    "str_plus": 0,
+    "description": "Ring of the resistance to ice damage."
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Ring of Thunder",
+    "mdef": 0,
+    "icon_name": "016-Accessory01",
+    "agi_plus": 0,
+    "price": 3000,
+    "auto_state_id": 0,
+    "pdef": 0,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 3,
+    "guard_element_set": [
+      3
+    ],
+    "id": 31,
+    "str_plus": 0,
+    "description": "Ring of the resistance to thunder damage."
+  },
+  {
+    "_class": "RPG::Armor",
+    "int_plus": 0,
+    "eva": 0,
+    "name": "Ring of Water",
+    "mdef": 0,
+    "icon_name": "016-Accessory01",
+    "agi_plus": 0,
+    "price": 3000,
+    "auto_state_id": 0,
+    "pdef": 0,
+    "guard_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "kind": 3,
+    "guard_element_set": [
+      4
+    ],
+    "id": 32,
+    "str_plus": 0,
+    "description": "Ring of the resistance to water damage."
+  }
+]
