@@ -1,0 +1,1334 @@
+[
+  null,
+  {
+    "_class": "RPG::Item",
+    "animation1_id": 3,
+    "consumable": true,
+    "icon_name": "Vaselinka",
+    "minus_state_set": [
+
+    ],
+    "name": "Вазелін",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "recover_hp_rate": 0,
+    "occasion": 2,
+    "price": 50,
+    "recover_sp": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "105-Heal01",
+      "pitch": 100
+    },
+    "parameter_points": 0,
+    "scope": 7,
+    "recover_sp_rate": 0,
+    "element_set": [
+
+    ],
+    "hit": 100,
+    "animation2_id": 15,
+    "parameter_type": 0,
+    "description": "Змаж жопу, щоб впитати більше урону.",
+    "id": 1,
+    "variance": 0,
+    "recover_hp": 500
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 3,
+    "name": "High Potion",
+    "minus_state_set": [
+
+    ],
+    "icon_name": "021-Potion01",
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "price": 150,
+    "occasion": 0,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "106-Heal02",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 3,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "parameter_type": 0,
+    "animation2_id": 16,
+    "hit": 100,
+    "id": 2,
+    "description": "Restores HP to one ally.",
+    "recover_hp": 2000,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 3,
+    "name": "Full Potion",
+    "minus_state_set": [
+
+    ],
+    "icon_name": "021-Potion01",
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "price": 450,
+    "occasion": 0,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "107-Heal03",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 3,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "parameter_type": 0,
+    "animation2_id": 17,
+    "hit": 100,
+    "id": 3,
+    "description": "Restores HP to one ally.",
+    "recover_hp": 9999,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "animation1_id": 3,
+    "consumable": true,
+    "icon_name": "022-Potion02",
+    "minus_state_set": [
+
+    ],
+    "name": "Perfume",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "recover_hp_rate": 0,
+    "occasion": 0,
+    "price": 100,
+    "recover_sp": 500,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "108-Heal04",
+      "pitch": 100
+    },
+    "parameter_points": 0,
+    "scope": 3,
+    "recover_sp_rate": 0,
+    "element_set": [
+
+    ],
+    "hit": 100,
+    "animation2_id": 18,
+    "parameter_type": 0,
+    "description": "Restores SP to one ally.",
+    "id": 4,
+    "variance": 0,
+    "recover_hp": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 3,
+    "name": "High Perfume",
+    "minus_state_set": [
+
+    ],
+    "icon_name": "022-Potion02",
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "price": 300,
+    "occasion": 0,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 2000,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "109-Heal05",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 3,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "parameter_type": 0,
+    "animation2_id": 19,
+    "hit": 100,
+    "id": 5,
+    "description": "Restores SP to one ally.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 3,
+    "name": "Full Perfume",
+    "minus_state_set": [
+
+    ],
+    "icon_name": "022-Potion02",
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "price": 900,
+    "occasion": 0,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 9999,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "110-Heal06",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 3,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "parameter_type": 0,
+    "animation2_id": 20,
+    "hit": 100,
+    "id": 6,
+    "description": "Restores SP to one ally.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 3,
+    "name": "Elixir",
+    "minus_state_set": [
+
+    ],
+    "icon_name": "023-Potion03",
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "price": 600,
+    "occasion": 0,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 2000,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "111-Heal07",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 3,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "parameter_type": 0,
+    "animation2_id": 21,
+    "hit": 100,
+    "id": 7,
+    "description": "Restores HP/SP to one ally.",
+    "recover_hp": 2000,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 3,
+    "name": "Full Elixir",
+    "minus_state_set": [
+
+    ],
+    "icon_name": "023-Potion03",
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "price": 1200,
+    "occasion": 0,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 9999,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "112-Heal08",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 3,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "parameter_type": 0,
+    "animation2_id": 22,
+    "hit": 100,
+    "id": 8,
+    "description": "Restores HP/SP to one ally.",
+    "recover_hp": 9999,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 3,
+    "name": "Пивас",
+    "minus_state_set": [
+      1
+    ],
+    "icon_name": "beer_bottle_pixel_by_dr_morgan47-d9s09sr",
+    "recover_hp_rate": 50,
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "price": 150,
+    "occasion": 0,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "115-Raise01",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 5,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "parameter_type": 0,
+    "animation2_id": 25,
+    "hit": 80,
+    "id": 9,
+    "description": "Тільки не набухайся всраку.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 3,
+    "name": "Full Tonic",
+    "minus_state_set": [
+      1
+    ],
+    "icon_name": "024-Potion04",
+    "recover_hp_rate": 100,
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "price": 350,
+    "occasion": 0,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "116-Raise02",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 5,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "parameter_type": 0,
+    "animation2_id": 26,
+    "hit": 100,
+    "id": 10,
+    "description": "Revives one ally.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "animation1_id": 3,
+    "consumable": true,
+    "icon_name": "025-Herb01",
+    "minus_state_set": [
+      3
+    ],
+    "name": "Antidote",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "recover_hp_rate": 0,
+    "occasion": 0,
+    "price": 40,
+    "recover_sp": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "113-Remedy01",
+      "pitch": 100
+    },
+    "parameter_points": 0,
+    "scope": 3,
+    "recover_sp_rate": 0,
+    "element_set": [
+
+    ],
+    "hit": 100,
+    "animation2_id": 23,
+    "parameter_type": 0,
+    "description": "Removes Venom state of one ally.",
+    "id": 11,
+    "variance": 0,
+    "recover_hp": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 3,
+    "name": "Dispel Herb",
+    "minus_state_set": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "icon_name": "026-Herb02",
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "price": 120,
+    "occasion": 0,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "114-Remedy02",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 3,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "parameter_type": 0,
+    "animation2_id": 24,
+    "hit": 100,
+    "id": 12,
+    "description": "Restores states to one ally.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "animation1_id": 3,
+    "consumable": true,
+    "name": "Sharp Stone",
+    "icon_name": "035-Item04",
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "recover_hp_rate": 0,
+    "mdef_f": 0,
+    "occasion": 1,
+    "price": 200,
+    "recover_sp": 0,
+    "plus_state_set": [
+      13
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "parameter_points": 0,
+    "pdef_f": 0,
+    "scope": 4,
+    "recover_sp_rate": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 63,
+    "parameter_type": 0,
+    "hit": 100,
+    "id": 13,
+    "description": "Up ATK of all allies.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 3,
+    "minus_state_set": [
+
+    ],
+    "icon_name": "035-Item04",
+    "name": "Barrier Stone",
+    "mdef_f": 0,
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "price": 200,
+    "occasion": 1,
+    "plus_state_set": [
+      14
+    ],
+    "recover_sp": 0,
+    "pdef_f": 0,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "scope": 4,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "hit": 100,
+    "parameter_type": 0,
+    "animation2_id": 64,
+    "description": "Up PDEF of all allies.",
+    "id": 14,
+    "variance": 0,
+    "recover_hp": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "animation1_id": 3,
+    "consumable": true,
+    "name": "Resist Stone",
+    "icon_name": "035-Item04",
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "recover_hp_rate": 0,
+    "mdef_f": 0,
+    "occasion": 1,
+    "price": 200,
+    "recover_sp": 0,
+    "plus_state_set": [
+      15
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "parameter_points": 0,
+    "pdef_f": 0,
+    "scope": 4,
+    "recover_sp_rate": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 65,
+    "parameter_type": 0,
+    "hit": 100,
+    "id": 15,
+    "description": "Up MDEF of all allies.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "animation1_id": 3,
+    "consumable": true,
+    "name": "Blink Stone",
+    "icon_name": "035-Item04",
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "recover_hp_rate": 0,
+    "mdef_f": 0,
+    "occasion": 1,
+    "price": 200,
+    "recover_sp": 0,
+    "plus_state_set": [
+      16
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "parameter_points": 0,
+    "pdef_f": 0,
+    "scope": 4,
+    "recover_sp_rate": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 66,
+    "parameter_type": 0,
+    "hit": 100,
+    "id": 16,
+    "description": "Up EVA of all allies.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "animation1_id": 0,
+    "consumable": true,
+    "name": "Seed of Life",
+    "icon_name": "042-Item11",
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "recover_hp_rate": 0,
+    "mdef_f": 0,
+    "occasion": 2,
+    "price": 200,
+    "recover_sp": 0,
+    "plus_state_set": [
+
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "056-Right02",
+      "pitch": 100
+    },
+    "parameter_points": 50,
+    "pdef_f": 0,
+    "scope": 3,
+    "recover_sp_rate": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 0,
+    "parameter_type": 1,
+    "hit": 100,
+    "id": 17,
+    "description": "Increases 50 MaxHP of one ally.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "icon_name": "042-Item11",
+    "name": "Seed of Mana",
+    "mdef_f": 0,
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "price": 200,
+    "occasion": 2,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "pdef_f": 0,
+    "parameter_points": 50,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "056-Right02",
+      "pitch": 100
+    },
+    "scope": 3,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "hit": 100,
+    "parameter_type": 2,
+    "animation2_id": 0,
+    "description": "Increases 50 MaxSP of one ally.",
+    "id": 18,
+    "variance": 0,
+    "recover_hp": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "icon_name": "042-Item11",
+    "name": "Seed of Strength",
+    "mdef_f": 0,
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "price": 200,
+    "occasion": 2,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "pdef_f": 0,
+    "parameter_points": 5,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "056-Right02",
+      "pitch": 100
+    },
+    "scope": 3,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "hit": 100,
+    "parameter_type": 3,
+    "animation2_id": 0,
+    "description": "Increases 5 STR of one ally.",
+    "id": 19,
+    "variance": 0,
+    "recover_hp": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "animation1_id": 0,
+    "consumable": true,
+    "name": "Seed of Dextality",
+    "icon_name": "042-Item11",
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "recover_hp_rate": 0,
+    "mdef_f": 0,
+    "occasion": 2,
+    "price": 200,
+    "recover_sp": 0,
+    "plus_state_set": [
+
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "056-Right02",
+      "pitch": 100
+    },
+    "parameter_points": 5,
+    "pdef_f": 0,
+    "scope": 3,
+    "recover_sp_rate": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 0,
+    "parameter_type": 4,
+    "hit": 100,
+    "id": 20,
+    "description": "Increases 5 DEX of one ally.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "animation1_id": 0,
+    "consumable": true,
+    "name": "Seed of Agility",
+    "icon_name": "042-Item11",
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "recover_hp_rate": 0,
+    "mdef_f": 0,
+    "occasion": 2,
+    "price": 200,
+    "recover_sp": 0,
+    "plus_state_set": [
+
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "056-Right02",
+      "pitch": 100
+    },
+    "parameter_points": 5,
+    "pdef_f": 0,
+    "scope": 3,
+    "recover_sp_rate": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 0,
+    "parameter_type": 5,
+    "hit": 100,
+    "id": 21,
+    "description": "Increases 5 AGI of one ally.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "animation1_id": 0,
+    "consumable": true,
+    "name": "Seed of Intelligence",
+    "icon_name": "042-Item11",
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "recover_hp_rate": 0,
+    "mdef_f": 0,
+    "occasion": 2,
+    "price": 200,
+    "recover_sp": 0,
+    "plus_state_set": [
+
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "056-Right02",
+      "pitch": 100
+    },
+    "parameter_points": 5,
+    "pdef_f": 0,
+    "scope": 3,
+    "recover_sp_rate": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 0,
+    "parameter_type": 6,
+    "hit": 100,
+    "id": 22,
+    "description": "Increases 5 INT of one ally.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "animation1_id": 0,
+    "consumable": true,
+    "name": "Door Key",
+    "icon_name": "029-Key01",
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "recover_hp_rate": 0,
+    "mdef_f": 0,
+    "occasion": 3,
+    "price": 0,
+    "recover_sp": 0,
+    "plus_state_set": [
+
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "parameter_points": 0,
+    "pdef_f": 0,
+    "scope": 0,
+    "recover_sp_rate": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 0,
+    "parameter_type": 0,
+    "hit": 100,
+    "id": 23,
+    "description": "Event Item.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "icon_name": "029-Key01",
+    "name": "Chest Key",
+    "mdef_f": 0,
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "price": 0,
+    "occasion": 3,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "pdef_f": 0,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "scope": 0,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "hit": 100,
+    "parameter_type": 0,
+    "animation2_id": 0,
+    "description": "Event Item.",
+    "id": 24,
+    "variance": 0,
+    "recover_hp": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "icon_name": "029-Key01",
+    "name": "Jail Key",
+    "mdef_f": 0,
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "price": 0,
+    "occasion": 3,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "pdef_f": 0,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "scope": 0,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "hit": 100,
+    "parameter_type": 0,
+    "animation2_id": 0,
+    "description": "Event Item.",
+    "id": 25,
+    "variance": 0,
+    "recover_hp": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "icon_name": "032-Item01",
+    "name": "Pouch",
+    "mdef_f": 0,
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "price": 0,
+    "occasion": 3,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "pdef_f": 0,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "scope": 0,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "hit": 100,
+    "parameter_type": 0,
+    "animation2_id": 0,
+    "description": "Event Item.",
+    "id": 26,
+    "variance": 0,
+    "recover_hp": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "animation1_id": 0,
+    "consumable": true,
+    "name": "Letter",
+    "icon_name": "033-Item02",
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "recover_hp_rate": 0,
+    "mdef_f": 0,
+    "occasion": 3,
+    "price": 0,
+    "recover_sp": 0,
+    "plus_state_set": [
+
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "parameter_points": 0,
+    "pdef_f": 0,
+    "scope": 0,
+    "recover_sp_rate": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 0,
+    "parameter_type": 0,
+    "hit": 100,
+    "id": 27,
+    "description": "Event Item.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "icon_name": "037-Item06",
+    "name": "Feather",
+    "mdef_f": 0,
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "price": 0,
+    "occasion": 3,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "pdef_f": 0,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "scope": 0,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "hit": 100,
+    "parameter_type": 0,
+    "animation2_id": 0,
+    "description": "Event Item.",
+    "id": 28,
+    "variance": 0,
+    "recover_hp": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "animation1_id": 0,
+    "consumable": true,
+    "name": "Map",
+    "icon_name": "038-Item07",
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "recover_hp_rate": 0,
+    "mdef_f": 0,
+    "occasion": 3,
+    "price": 0,
+    "recover_sp": 0,
+    "plus_state_set": [
+
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "parameter_points": 0,
+    "pdef_f": 0,
+    "scope": 0,
+    "recover_sp_rate": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 0,
+    "parameter_type": 0,
+    "hit": 100,
+    "id": 29,
+    "description": "Event Item.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "icon_name": "039-Item08",
+    "name": "Lithograph",
+    "mdef_f": 0,
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "price": 0,
+    "occasion": 3,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "pdef_f": 0,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "scope": 0,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "hit": 100,
+    "parameter_type": 0,
+    "animation2_id": 0,
+    "description": "Event Item.",
+    "id": 30,
+    "variance": 0,
+    "recover_hp": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "animation1_id": 0,
+    "consumable": true,
+    "name": "Card",
+    "icon_name": "040-Item09",
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "recover_hp_rate": 0,
+    "mdef_f": 0,
+    "occasion": 3,
+    "price": 0,
+    "recover_sp": 0,
+    "plus_state_set": [
+
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "parameter_points": 0,
+    "pdef_f": 0,
+    "scope": 0,
+    "recover_sp_rate": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 0,
+    "parameter_type": 0,
+    "hit": 100,
+    "id": 31,
+    "description": "Event Item.",
+    "recover_hp": 0,
+    "variance": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "icon_name": "041-Item10",
+    "name": "Fruit",
+    "mdef_f": 0,
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "price": 0,
+    "occasion": 3,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "pdef_f": 0,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "scope": 0,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "hit": 100,
+    "parameter_type": 0,
+    "animation2_id": 0,
+    "description": "Event Item.",
+    "id": 32,
+    "variance": 0,
+    "recover_hp": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "icon_name": "",
+    "name": "",
+    "mdef_f": 0,
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "price": 0,
+    "occasion": 0,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "pdef_f": 0,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "scope": 0,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "hit": 100,
+    "parameter_type": 0,
+    "animation2_id": 0,
+    "description": "",
+    "id": 33,
+    "variance": 0,
+    "recover_hp": 0
+  },
+  {
+    "_class": "RPG::Item",
+    "consumable": true,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "icon_name": "",
+    "name": "",
+    "mdef_f": 0,
+    "recover_hp_rate": 0,
+    "common_event_id": 0,
+    "price": 0,
+    "occasion": 0,
+    "plus_state_set": [
+
+    ],
+    "recover_sp": 0,
+    "pdef_f": 0,
+    "parameter_points": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "scope": 0,
+    "element_set": [
+
+    ],
+    "recover_sp_rate": 0,
+    "hit": 100,
+    "parameter_type": 0,
+    "animation2_id": 0,
+    "description": "",
+    "id": 34,
+    "variance": 0,
+    "recover_hp": 0
+  }
+]

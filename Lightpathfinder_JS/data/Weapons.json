@@ -1,0 +1,835 @@
+[
+  null,
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "icon_name": "001-Weapon01",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "name": "Bronze Sword",
+    "price": 500,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 112,
+    "element_set": [
+
+    ],
+    "animation2_id": 7,
+    "description": "Fighter's Weapon.",
+    "str_plus": 0,
+    "id": 1
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "name": "Святе Причастя",
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "Fallos",
+    "agi_plus": 0,
+    "price": 1200,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 140,
+    "animation2_id": 7,
+    "id": 2,
+    "str_plus": 0,
+    "description": "Грозна зброя нашого пастора."
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "name": "Steel Sword",
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "001-Weapon01",
+    "agi_plus": 0,
+    "price": 3200,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 175,
+    "animation2_id": 7,
+    "id": 3,
+    "str_plus": 0,
+    "description": "Fighter's Weapon."
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "name": "Mythril Sword",
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "001-Weapon01",
+    "agi_plus": 0,
+    "price": 7800,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 218,
+    "animation2_id": 7,
+    "id": 4,
+    "str_plus": 0,
+    "description": "Fighter's Weapon."
+  },
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "name": "Bronze Spear",
+    "icon_name": "002-Weapon02",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "price": 490,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 110,
+    "element_set": [
+
+    ],
+    "animation2_id": 8,
+    "id": 5,
+    "description": "Lancer's Weapon.",
+    "str_plus": 0
+  },
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "name": "Iron Spear",
+    "icon_name": "002-Weapon02",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "price": 1200,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 137,
+    "element_set": [
+
+    ],
+    "animation2_id": 8,
+    "id": 6,
+    "description": "Lancer's Weapon.",
+    "str_plus": 0
+  },
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "name": "Steel Spear",
+    "icon_name": "002-Weapon02",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "price": 3000,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 171,
+    "element_set": [
+
+    ],
+    "animation2_id": 8,
+    "id": 7,
+    "description": "Lancer's Weapon.",
+    "str_plus": 0
+  },
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "name": "Mythril Spear",
+    "icon_name": "002-Weapon02",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "price": 7600,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 214,
+    "element_set": [
+
+    ],
+    "animation2_id": 8,
+    "id": 8,
+    "description": "Lancer's Weapon.",
+    "str_plus": 0
+  },
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "name": "Bronze Axe",
+    "icon_name": "003-Weapon03",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "price": 520,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 114,
+    "element_set": [
+
+    ],
+    "animation2_id": 9,
+    "id": 9,
+    "description": "Warrior's Weapon.",
+    "str_plus": 0
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "003-Weapon03",
+    "name": "Iron Axe",
+    "agi_plus": 0,
+    "price": 1300,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 142,
+    "animation2_id": 9,
+    "str_plus": 0,
+    "description": "Warrior's Weapon.",
+    "id": 10
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "003-Weapon03",
+    "name": "Steel Axe",
+    "agi_plus": 0,
+    "price": 3200,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 178,
+    "animation2_id": 9,
+    "str_plus": 0,
+    "description": "Warrior's Weapon.",
+    "id": 11
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "003-Weapon03",
+    "name": "Mythril Axe",
+    "agi_plus": 0,
+    "price": 8000,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 222,
+    "animation2_id": 9,
+    "str_plus": 0,
+    "description": "Warrior's Weapon.",
+    "id": 12
+  },
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "name": "Bronze Knife",
+    "icon_name": "004-Weapon04",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "price": 400,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 108,
+    "element_set": [
+
+    ],
+    "animation2_id": 10,
+    "id": 13,
+    "description": "Thief's Weapon.",
+    "str_plus": 0
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "004-Weapon04",
+    "name": "Iron Knife",
+    "agi_plus": 0,
+    "price": 1000,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 135,
+    "animation2_id": 10,
+    "str_plus": 0,
+    "description": "Thief's Weapon.",
+    "id": 14
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "004-Weapon04",
+    "name": "Steel Knife",
+    "agi_plus": 0,
+    "price": 4500,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 168,
+    "animation2_id": 10,
+    "str_plus": 0,
+    "description": "Thief's Weapon.",
+    "id": 15
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "004-Weapon04",
+    "name": "Mythril Knife",
+    "agi_plus": 0,
+    "price": 6200,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 210,
+    "animation2_id": 10,
+    "str_plus": 0,
+    "description": "Thief's Weapon.",
+    "id": 16
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "005-Weapon05",
+    "name": "Bronze Bow",
+    "agi_plus": 0,
+    "price": 470,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 111,
+    "animation2_id": 11,
+    "str_plus": 0,
+    "description": "Hunter's Weapon.",
+    "id": 17
+  },
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "name": "Iron Bow",
+    "icon_name": "005-Weapon05",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "price": 1200,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 138,
+    "element_set": [
+
+    ],
+    "animation2_id": 11,
+    "id": 18,
+    "description": "Hunter's Weapon.",
+    "str_plus": 0
+  },
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "name": "Steel Bow",
+    "icon_name": "005-Weapon05",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "price": 2900,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 173,
+    "element_set": [
+
+    ],
+    "animation2_id": 11,
+    "id": 19,
+    "description": "Hunter's Weapon.",
+    "str_plus": 0
+  },
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "name": "Mythril Bow",
+    "icon_name": "005-Weapon05",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "price": 7300,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 216,
+    "element_set": [
+
+    ],
+    "animation2_id": 11,
+    "id": 20,
+    "description": "Hunter's Weapon.",
+    "str_plus": 0
+  },
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "name": "Bronze Gun",
+    "icon_name": "006-Weapon06",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "price": 550,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 115,
+    "element_set": [
+
+    ],
+    "animation2_id": 12,
+    "id": 21,
+    "description": "Gunner's Weapon.",
+    "str_plus": 0
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "006-Weapon06",
+    "name": "Iron Gun",
+    "agi_plus": 0,
+    "price": 1300,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 143,
+    "animation2_id": 12,
+    "str_plus": 0,
+    "description": "Gunner's Weapon.",
+    "id": 22
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "006-Weapon06",
+    "name": "Steel Gun",
+    "agi_plus": 0,
+    "price": 3400,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 179,
+    "animation2_id": 12,
+    "str_plus": 0,
+    "description": "Gunner's Weapon.",
+    "id": 23
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "006-Weapon06",
+    "name": "Mythril Gun",
+    "agi_plus": 0,
+    "price": 8500,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 224,
+    "animation2_id": 12,
+    "str_plus": 0,
+    "description": "Gunner's Weapon.",
+    "id": 24
+  },
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "name": "Bronze Mace",
+    "icon_name": "007-Weapon07",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "price": 440,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 109,
+    "element_set": [
+
+    ],
+    "animation2_id": 13,
+    "id": 25,
+    "description": "Cleric's Weapon.",
+    "str_plus": 0
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "007-Weapon07",
+    "name": "Iron Mace",
+    "agi_plus": 0,
+    "price": 1100,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 136,
+    "animation2_id": 13,
+    "str_plus": 0,
+    "description": "Cleric's Weapon.",
+    "id": 26
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "007-Weapon07",
+    "name": "Steel Mace",
+    "agi_plus": 0,
+    "price": 2700,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 170,
+    "animation2_id": 13,
+    "str_plus": 0,
+    "description": "Cleric's Weapon.",
+    "id": 27
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "007-Weapon07",
+    "name": "Mythril Mace",
+    "agi_plus": 0,
+    "price": 6800,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 212,
+    "animation2_id": 13,
+    "str_plus": 0,
+    "description": "Cleric's Weapon.",
+    "id": 28
+  },
+  {
+    "_class": "RPG::Weapon",
+    "int_plus": 0,
+    "animation1_id": 0,
+    "minus_state_set": [
+
+    ],
+    "mdef": 0,
+    "icon_name": "008-Weapon08",
+    "name": "Bronze Rod",
+    "agi_plus": 0,
+    "price": 420,
+    "plus_state_set": [
+
+    ],
+    "pdef": 0,
+    "dex_plus": 0,
+    "element_set": [
+
+    ],
+    "atk": 107,
+    "animation2_id": 14,
+    "str_plus": 0,
+    "description": "Mage's Weapon.",
+    "id": 29
+  },
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "name": "Iron Rod",
+    "icon_name": "008-Weapon08",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "price": 1000,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 133,
+    "element_set": [
+
+    ],
+    "animation2_id": 14,
+    "id": 30,
+    "description": "Mage's Weapon.",
+    "str_plus": 0
+  },
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "name": "Steel Rod",
+    "icon_name": "008-Weapon08",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "price": 2600,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 167,
+    "element_set": [
+
+    ],
+    "animation2_id": 14,
+    "id": 31,
+    "description": "Mage's Weapon.",
+    "str_plus": 0
+  },
+  {
+    "_class": "RPG::Weapon",
+    "animation1_id": 0,
+    "int_plus": 0,
+    "name": "Mythril Rod",
+    "icon_name": "008-Weapon08",
+    "mdef": 0,
+    "minus_state_set": [
+
+    ],
+    "price": 6500,
+    "agi_plus": 0,
+    "pdef": 0,
+    "plus_state_set": [
+
+    ],
+    "dex_plus": 0,
+    "atk": 208,
+    "element_set": [
+
+    ],
+    "animation2_id": 14,
+    "id": 32,
+    "description": "Mage's Weapon.",
+    "str_plus": 0
+  }
+]

@@ -2,6 +2,10 @@
 
 This folder is a first native-JavaScript port of the supplied RPG Maker XP project. It uses the original maps, database records, graphics, and audio, with an editable browser runtime and no external JavaScript dependencies. It is designed for offline play from a local folder (through the included local server) and static hosting such as GitHub Pages.
 
+## Custom JavaScript engine
+
+The newer experimental engine is published separately from this HTML5 port: [Play Light Pathfinder in the custom engine](https://mytriv.github.io/light_pathfinder/Lightpathfinder_JS/).
+
 ## Run offline
 
 **Windows:** double-click `start-local.bat` (Python 3 must be installed).

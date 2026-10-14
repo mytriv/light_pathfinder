@@ -1,0 +1,28 @@
+{
+  "sourceProject": "Light Pathfinder (RPG Maker XP)",
+  "sourceMap": 1,
+  "sourceMapName": "Batya",
+  "sourceActor": "Лупа",
+  "sourceStart": {
+    "mapId": 1,
+    "x": 15,
+    "y": 10
+  },
+  "tilesetId": 9,
+  "tilesetName": "Castle Town",
+  "characterAssets": [
+    "001-Fighter01",
+    "170-Door01",
+    "160-Small02",
+    "071-Bird01",
+    "117-Civilian17"
+  ],
+  "autotiles": [
+    "048-Water01",
+    "002-G_Shadow01",
+    "003-G_Ground01",
+    "005-G_Road01",
+    "006-G_Road02",
+    "050-Roof02"
+  ]
+}

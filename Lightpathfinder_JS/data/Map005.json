@@ -1,0 +1,2675 @@
+{
+  "_class": "RPG::Map",
+  "bgm": {
+    "_class": "RPG::AudioFile",
+    "volume": 15,
+    "name": "053-Negative02",
+    "pitch": 100
+  },
+  "tileset_id": 29,
+  "events": {
+    "5": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV005",
+      "y": 7,
+      "x": 10,
+      "id": 5
+    },
+    "16": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV016",
+      "y": 8,
+      "x": 16,
+      "id": 16
+    },
+    "22": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 0,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                2,
+                0,
+                0,
+                1
+              ],
+              "indent": 0,
+              "code": 127
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Получений новий предмет."
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "A",
+                0
+              ],
+              "indent": 0,
+              "code": 123
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "174-Chest01",
+            "pattern": 2,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        },
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 0,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": true,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "174-Chest01",
+            "pattern": 2,
+            "tile_id": 0,
+            "direction": 8,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV022",
+      "y": 4,
+      "x": 6,
+      "id": 22
+    },
+    "11": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV011",
+      "y": 10,
+      "x": 5,
+      "id": 11
+    },
+    "6": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV006",
+      "y": 7,
+      "x": 9,
+      "id": 6
+    },
+    "17": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV017",
+      "y": 10,
+      "x": 15,
+      "id": 17
+    },
+    "1": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "move_type": 1,
+          "direction_fix": false,
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "always_on_top": false,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV001",
+      "y": 6,
+      "x": 8,
+      "id": 1
+    },
+    "12": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV012",
+      "y": 9,
+      "x": 7,
+      "id": 12
+    },
+    "7": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV007",
+      "y": 7,
+      "x": 8,
+      "id": 7
+    },
+    "18": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV018",
+      "y": 7,
+      "x": 15,
+      "id": 18
+    },
+    "2": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV002",
+      "y": 6,
+      "x": 9,
+      "id": 2
+    },
+    "13": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV013",
+      "y": 5,
+      "x": 6,
+      "id": 13
+    },
+    "8": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV008",
+      "y": 8,
+      "x": 9,
+      "id": 8
+    },
+    "19": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV019",
+      "y": 5,
+      "x": 13,
+      "id": 19
+    },
+    "3": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV003",
+      "y": 6,
+      "x": 10,
+      "id": 3
+    },
+    "14": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV014",
+      "y": 7,
+      "x": 4,
+      "id": 14
+    },
+    "9": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV009",
+      "y": 9,
+      "x": 10,
+      "id": 9
+    },
+    "20": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Священик:"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Іди нахуй, син мій!"
+              ],
+              "indent": 0,
+              "code": 401
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "move_type": 1,
+          "direction_fix": false,
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "always_on_top": false,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "026-Cleric02",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV020",
+      "y": 5,
+      "x": 9,
+      "id": 20
+    },
+    "4": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV004",
+      "y": 6,
+      "x": 11,
+      "id": 4
+    },
+    "15": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV015",
+      "y": 8,
+      "x": 3,
+      "id": 15
+    },
+    "10": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "move_type": 1,
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                "Дядьку, не трахай!"
+              ],
+              "indent": 0,
+              "code": 101
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "direction_fix": false,
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "125-Baby01",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "always_on_top": false,
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV010",
+      "y": 10,
+      "x": 8,
+      "id": 10
+    },
+    "21": {
+      "_class": "RPG::Event",
+      "pages": [
+        {
+          "_class": "RPG::Event::Page",
+          "list": [
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+                0,
+                1,
+                30,
+                7,
+                0,
+                0
+              ],
+              "indent": 0,
+              "code": 201
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
+
+              ],
+              "indent": 0,
+              "code": 0
+            }
+          ],
+          "move_type": 0,
+          "direction_fix": false,
+          "condition": {
+            "_class": "RPG::Event::Page::Condition",
+            "switch2_valid": false,
+            "self_switch_ch": "A",
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "variable_value": 0,
+            "self_switch_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "switch2_id": 1
+          },
+          "move_route": {
+            "_class": "RPG::MoveRoute",
+            "list": [
+              {
+                "_class": "RPG::MoveCommand",
+                "parameters": [
+
+                ],
+                "code": 0
+              }
+            ],
+            "skippable": false,
+            "repeat": true
+          },
+          "trigger": 0,
+          "step_anime": false,
+          "move_frequency": 3,
+          "always_on_top": false,
+          "graphic": {
+            "_class": "RPG::Event::Page::Graphic",
+            "opacity": 255,
+            "character_name": "",
+            "pattern": 0,
+            "tile_id": 0,
+            "direction": 2,
+            "blend_type": 0,
+            "character_hue": 0
+          },
+          "walk_anime": true,
+          "move_speed": 3,
+          "through": false
+        }
+      ],
+      "name": "EV021",
+      "y": 14,
+      "x": 9,
+      "id": 21
+    }
+  },
+  "bgs": {
+    "_class": "RPG::AudioFile",
+    "volume": 30,
+    "name": "019-People01",
+    "pitch": 100
+  },
+  "autoplay_bgm": true,
+  "data": {
+    "_class": "Table",
+    "xsize": 20,
+    "ysize": 15,
+    "zsize": 3,
+    "data": [
+      400,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      402,
+      408,
+      450,
+      451,
+      425,
+      425,
+      425,
+      425,
+      425,
+      425,
+      425,
+      425,
+      425,
+      425,
+      425,
+      425,
+      425,
+      425,
+      450,
+      451,
+      410,
+      408,
+      458,
+      459,
+      433,
+      433,
+      433,
+      433,
+      433,
+      433,
+      433,
+      433,
+      433,
+      433,
+      433,
+      433,
+      433,
+      433,
+      458,
+      459,
+      410,
+      408,
+      466,
+      467,
+      441,
+      441,
+      441,
+      441,
+      441,
+      441,
+      441,
+      441,
+      441,
+      441,
+      441,
+      441,
+      441,
+      441,
+      466,
+      467,
+      410,
+      408,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      410,
+      408,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      410,
+      408,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      410,
+      408,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      410,
+      408,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      410,
+      408,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      468,
+      469,
+      410,
+      408,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      460,
+      461,
+      410,
+      416,
+      417,
+      417,
+      417,
+      417,
+      417,
+      428,
+      468,
+      469,
+      468,
+      469,
+      468,
+      428,
+      417,
+      417,
+      417,
+      417,
+      417,
+      417,
+      418,
+      425,
+      425,
+      425,
+      450,
+      451,
+      425,
+      436,
+      460,
+      461,
+      460,
+      461,
+      460,
+      436,
+      425,
+      450,
+      451,
+      425,
+      425,
+      425,
+      425,
+      433,
+      433,
+      433,
+      458,
+      459,
+      433,
+      436,
+      468,
+      469,
+      468,
+      469,
+      468,
+      436,
+      433,
+      458,
+      459,
+      433,
+      433,
+      433,
+      433,
+      441,
+      441,
+      441,
+      466,
+      467,
+      441,
+      436,
+      460,
+      461,
+      460,
+      461,
+      460,
+      436,
+      441,
+      466,
+      467,
+      441,
+      441,
+      441,
+      441,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      515,
+      516,
+      517,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      523,
+      524,
+      525,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      495,
+      495,
+      0,
+      526,
+      0,
+      0,
+      0,
+      531,
+      532,
+      533,
+      632,
+      633,
+      634,
+      526,
+      0,
+      0,
+      495,
+      495,
+      0,
+      0,
+      503,
+      503,
+      519,
+      534,
+      0,
+      0,
+      0,
+      539,
+      540,
+      541,
+      640,
+      641,
+      642,
+      534,
+      519,
+      0,
+      503,
+      503,
+      0,
+      0,
+      511,
+      511,
+      527,
+      542,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      542,
+      527,
+      0,
+      511,
+      511,
+      0,
+      0,
+      557,
+      0,
+      0,
+      0,
+      0,
+      526,
+      0,
+      0,
+      0,
+      0,
+      0,
+      526,
+      0,
+      0,
+      0,
+      0,
+      0,
+      558,
+      0,
+      0,
+      565,
+      0,
+      0,
+      0,
+      519,
+      534,
+      0,
+      0,
+      0,
+      0,
+      0,
+      534,
+      519,
+      0,
+      0,
+      0,
+      0,
+      566,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      527,
+      542,
+      0,
+      0,
+      0,
+      0,
+      0,
+      542,
+      527,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      557,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      558,
+      0,
+      0,
+      565,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      566,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "autoplay_bgs": true,
+  "height": 15,
+  "encounter_step": 30,
+  "width": 20,
+  "encounter_list": [
+
+  ]
+}

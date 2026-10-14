@@ -1,0 +1,883 @@
+[
+  null,
+  {
+    "_class": "RPG::Class",
+    "name": "Fighter",
+    "armor_set": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "learnings": [
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 1,
+        "skill_id": 57
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 9,
+        "skill_id": 58
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 17,
+        "skill_id": 59
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 25,
+        "skill_id": 60
+      }
+    ],
+    "weapon_set": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "state_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "position": 0,
+    "id": 1,
+    "element_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  {
+    "_class": "RPG::Class",
+    "name": "Lancer",
+    "armor_set": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "learnings": [
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 1,
+        "skill_id": 61
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 9,
+        "skill_id": 62
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 17,
+        "skill_id": 63
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 25,
+        "skill_id": 64
+      }
+    ],
+    "weapon_set": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "state_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "position": 0,
+    "id": 2,
+    "element_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  {
+    "_class": "RPG::Class",
+    "name": "Warrior",
+    "armor_set": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "learnings": [
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 1,
+        "skill_id": 65
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 9,
+        "skill_id": 66
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 17,
+        "skill_id": 67
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 25,
+        "skill_id": 68
+      }
+    ],
+    "weapon_set": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "state_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "position": 0,
+    "id": 3,
+    "element_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  {
+    "_class": "RPG::Class",
+    "name": "Thief",
+    "armor_set": [
+      5,
+      6,
+      7,
+      8,
+      17,
+      18,
+      19,
+      20,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "learnings": [
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 1,
+        "skill_id": 69
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 9,
+        "skill_id": 70
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 17,
+        "skill_id": 71
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 25,
+        "skill_id": 72
+      }
+    ],
+    "weapon_set": [
+      13,
+      14,
+      15,
+      16
+    ],
+    "state_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "position": 1,
+    "id": 4,
+    "element_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  {
+    "_class": "RPG::Class",
+    "name": "Hunter",
+    "armor_set": [
+      5,
+      6,
+      7,
+      8,
+      17,
+      18,
+      19,
+      20,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "learnings": [
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 1,
+        "skill_id": 73
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 9,
+        "skill_id": 74
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 17,
+        "skill_id": 75
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 25,
+        "skill_id": 76
+      }
+    ],
+    "weapon_set": [
+      17,
+      18,
+      19,
+      20
+    ],
+    "state_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "position": 1,
+    "id": 5,
+    "element_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  {
+    "_class": "RPG::Class",
+    "name": "Gunner",
+    "armor_set": [
+      5,
+      6,
+      7,
+      8,
+      17,
+      18,
+      19,
+      20,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "learnings": [
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 1,
+        "skill_id": 77
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 9,
+        "skill_id": 78
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 17,
+        "skill_id": 79
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 25,
+        "skill_id": 80
+      }
+    ],
+    "weapon_set": [
+      21,
+      22,
+      23,
+      24
+    ],
+    "state_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "position": 1,
+    "id": 6,
+    "element_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  {
+    "_class": "RPG::Class",
+    "name": "Cleric",
+    "armor_set": [
+      9,
+      10,
+      11,
+      12,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "learnings": [
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 1,
+        "skill_id": 1
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 13,
+        "skill_id": 2
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 29,
+        "skill_id": 3
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 5,
+        "skill_id": 4
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 21,
+        "skill_id": 5
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 25,
+        "skill_id": 6
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 17,
+        "skill_id": 53
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 9,
+        "skill_id": 54
+      }
+    ],
+    "weapon_set": [
+      25,
+      26,
+      27,
+      28
+    ],
+    "state_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "position": 2,
+    "id": 7,
+    "element_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  },
+  {
+    "_class": "RPG::Class",
+    "name": "Mage",
+    "armor_set": [
+      9,
+      10,
+      11,
+      12,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "learnings": [
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 1,
+        "skill_id": 7
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 13,
+        "skill_id": 11
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 29,
+        "skill_id": 15
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 5,
+        "skill_id": 36
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 21,
+        "skill_id": 38
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 25,
+        "skill_id": 42
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 9,
+        "skill_id": 46
+      },
+      {
+        "_class": "RPG::Class::Learning",
+        "level": 17,
+        "skill_id": 52
+      }
+    ],
+    "weapon_set": [
+      29,
+      30,
+      31,
+      32
+    ],
+    "state_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "position": 2,
+    "id": 8,
+    "element_ranks": {
+      "_class": "Table",
+      "xsize": 17,
+      "ysize": 1,
+      "zsize": 1,
+      "data": [
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    }
+  }
+]
