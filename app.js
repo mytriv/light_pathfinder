@@ -231,11 +231,12 @@
     if(im?.complete&&im.naturalWidth) ctx.drawImage(im,0,0,W,H);
     ctx.fillStyle='rgba(4,7,11,.57)';ctx.fillRect(0,0,W,H);
     ctx.textAlign='center';ctx.fillStyle='#f1dfaf';ctx.font='bold 40px Georgia,serif';ctx.fillText('LIGHT PATHFINDER',W/2,125);
-    ctx.fillStyle='#e9e5db';ctx.font='17px ui-monospace, monospace';ctx.fillText('A JavaScript reconstruction of the RPG Maker XP project',W/2,158);
     const hasSave=!!savedState();
-    const choices=[['New Game',200],['Continue',240],['Credits & Port Notes',280]];
-    choices.forEach(([txt,y],i)=>{ctx.fillStyle=i===1&&!hasSave?'#777e87':titleSelection===i?'#d8bb78':'#f5f1e8';ctx.font=titleSelection===i?'bold 22px monospace':'20px monospace';ctx.fillText((titleSelection===i?'▶ ':'')+txt,W/2,y);});
-    ctx.fillStyle='#c7cbd1';ctx.font='12px monospace';ctx.fillText('Arrow keys to select · Enter to confirm',W/2,425);
+    ctx.fillStyle='rgba(5,7,10,.63)';ctx.fillRect(224,288,192,128);
+    ctx.strokeStyle='rgba(225,210,173,.42)';ctx.strokeRect(224.5,288.5,191,127);
+    const choices=[['New Game',322],['Continue',354],['Shutdown',386]];
+    choices.forEach(([txt,y],i)=>{ctx.fillStyle=i===1&&!hasSave?'#777e87':titleSelection===i?'#d8bb78':'#f5f1e8';ctx.font=titleSelection===i?'bold 20px monospace':'18px monospace';ctx.fillText((titleSelection===i?'▶ ':'')+txt,W/2,y);});
+    ctx.fillStyle='#c7cbd1';ctx.font='12px monospace';ctx.fillText('↑ ↓ Select     Enter Confirm',W/2,449);
   }
   let titleSelection=0;
   function drawTile(target, tileId, x, y, autoFrame=0) {
@@ -308,7 +309,13 @@
   function pageValid(ev,page){const c=page.condition||{};if(c.switch1_valid&&!state.switches[c.switch1_id])return false;if(c.switch2_valid&&!state.switches[c.switch2_id])return false;if(c.variable_valid&&(state.variables[c.variable_id]||0)<c.variable_value)return false;if(c.self_switch_valid&&!state.selfSwitches[`${mapId}:${ev.id}:${c.self_switch_ch}`])return false;return true;}
   function getActivePage(ev){const i=pageIndex(ev);return i<0?null:ev.pages[i];}
   function eventList(){return Object.values(map?.events||{}).map(ev=>({ev,pg:getActivePage(ev)})).filter(x=>x.pg);}
-  function camera(){const maxX=Math.max(0,map.width*TILE-W),maxY=Math.max(0,map.height*TILE-H);return {x:Math.min(maxX,Math.max(0,player.x*TILE-W/2+TILE/2)),y:Math.min(maxY,Math.max(0,player.y*TILE-H/2+TILE/2))};}
+  function playerVisualPosition(){
+    if(!player?.moveFrom)return {x:player.x,y:player.y};
+    const t=Math.min(1,Math.max(0,(performance.now()-player.moveStarted)/133));
+    if(t===1)player.moveFrom=null;
+    return {x:player.moveFrom.x+(player.x-player.moveFrom.x)*t,y:player.moveFrom.y+(player.y-player.moveFrom.y)*t};
+  }
+  function camera(){const pos=playerVisualPosition(),maxX=Math.max(0,map.width*TILE-W),maxY=Math.max(0,map.height*TILE-H);return {x:Math.min(maxX,Math.max(0,pos.x*TILE-W/2+TILE/2)),y:Math.min(maxY,Math.max(0,pos.y*TILE-H/2+TILE/2))};}
   function drawCharacter(name,hue,pattern,direction,worldX,worldY,opacity=255, isPlayer=false) {
     const im=image('Graphics/Characters/'+name); if(!im?.complete||!im.naturalWidth)return;
     const cw=im.width/4,ch=im.height/4,pat=pattern%4,row=({2:0,4:1,6:2,8:3})[direction]??0;
@@ -318,6 +325,7 @@
   }
   function render() {
     if(scene==='title'){titleDraw();return;}
+    if(scene==='shutdown'){ctx.fillStyle='#070b11';ctx.fillRect(0,0,W,H);ctx.fillStyle='#f1dfaf';ctx.font='20px Georgia,serif';ctx.textAlign='center';ctx.fillText('Light Pathfinder is shut down.',W/2,H/2);ctx.fillStyle='#c7cbd1';ctx.font='13px monospace';ctx.fillText('You may close this tab.',W/2,H/2+30);return;}
     if(scene!=='map'||!map||!player)return;
     ctx.fillStyle='#111';ctx.fillRect(0,0,W,H);
     if(mapBase){const cam=camera();ctx.drawImage(mapBase,cam.x,cam.y,W,H,0,0,W,H);}
@@ -326,8 +334,9 @@
       const g=pg.graphic||{};if(!g.character_name||g.tile_id>0)continue;
       chars.push({name:g.character_name,hue:g.character_hue||0,pattern:g.pattern||0,direction:g.direction||2,x:ev.x,y:ev.y,opacity:g.opacity||255,top:pg.always_on_top?1:0});
     }
-    chars.push({name:player.characterName,hue:0,pattern:player.pattern||0,direction:player.direction,x:player.x,y:player.y,opacity:255,top:0,isPlayer:true});
-    chars.sort((a,b)=>(a.y-b.y)||(a.top-b.top));
+    const visual=playerVisualPosition();
+    chars.push({name:player.characterName,hue:0,pattern:player.pattern||0,direction:player.direction,x:visual.x,y:visual.y,sortY:player.y,opacity:255,top:0,isPlayer:true});
+    chars.sort((a,b)=>((a.sortY??a.y)-(b.sortY??b.y))||(a.top-b.top));
     for(const c of chars)drawCharacter(c.name,c.hue,c.pattern,c.direction,c.x,c.y,c.opacity,c.isPlayer);
     const cam=camera();for(let p=1;p<=5;p++)if(mapOverlay[p])ctx.drawImage(mapOverlay[p],cam.x,cam.y,W,H,0,0,W,H);
     ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillRect(8,8,184,25);ctx.fillStyle='#f5efd9';ctx.font='12px monospace';ctx.textAlign='left';ctx.fillText(`${db.MapInfos?.[String(mapId)]?.name||'Map'} · HP ${state.hp}`,16,25);
@@ -347,6 +356,7 @@
     player.direction=dir;state.direction=dir;
     if(canPass(player.x,player.y,dir)){
       const dx=dir===4?-1:dir===6?1:0,dy=dir===8?-1:dir===2?1:0;
+      player.moveFrom={x:player.x,y:player.y};player.moveStarted=performance.now();
       player.x+=dx;player.y+=dy;state.x=player.x;state.y=player.y;player.pattern=(player.pattern+1)%4;state.playFrames++;checkPlayerTouch();
     }else{player.pattern=0;}
     render();
@@ -430,21 +440,21 @@
       if(e.key==='Enter'||e.key===' '||e.key==='z'||e.key==='Z'){
         if(titleSelection===0)enterNewGame().catch(reportError);
         else if(titleSelection===1)continueGame().catch(reportError);
-        else showPortNotes();
+        else {scene='shutdown';sayNotice('You may close this tab.');}
       }
       render();return;
     }
+    if(scene==='shutdown')return;
     if(modal)return;
     if((e.key==='Escape'||e.key==='x'||e.key==='X')&&!e.repeat){showMenu();return;}
     if((e.key==='Enter'||e.key===' '||e.key==='z'||e.key==='Z')&&!e.repeat){interact().catch(reportError);return;}
     if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','W','A','S','D'].includes(e.key))keys.add(e.key);
   }
   function handleKeyUp(e){keys.delete(e.key);}
-  function showPortNotes(){showMessage(['HTML5 Port Notes','This build translates the map/event flow into JavaScript. The battle UI is a temporary branch-testing harness; advanced battle, skill, equip, animation and script-call behavior still needs porting.','See README.md and docs/PORTING_STATUS.md to continue development.']).catch(()=>{});}
   function update(t){
     const delta=t-lastFrame;lastFrame=t;
     if(scene==='map'&&!modal&&player&&t-lastMoveAt>145){let dir=0;if(keys.has('ArrowUp')||keys.has('w')||keys.has('W'))dir=8;else if(keys.has('ArrowDown')||keys.has('s')||keys.has('S'))dir=2;else if(keys.has('ArrowLeft')||keys.has('a')||keys.has('A'))dir=4;else if(keys.has('ArrowRight')||keys.has('d')||keys.has('D'))dir=6;if(dir){lastMoveAt=t;step(dir).catch(reportError);}}
-    if(scene==='map'&&map){const f=Math.floor(t/280)%4;if(f!==autoFrameIndex){autoFrameIndex=f;buildTilemap();render();}}
+    if(scene==='map'&&map){const f=Math.floor(t/280)%4;if(f!==autoFrameIndex){autoFrameIndex=f;buildTilemap();}render();}
     if(scene==='map')state.playFrames++;
     requestAnimationFrame(update);
   }
@@ -455,7 +465,7 @@
       const values=await Promise.all(names.map(fetchJson));names.forEach((n,i)=>db[n]=values[i]);
       if(!location.protocol.startsWith('http'))sayNotice('For reliable offline use, start the included local server (start-local.bat / .sh).');else sayNotice('Ready · Use arrow keys and Enter.');
       await loadImage('Graphics/Titles/'+(db.System.title_name||'001-Title01'));
-      const hasSave=!!savedState();if(!hasSave&&titleSelection===1)titleSelection=0;
+      const hasSave=!!savedState();titleSelection=hasSave?1:0;
       render();
     }catch(e){console.error(e);sayNotice(`Could not start the game: ${e.message}. Open it through the included local server.`);ctx.fillStyle='#10141b';ctx.fillRect(0,0,W,H);ctx.fillStyle='#fff';ctx.font='16px monospace';ctx.fillText('Could not load game data.',24,50);ctx.font='12px monospace';ctx.fillText(e.message,24,76);}
   }
