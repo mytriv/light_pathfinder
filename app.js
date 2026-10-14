@@ -10,14 +10,13 @@
   const dialogEl = document.getElementById('dialog'), speakerEl = document.getElementById('dialog-speaker'), textEl = document.getElementById('dialog-text');
   const dialogOptionsEl = document.getElementById('dialog-options'), dialogNextEl = document.getElementById('dialog-next');
   const choiceEl = document.getElementById('choice'), menuEl = document.getElementById('menu'), battleEl = document.getElementById('battle');
-  const keys = new Set();
+  const movementInput = window.RPGXPInput.createInputState({ArrowUp:8,w:8,W:8,ArrowDown:2,s:2,S:2,ArrowLeft:4,a:4,A:4,ArrowRight:6,d:6,D:6});
   const passability = window.RPGXPPassability;
   const db = {};
   let assetIndex = {};
   const imageCache = new Map(), audioCache = new Map(), autoTileCache = new Map(), eventMotion = new Map();
   let scene = 'title', map = null, tileset = null, mapId = 1, mapInfo = {}, player = null;
   let mapBase = null, mapOverlay = [], renderedSignature = '', lastMoveAt = 0, lastFrame = 0, walkFrame = 0, autoFrameIndex = 0;
-  let queuedDirection = 0;
   let modal = false, currentEvent = null, runningEvents = new Set(), pageRunKey = '', saveAllowed = true, music = null, battleReturn = 'event', gameStarting = false;
   let state = freshState();
   const unsupportedCommands = new Set();
@@ -76,7 +75,7 @@
     try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); if (!quiet) sayNotice('Game saved locally.'); return true; }
     catch (e) { if (!quiet) showMessage(['Could not save: browser storage is unavailable.']); return false; }
   }
-  function showPanel(el) { overlay.classList.remove('hidden'); for (const item of [dialogEl, choiceEl, menuEl, battleEl]) item.classList.add('hidden'); el.classList.remove('hidden'); modal = true; }
+  function showPanel(el) { movementInput.reset(); overlay.classList.remove('hidden'); for (const item of [dialogEl, choiceEl, menuEl, battleEl]) item.classList.add('hidden'); el.classList.remove('hidden'); modal = true; }
   function hidePanels() { for (const item of [dialogEl, choiceEl, menuEl, battleEl]) item.classList.add('hidden'); overlay.classList.add('hidden'); modal = false; }
 
   function showMessage(lines, choice=null) {
@@ -538,15 +537,13 @@
     if((e.key==='Escape'||e.key==='x'||e.key==='X')&&!e.repeat){showMenu();return;}
     if((e.key==='Enter'||e.key===' '||e.key==='z'||e.key==='Z')&&!e.repeat){interact().catch(reportError);return;}
     if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','W','A','S','D'].includes(e.key)){
-      keys.add(e.key);
-      const dir=({ArrowUp:8,w:8,W:8,ArrowDown:2,s:2,S:2,ArrowLeft:4,a:4,A:4,ArrowRight:6,d:6,D:6})[e.key];
+      const dir=movementInput.press(e.key);
       if(!e.repeat){
-        queuedDirection=dir;
-        if(scene==='map'&&player&&!player.moveFrom&&performance.now()-lastMoveAt>=133){queuedDirection=0;lastMoveAt=performance.now();step(dir).catch(reportError);}
+        if(scene==='map'&&player&&!player.moveFrom&&performance.now()-lastMoveAt>=133){lastMoveAt=performance.now();step(movementInput.consume()||dir).catch(reportError);}
       }
     }
   }
-  function handleKeyUp(e){keys.delete(e.key);}
+  function handleKeyUp(e){movementInput.release(e.key);}
   function handleCanvasClick(e){
     if(scene!=='title'||gameStarting)return;
     const rect=canvas.getBoundingClientRect(),y=(e.clientY-rect.top)*H/rect.height;
@@ -573,10 +570,8 @@
     updatePlayerAnimation(t,delta);
     if(scene==='map'&&map)updateEvents(delta);
     if(scene==='map'&&!modal&&player&&t-lastMoveAt>=133&&(!player.moveFrom||t-player.moveStarted>=133)){
-      const directions={'ArrowUp':8,'w':8,'W':8,'ArrowDown':2,'s':2,'S':2,'ArrowLeft':4,'a':4,'A':4,'ArrowRight':6,'d':6,'D':6};
-      const heldDirection=[...keys].reverse().map(key=>directions[key]).find(Boolean)||0;
-      const dir=heldDirection||queuedDirection;
-      if(dir){queuedDirection=0;lastMoveAt=t;step(dir).catch(reportError);}
+      const dir=movementInput.consume();
+      if(dir){lastMoveAt=t;step(dir).catch(reportError);}
     }
     if(scene==='map'&&map){const f=Math.floor(t/280)%4;if(f!==autoFrameIndex){autoFrameIndex=f;buildTilemap();}render();}
     if(scene==='map')state.playFrames++;
@@ -595,7 +590,9 @@
   }
   document.addEventListener('keydown',handleKeyDown);document.addEventListener('keyup',handleKeyUp);
   canvas.addEventListener('click',handleCanvasClick);
-  window.addEventListener('blur',()=>keys.clear());
+  window.addEventListener('blur',()=>movementInput.reset());
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)movementInput.reset();});
+  canvas.addEventListener('pointerdown',()=>{if(scene==='map')movementInput.reset();});
   window.LightPathfinder={db,get state(){return state;},loadMap,saveGame,executeList};
   boot();requestAnimationFrame(update);
 })();

@@ -9,6 +9,7 @@ Last updated: 2026-10-14
 - XP 32×32 map tile decoding (three map layers; autotile variants assembled from the source quadrants).
 - Map camera and tile passability checks driven by the exported `RPG::Tileset` passage/priority tables and the original `Game_Map#passable?` / `Game_Character#passable?` rules.
 - Player movement using RPG Maker XP's default-speed tile traversal and animation timing, with smooth camera follow, reciprocal source/destination passage checks, event-tile passage, and event/player collision checks.
+- Keyboard input tracks the latest active direction and one buffered tap; releasing a newer direction cannot restore an older stale input.
 - Basic random and approach movement for map events, with animated sprites and saved event positions.
 - Active event-page selection based on switches, variables and self-switches.
 - A JavaScript interpreter for the event commands used in the supplied maps: text/continuation, choices and choice branches, loop/break, self switches, map transfer, wait, inventory changes, save permission, HP changes, actor graphic change, save menu, game over, and battle result branches.
