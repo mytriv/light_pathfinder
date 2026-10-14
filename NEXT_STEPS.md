@@ -4,26 +4,28 @@ Updated: 2026-10-14
 
 ## Implemented in this work session
 
-- Audited the existing HTML5 runtime, exported maps/database, asset inventory, original RPG Maker XP data, and available Ruby script references.
-- Added `PORT_STATUS.md` with a feature-by-feature compatibility matrix, evidence, known gaps, checks, and a prioritized continuation plan.
-- Added `.nojekyll` and documented the compatibility matrix in `README.md`.
-- Extended `tools/validate_project.py` to check map transfers, battle troop references, and interpreter dispatch coverage for every command code present in the nine exported maps.
-- Changed unsupported event commands from silent skips to once-per-source-command console diagnostics containing map ID, event ID, page number, command index, code, and parameters. The source location is captured before event transfers so subsequent logs retain the correct origin.
+- Rechecked the port against the supplied RGSS1 source scripts and map 001 instead of treating the visual start as passable in every direction.
+- Extracted RGSS1 reciprocal map passage and character/event collision rules into `src/engine/passability.js`; the runtime now calls this implementation.
+- Added `tools/test_passability.js`, which verifies that map 001 start `(15,10)` rejects the down step into an enclosed tile and keeps the three valid directions open.
+- Updated port status documents with the source evidence and the regression result.
 
 ## Files changed
 
 - `app.js`
-- `tools/validate_project.py`
+- `src/engine/passability.js`
+- `tools/test_passability.js`
+- `index.html`
 - `PORT_STATUS.md`
+- `docs/PORTING_STATUS.md`
 - `NEXT_STEPS.md`
-- `.nojekyll`
-- `README.md`
 
 ## Checks executed
 
-- `python tools/validate_project.py` using the bundled Python runtime: passed. 23 JSON files, nine maps, nine map-info records, and 889 indexed media paths; current map tileset/autotile/character assets and literal map/troop references resolve; all 29 distinct exported event command codes have a dispatch case.
-- `node --check app.js` using the bundled Node runtime: passed.
-- Local HTTP browser smoke test: attempted at `http://127.0.0.1:8000/`; unavailable because the sandbox denies socket access (`Invoke-WebRequest` reports “forbidden by its access permissions”; browser reports connection timeout). UI gameplay therefore remains unverified in this environment.
+- `node --check app.js`, `node --check src/engine/passability.js`, and `node --check tools/test_passability.js`: passed.
+- `node tools/test_passability.js`: passed against the original map 001 and XP passage flags.
+- `python tools/validate_project.py` using the bundled Python runtime: passed. 23 JSON files, nine maps, and 889 indexed media references resolve; all 29 distinct map command codes have dispatch cases.
+- `git diff --check`: passed.
+- Full browser input and story playthrough remain unverified; the previous automated browser control was unreliable.
 
 ## Known incomplete work
 
@@ -35,7 +37,7 @@ Updated: 2026-10-14
 
 ## Exact next implementation task
 
-Implement and unit-test versioned browser save slots with schema validation and safe recovery from malformed or outdated localStorage data. Keep the existing save key readable through an explicit migration path and document that RPG Maker XP `.rxdata` saves remain unsupported unless a tested converter is added.
+Use the source event-command inventory to port the currently explicit no-op commands (`224`, `225`, `337`, `339`) to RGSS1 semantics. Add focused tests and remove each command from the unsupported list only after its behavior is implemented and verified.
 
 ## Run commands
 

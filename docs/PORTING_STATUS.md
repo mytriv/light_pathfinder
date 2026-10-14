@@ -7,8 +7,8 @@ Last updated: 2026-10-14
 - Native HTML5 Canvas at the original 640×480 logical resolution, scaled responsively.
 - Original title image, map tilesheets, autotiles and character sheets.
 - XP 32×32 map tile decoding (three map layers; autotile variants assembled from the source quadrants).
-- Map camera and tile passability checks driven by the exported `RPG::Tileset` passage/priority tables.
-- Player movement using RPG Maker XP's default-speed tile traversal and animation timing, with smooth camera follow and event-tile collision checks.
+- Map camera and tile passability checks driven by the exported `RPG::Tileset` passage/priority tables and the original `Game_Map#passable?` / `Game_Character#passable?` rules.
+- Player movement using RPG Maker XP's default-speed tile traversal and animation timing, with smooth camera follow, reciprocal source/destination passage checks, event-tile passage, and event/player collision checks.
 - Basic random and approach movement for map events, with animated sprites and saved event positions.
 - Active event-page selection based on switches, variables and self-switches.
 - A JavaScript interpreter for the event commands used in the supplied maps: text/continuation, choices and choice branches, loop/break, self switches, map transfer, wait, inventory changes, save permission, HP changes, actor graphic change, save menu, game over, and battle result branches.
@@ -17,6 +17,8 @@ Last updated: 2026-10-14
 - Offline local-server launcher and static-hosting support.
 
 ## Known gaps before claiming full parity
+
+- Movement regression: `node tools/test_passability.js` passes against map 001. It confirms that the original start tile `(15,10)` blocks movement down into an enclosed tile; left, right, and up remain passable.
 
 - Battle processing (`301`) now loads RPG::Troop / RPG::Enemy data, shows enemy sprites and HP, and supports basic attack, class-learned/state-learned skills, usable items, guard, escape, enemy turns, simple damage calculations and EXP/gold awards. It is still a simplified approximation rather than RGSS1 battle parity: exact hit/critical/variance formulas, elements, states, multiple target selection, battle animations, forced actions, troop page conditions and all victory/drop rules are not complete.
 - `Scene_Menu`, `Scene_Item`, `Scene_Skill`, `Scene_Equip`, `Scene_Status`, `Scene_Shop`, and save/load screens are not feature-complete; the current menu is intentionally minimal.

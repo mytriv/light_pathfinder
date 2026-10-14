@@ -11,6 +11,7 @@
   const dialogOptionsEl = document.getElementById('dialog-options'), dialogNextEl = document.getElementById('dialog-next');
   const choiceEl = document.getElementById('choice'), menuEl = document.getElementById('menu'), battleEl = document.getElementById('battle');
   const keys = new Set();
+  const passability = window.RPGXPPassability;
   const db = {};
   let assetIndex = {};
   const imageCache = new Map(), audioCache = new Map(), autoTileCache = new Map(), eventMotion = new Map();
@@ -360,13 +361,7 @@
     const cam=camera();for(let p=1;p<=5;p++)if(mapOverlay[p])ctx.drawImage(mapOverlay[p],cam.x,cam.y,W,H,0,0,W,H);
   }
   function canPass(x,y,dir,movingEventId=0,movingEventThrough=false){
-    const dx=dir===4?-1:dir===6?1:0,dy=dir===8?-1:dir===2?1:0,nx=x+dx,ny=y+dy;
-    if(nx<0||ny<0||nx>=map.width||ny>=map.height)return false;
-    if(movingEventId&&!movingEventThrough&&nx===player.x&&ny===player.y)return false;
-    for(const {ev,pg,motion} of eventList())if(ev.id!==movingEventId&&motion.x===nx&&motion.y===ny&&!pg.through&&(pg.priority_type??1)===1)return false;
-    const mask=({2:1,4:2,6:4,8:8})[dir];
-    for(let z=2;z>=0;z--){const tid=table3(map.data,nx,ny,z);if(!tid)continue;const pri=tableValue(tileset.priorities,tid);const bits=tableValue(tileset.passages,tid);if(bits&mask)return false;if(pri===0)return true;}
-    return true;
+    return passability.canPass({map,tileset,events:eventList(),player,x,y,direction:dir,movingEventId,through:movingEventThrough});
   }
   function eventVisualPosition(motion){
     const from=motion.moveFrom;
