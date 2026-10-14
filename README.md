@@ -12,9 +12,7 @@ The launcher starts a local HTTP server and opens `http://127.0.0.1:8000`. This 
 
 ## Publish on GitHub Pages
 
-1. Upload the contents of this folder to a repository (the `index.html` file must be at the published site root).
-2. In GitHub, open **Settings → Pages** and publish the branch/folder containing `index.html`.
-3. Visit the Pages URL. No server-side code or build step is required.
+The included `.github/workflows/pages.yml` deploys the static game whenever `main` is updated. In the repository, open **Settings → Pages** and set **Build and deployment → Source** to **GitHub Actions**. The workflow publishes the repository root, including `index.html`, and supports repository subpath URLs without a build step.
 
 GitHub Pages is case-sensitive: do not change the capitalization of `Graphics`, `Audio`, or the original asset filenames.
 
