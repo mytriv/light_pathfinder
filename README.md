@@ -12,7 +12,7 @@ The launcher starts a local HTTP server and opens `http://127.0.0.1:8000`. This 
 
 ## Publish on GitHub Pages
 
-The included `.github/workflows/pages.yml` deploys the static game whenever `main` is updated. In the repository, open **Settings → Pages** and set **Build and deployment → Source** to **GitHub Actions**. The workflow publishes the repository root, including `index.html`, and supports repository subpath URLs without a build step.
+The repository publishes directly from the root of its `main` branch. The `.nojekyll` file keeps GitHub Pages from applying Jekyll processing. Relative asset and data URLs also work at the repository's Pages subpath.
 
 GitHub Pages is case-sensitive: do not change the capitalization of `Graphics`, `Audio`, or the original asset filenames.
 
