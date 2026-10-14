@@ -15,6 +15,7 @@ Last updated: 2026-10-14
 - Browser-local save state via `localStorage`.
 - Original BGM selection for maps when a BGM file is available.
 - Offline local-server launcher and static-hosting support.
+- New Game / Continue use a guarded loading state. Image load races and errors resolve rather than blocking map startup, and title options respond to mouse clicks as well as XP-style keyboard controls. Browser verification is still needed.
 
 ## Known gaps before claiming full parity
 

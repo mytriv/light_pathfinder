@@ -18,7 +18,7 @@
   let scene = 'title', map = null, tileset = null, mapId = 1, mapInfo = {}, player = null;
   let mapBase = null, mapOverlay = [], renderedSignature = '', lastMoveAt = 0, lastFrame = 0, walkFrame = 0, autoFrameIndex = 0;
   let queuedDirection = 0;
-  let modal = false, currentEvent = null, runningEvents = new Set(), pageRunKey = '', saveAllowed = true, music = null, battleReturn = 'event';
+  let modal = false, currentEvent = null, runningEvents = new Set(), pageRunKey = '', saveAllowed = true, music = null, battleReturn = 'event', gameStarting = false;
   let state = freshState();
   const unsupportedCommands = new Set();
 
@@ -44,8 +44,22 @@
   function loadImage(key) {
     const im = image(key);
     if (!im) return Promise.resolve(null);
-    if (im.complete && im.naturalWidth) return Promise.resolve(im);
-    return new Promise(resolve => { im.onload = () => resolve(im); im.onerror = () => resolve(null); });
+    if (im.complete) return Promise.resolve(im.naturalWidth ? im : null);
+    return new Promise(resolve => {
+      let settled = false;
+      const finish = () => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timeout);
+        im.removeEventListener('load', finish);
+        im.removeEventListener('error', finish);
+        resolve(im.naturalWidth ? im : null);
+      };
+      const timeout = setTimeout(finish, 10000);
+      im.addEventListener('load', finish, { once: true });
+      im.addEventListener('error', finish, { once: true });
+      if (im.complete) finish();
+    });
   }
   function tableValue(t, id) { return t && Array.isArray(t.data) ? (t.data[id] || 0) : 0; }
   function table3(t, x, y, z) {
@@ -247,9 +261,14 @@
     ctx.strokeStyle='rgba(225,210,173,.42)';ctx.strokeRect(224.5,288.5,191,127);
     const choices=[['New Game',322],['Continue',354],['Shutdown',386]];
     choices.forEach(([txt,y],i)=>{ctx.fillStyle=i===1&&!hasSave?'#777e87':titleSelection===i?'#d8bb78':'#f5f1e8';ctx.font=titleSelection===i?'bold 20px monospace':'18px monospace';ctx.fillText((titleSelection===i?'▶ ':'')+txt,W/2,y);});
-    ctx.fillStyle='#c7cbd1';ctx.font='12px monospace';ctx.fillText('↑ ↓ Select     Enter Confirm',W/2,449);
+    ctx.fillStyle='#c7cbd1';ctx.font='12px monospace';ctx.fillText('Click an option  ·  ↑ ↓ + Enter',W/2,449);
   }
   let titleSelection=0;
+  function loadingDraw(){
+    ctx.fillStyle='#070b11';ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='#f1dfaf';ctx.textAlign='center';ctx.font='bold 28px Georgia,serif';ctx.fillText('LIGHT PATHFINDER',W/2,H/2-16);
+    ctx.fillStyle='#d5d9e0';ctx.font='16px monospace';ctx.fillText(`Loading map ${mapId}…`,W/2,H/2+24);
+  }
   function drawTile(target, tileId, x, y, autoFrame=0) {
     if (!tileId) return;
     if (tileId >= 384) {
@@ -344,6 +363,7 @@
   }
   function render() {
     if(scene==='title'){titleDraw();return;}
+    if(scene==='loading'){loadingDraw();return;}
     if(scene==='shutdown'){ctx.fillStyle='#070b11';ctx.fillRect(0,0,W,H);ctx.fillStyle='#f1dfaf';ctx.font='20px Georgia,serif';ctx.textAlign='center';ctx.fillText('Light Pathfinder is shut down.',W/2,H/2);ctx.fillStyle='#c7cbd1';ctx.font='13px monospace';ctx.fillText('You may close this tab.',W/2,H/2+30);return;}
     if(scene!=='map'||!map||!player)return;
     ctx.fillStyle='#111';ctx.fillRect(0,0,W,H);
@@ -484,8 +504,21 @@
   function changeInventory(bucket,p){const id=Number(p[0]||0),op=Number(p[1]||0),type=Number(p[2]||0),n=type===0?Number(p[3]||0):Number(state.variables[p[3]]||0);state[bucket][id]=Math.max(0,(state[bucket][id]||0)+(op===0?n:-n));}
   function waitForMenuClose(){return new Promise(resolve=>{const poll=()=>{if(!modal){resolve();return;}setTimeout(poll,50);};poll();});}
   function startMapAudio(){const track=map?.bgm?.name;if(!track)return;const path=assetPath('Audio/BGM/'+track);if(!path)return;try{if(music){music.pause();}music=new Audio(path);music.loop=true;music.volume=Math.max(0,Math.min(1,(map.bgm.volume??80)/100));music.play().catch(()=>{});}catch(_){}}
-  async function enterNewGame(){state=freshState();eventMotion.clear();saveAllowed=true;await loadMap(state.mapId,state.x,state.y,state.direction);saveGame(true);}
-  async function continueGame(){const s=savedState();if(!s){await showMessage(['No saved game exists in this browser yet.']);scene='title';return;}applySave(s);await loadMap(state.mapId,state.x,state.y,state.direction);}
+  async function enterNewGame(){
+    if(gameStarting)return;
+    gameStarting=true;state=freshState();eventMotion.clear();saveAllowed=true;scene='loading';render();
+    try{await loadMap(state.mapId,state.x,state.y,state.direction);saveGame(true);}
+    catch(e){scene='title';sayNotice(`Could not start game: ${e?.message||e}`);render();}
+    finally{gameStarting=false;}
+  }
+  async function continueGame(){
+    if(gameStarting)return;
+    const s=savedState();if(!s){await showMessage(['No saved game exists in this browser yet.']);scene='title';return;}
+    gameStarting=true;applySave(s);scene='loading';render();
+    try{await loadMap(state.mapId,state.x,state.y,state.direction);}
+    catch(e){scene='title';sayNotice(`Could not load saved game: ${e?.message||e}`);render();}
+    finally{gameStarting=false;}
+  }
   function reportError(e){console.error(e);sayNotice('Runtime error: '+(e?.message||e));}
   function handleKeyDown(e){
     if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' ','Enter','Escape','z','Z','x','X'].includes(e.key))e.preventDefault();
@@ -514,6 +547,15 @@
     }
   }
   function handleKeyUp(e){keys.delete(e.key);}
+  function handleCanvasClick(e){
+    if(scene!=='title'||gameStarting)return;
+    const rect=canvas.getBoundingClientRect(),y=(e.clientY-rect.top)*H/rect.height;
+    if(y<304||y>=400)return;
+    titleSelection=Math.min(2,Math.floor((y-304)/32));render();
+    if(titleSelection===0)enterNewGame();
+    else if(titleSelection===1)continueGame();
+    else{scene='shutdown';sayNotice('You may close this tab.');render();}
+  }
   function updatePlayerAnimation(t,delta){
     if(!player)return;
     if(player.moveFrom&&t-player.moveStarted>=133)player.moveFrom=null;
@@ -552,6 +594,7 @@
     }catch(e){console.error(e);sayNotice(`Could not start the game: ${e.message}. Open it through the included local server.`);ctx.fillStyle='#10141b';ctx.fillRect(0,0,W,H);ctx.fillStyle='#fff';ctx.font='16px monospace';ctx.fillText('Could not load game data.',24,50);ctx.font='12px monospace';ctx.fillText(e.message,24,76);}
   }
   document.addEventListener('keydown',handleKeyDown);document.addEventListener('keyup',handleKeyUp);
+  canvas.addEventListener('click',handleCanvasClick);
   window.addEventListener('blur',()=>keys.clear());
   window.LightPathfinder={db,get state(){return state;},loadMap,saveGame,executeList};
   boot();requestAnimationFrame(update);

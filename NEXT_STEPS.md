@@ -7,6 +7,7 @@ Updated: 2026-10-14
 - Rechecked the port against the supplied RGSS1 source scripts and map 001 instead of treating the visual start as passable in every direction.
 - Extracted RGSS1 reciprocal map passage and character/event collision rules into `src/engine/passability.js`; the runtime now calls this implementation.
 - Added `tools/test_passability.js`, which verifies that map 001 start `(15,10)` rejects the down step into an enclosed tile and keeps the three valid directions open.
+- Fixed title startup to accept a single mouse click, show a distinct loading screen, prevent overlapping map loads, and resolve already-failed or delayed image requests instead of waiting indefinitely.
 - Updated port status documents with the source evidence and the regression result.
 
 ## Files changed
@@ -23,6 +24,7 @@ Updated: 2026-10-14
 
 - `node --check app.js`, `node --check src/engine/passability.js`, and `node --check tools/test_passability.js`: passed.
 - `node tools/test_passability.js`: passed against the original map 001 and XP passage flags.
+- `node --check app.js`: passed after the title startup fix; first-click behavior still needs an in-browser manual check.
 - `python tools/validate_project.py` using the bundled Python runtime: passed. 23 JSON files, nine maps, and 889 indexed media references resolve; all 29 distinct map command codes have dispatch cases.
 - `git diff --check`: passed.
 - Full browser input and story playthrough remain unverified; the previous automated browser control was unreliable.
