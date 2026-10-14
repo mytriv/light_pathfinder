@@ -16,7 +16,6 @@
   const imageCache = new Map(), audioCache = new Map(), autoTileCache = new Map(), eventMotion = new Map();
   let scene = 'title', map = null, tileset = null, mapId = 1, mapInfo = {}, player = null;
   let mapBase = null, mapOverlay = [], renderedSignature = '', lastMoveAt = 0, lastFrame = 0, walkFrame = 0, autoFrameIndex = 0;
-  let queuedDirection = 0;
   let modal = false, currentEvent = null, runningEvents = new Set(), pageRunKey = '', saveAllowed = true, music = null, battleReturn = 'event';
   let state = freshState();
   const unsupportedCommands = new Set();
@@ -508,7 +507,8 @@
     if((e.key==='Enter'||e.key===' '||e.key==='z'||e.key==='Z')&&!e.repeat){interact().catch(reportError);return;}
     if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','W','A','S','D'].includes(e.key)){
       keys.add(e.key);
-      queuedDirection=({ArrowUp:8,w:8,W:8,ArrowDown:2,s:2,S:2,ArrowLeft:4,a:4,A:4,ArrowRight:6,d:6,D:6})[e.key];
+      const dir=({ArrowUp:8,w:8,W:8,ArrowDown:2,s:2,S:2,ArrowLeft:4,a:4,A:4,ArrowRight:6,d:6,D:6})[e.key];
+      if(!e.repeat&&scene==='map'&&player&&!player.moveFrom&&performance.now()-lastMoveAt>=133){lastMoveAt=performance.now();step(dir).catch(reportError);}
     }
   }
   function handleKeyUp(e){keys.delete(e.key);}
@@ -530,8 +530,7 @@
     if(scene==='map'&&map)updateEvents(delta);
     if(scene==='map'&&!modal&&player&&t-lastMoveAt>=133&&(!player.moveFrom||t-player.moveStarted>=133)){
       const directions={'ArrowUp':8,'w':8,'W':8,'ArrowDown':2,'s':2,'S':2,'ArrowLeft':4,'a':4,'A':4,'ArrowRight':6,'d':6,'D':6};
-      const dir=[...keys].reverse().map(key=>directions[key]).find(Boolean)||queuedDirection;
-      queuedDirection=0;
+      const dir=[...keys].reverse().map(key=>directions[key]).find(Boolean)||0;
       if(dir){lastMoveAt=t;step(dir).catch(reportError);}
     }
     if(scene==='map'&&map){const f=Math.floor(t/280)%4;if(f!==autoFrameIndex){autoFrameIndex=f;buildTilemap();}render();}
