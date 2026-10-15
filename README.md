@@ -6,6 +6,8 @@ This folder is a first native-JavaScript port of the supplied RPG Maker XP proje
 
 The newer experimental engine is published separately from this HTML5 port: [Play Light Pathfinder in the custom engine](https://mytriv.github.io/light_pathfinder/Lightpathfinder_JS/).
 
+The standalone SiegSim JavaScript remake is also available: [Play SiegSim](https://mytriv.github.io/light_pathfinder/SiegSim_GH_Pages/).
+
 ## Run offline
 
 **Windows:** double-click `start-local.bat` (Python 3 must be installed).
