@@ -2,11 +2,11 @@
 
 Updated: 2026-10-14
 
-This matrix describes the supplied conversion, not a claim of RPG Maker XP parity. Evidence comes from the exported JSON, runtime command dispatch in `app.js`, the original project retained under `source/original-project/`, and the checks recorded below.
+This matrix describes the supplied conversion, not a claim of RPG Maker XP parity. Evidence comes from the exported JSON, runtime command dispatch in `app.js`, the original project retained under `../Original/`, and the checks recorded below.
 
 | Area | Status | Evidence / remaining work |
 | --- | --- | --- |
-| Original project and reference data | Complete | `source/original-project/` contains Game.ini, project metadata, all nine map Marshal files, database Marshal files, scripts, and two sample saves; `src/original-ruby-scripts/` contains decompressed script references. |
+| Original project and reference data | Complete | `../Original/` contains Game.ini, project metadata, all nine map Marshal files, database Marshal files, scripts, and two sample saves; `src/original-ruby-scripts/` contains decompressed script references. |
 | Exported data and media inventory | Complete | 23 data JSON files, nine maps, and 889 indexed media files are present. `tools/validate_project.py` parses each data JSON and resolves map tileset, autotile, and character graphics. |
 | Browser entry point and offline serving | Complete | `index.html`, `style.css`, and `app.js` use local relative URLs. `start-local.py` serves over loopback using Python's standard library. No CDN/runtime service dependency is present. |
 | GitHub Pages subpath hosting | Needs Verification | Page assets and data use relative URLs, which resolve under a repository subpath. Deployment has not been exercised on GitHub Pages. `.nojekyll` is included. |

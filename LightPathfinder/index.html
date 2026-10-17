@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="theme-color" content="#10141b">
+  <title>Light Pathfinder — HTML5 Port</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+    <div id="game-frame" aria-label="Light Pathfinder game">
+      <canvas id="screen" width="640" height="480" aria-label="Game screen"></canvas>
+      <div id="overlay" class="hidden">
+        <section id="dialog" class="panel hidden" role="dialog" aria-live="polite">
+          <div id="dialog-speaker" class="speaker"></div>
+          <div id="dialog-text" class="dialog-text"></div>
+          <div id="dialog-options" class="message-choices"></div>
+          <div class="panel-hint">Enter / Space / Z to continue</div>
+          <button id="dialog-next" class="primary" aria-label="Continue dialogue" title="Continue dialogue">▼</button>
+        </section>
+        <section id="choice" class="panel choices hidden" role="dialog" aria-label="Choose an option"></section>
+        <section id="menu" class="panel choices hidden" role="dialog" aria-label="Game menu"></section>
+        <section id="battle" class="panel choices hidden" role="dialog" aria-label="Battle"></section>
+      </div>
+    </div>
+    <footer>
+      <span>LIGHT PATHFINDER · HTML5 PORT</span>
+      <span>Arrows: move · Enter/Z: interact · Esc/X: menu</span>
+    </footer>
+    <div id="notice" aria-live="polite">Loading game data…</div>
+  </main>
+  <script src="src/engine/input.js?v=20261014-no-stale-keys"></script>
+  <script src="src/engine/passability.js?v=20261014-no-stale-keys"></script>
+  <script src="app.js?v=20261014-no-stale-keys"></script>
+</body>
+</html>

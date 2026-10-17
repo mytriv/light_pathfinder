@@ -1,5 +1,7 @@
 # Light Pathfinder — clean JavaScript engine slice
 
+Play it on [GitHub Pages](https://mytriv.github.io/light_pathfinder/LightPathfinderJS/).
+
 This is a fresh implementation using the original RPG Maker XP map and asset data. It does not import the previous HTML5 runtime or the MZ project. Those folders and the original XP project remain unchanged.
 
 ## Run
