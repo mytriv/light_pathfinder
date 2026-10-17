@@ -400,6 +400,19 @@
             {
               "_class": "RPG::EventCommand",
               "parameters": [
+                0,
+                2,
+                9,
+                12,
+                8,
+                0
+              ],
+              "indent": 1,
+              "code": 201
+            },
+            {
+              "_class": "RPG::EventCommand",
+              "parameters": [
 
               ],
               "indent": 1,
