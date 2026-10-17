@@ -3,8 +3,10 @@
   <rect x="5" y="45" width="23" height="2" fill="#171719" opacity=".55"/>
   <rect x="7" y="41" width="7" height="4" fill="#252326"/><rect x="19" y="41" width="7" height="4" fill="#252326"/>
   <rect x="8" y="32" width="6" height="10" fill="#49352d"/><rect x="18" y="32" width="6" height="10" fill="#49352d"/>
-  <rect x="7" y="22" width="18" height="15" fill="#76513a"/><rect x="5" y="25" width="4" height="9" fill="#76513a"/>
-  <rect x="23" y="25" width="4" height="9" fill="#76513a"/><rect x="14" y="23" width="3" height="13" fill="#302927"/>
+  <rect x="7" y="22" width="18" height="15" fill="#9a633c"/><rect x="5" y="25" width="4" height="9" fill="#9a633c"/>
+  <rect x="23" y="25" width="4" height="9" fill="#9a633c"/><rect x="14" y="23" width="3" height="13" fill="#302927"/>
+  <rect x="12" y="23" width="4" height="4" fill="#f0dfba"/><rect x="16" y="23" width="4" height="4" fill="#f0dfba"/>
+  <rect x="15" y="26" width="2" height="6" fill="#9a4540"/><rect x="18" y="29" width="2" height="2" fill="#e9bd68"/><rect x="18" y="34" width="2" height="2" fill="#e9bd68"/>
   <rect x="12" y="19" width="8" height="5" fill="#d4a071"/><rect x="7" y="11" width="3" height="7" fill="#d4a071"/>
   <rect x="22" y="11" width="3" height="7" fill="#d4a071"/><rect x="9" y="7" width="14" height="15" fill="#e2b487"/>
   <rect x="8" y="8" width="3" height="8" fill="#1d1c20"/><rect x="10" y="6" width="10" height="4" fill="#1d1c20"/>

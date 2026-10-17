@@ -79,7 +79,7 @@
     hitFlash = 0;
     particles = [];
     player = {
-      x: width * 0.3, feet: floorY, vx: 0, vy: 0, health: 100,
+      x: width * 0.27, feet: floorY, vx: 0, vy: 0, health: 100,
       facing: 1, onGround: true, coyote: 0, jumpHold: 0,
       attackTime: 0, attackCooldown: 0, attackFacing: 1,
       attackResolved: true, invulnerable: 0, walkPhase: 0
@@ -92,20 +92,19 @@
   function spawnWave() {
     const count = Math.min(12, 3 + Math.floor((wave - 1) * 0.7));
     enemies = [];
+    const spawnSlots = wave < 4
+      ? [0.55, 0.72, 0.88, 0.95, 0.62, 0.8, 0.5, 0.9, 0.66, 0.83, 0.96, 0.58]
+      : [0.08, 0.92, 0.23, 0.77, 0.36, 0.64, 0.14, 0.86, 0.04, 0.96, 0.3, 0.7];
     for (let i = 0; i < count; i++) {
       const faction = factions[(wave - 1 + i) % factions.length];
-      const edge = i % 2 === 0 ? 66 : width - 66;
-      const spread = Math.max(0, Math.floor(i / 2)) * 102;
-      const x = i % 2 === 0
-        ? Math.min(width * 0.48, edge + spread)
-        : Math.max(width * 0.52, edge - spread);
+      const x = width * spawnSlots[i % spawnSlots.length];
       enemies.push({
         x, vx: 0, hp: 2 + Math.floor((wave - 1) / 5),
         maxHp: 2 + Math.floor((wave - 1) / 5),
         faction: faction.name, factionIndex: factions.indexOf(faction),
         color: faction.color, hit: 0, hitCooldown: 0, stun: 0, dead: 0,
         alive: true, facing: x < player.x ? 1 : -1,
-        seed: i * 1.7 + wave * 0.8, attackCooldown: 0.6 + i * 0.12
+        seed: i * 1.7 + wave * 0.8, attackCooldown: 1.25 + i * 0.42
       });
     }
     waveBreak = 0;
@@ -139,7 +138,7 @@
     ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right',
     ArrowUp: 'jump', KeyW: 'jump', Space: 'jump'
   };
-  const attackKeys = new Set(['KeyJ', 'KeyF']);
+  const attackKeys = new Set(['KeyJ']);
   window.addEventListener('keydown', event => {
     const action = keyMap[event.code];
     if (!action && !attackKeys.has(event.code)) return;
@@ -171,6 +170,7 @@
     event.preventDefault();
     startAttack();
   });
+  document.querySelector('[data-action="attack"]').addEventListener('click', startAttack);
   canvas.addEventListener('pointerdown', event => {
     if (event.pointerType === 'mouse' && event.button === 0) startAttack();
   });
@@ -295,9 +295,9 @@
         enemy.vx *= Math.max(0, 1 - dt * 3.5);
       } else {
         const distance = player.x - enemy.x;
-        const chaseSpeed = Math.min(185, 92 + (wave - 1) * 8);
+        const chaseSpeed = Math.min(148, 78 + (wave - 1) * 5);
         const desired = Math.abs(distance) < 44 ? 0 : Math.sign(distance) * chaseSpeed;
-        enemy.vx += Math.sign(desired - enemy.vx) * Math.min(Math.abs(desired - enemy.vx), 680 * dt);
+        enemy.vx += Math.sign(desired - enemy.vx) * Math.min(Math.abs(desired - enemy.vx), 520 * dt);
       }
       enemy.x += enemy.vx * dt;
       enemy.x = Math.max(32, Math.min(width - 32, enemy.x));
@@ -305,12 +305,12 @@
 
       const touching = Math.abs(enemy.x - player.x) < 48 && Math.abs(player.feet - floorY) < 54;
       if (touching && player.invulnerable <= 0 && enemy.attackCooldown <= 0) {
-        player.health = Math.max(0, player.health - 9);
-        player.invulnerable = 0.72;
+        player.health = Math.max(0, player.health - 5);
+        player.invulnerable = 0.88;
         player.vx = (player.x < enemy.x ? -1 : 1) * 360;
         player.vy = -230;
         player.onGround = false;
-        enemy.attackCooldown = 0.85;
+        enemy.attackCooldown = 1.45;
         hitFlash = 0.14;
         particles.push({ x: player.x, y: player.feet - 74, life: 0.38, text: 'BONKED!' });
         updateHud();
@@ -412,8 +412,8 @@
   function drawHero() {
     const jumping = !player.onGround;
     const bob = player.onGround && Math.abs(player.vx) > 12 ? Math.abs(Math.sin(player.walkPhase)) * 3 : Math.sin(elapsed * 3) * 1.2;
-    const heightPx = 70;
-    const widthPx = 47;
+    const heightPx = 88;
+    const widthPx = 60;
     const top = player.feet - heightPx + bob;
     const alpha = player.invulnerable > 0 && Math.floor(elapsed * 20) % 2 === 0 ? 0.5 : 1;
     ctx.save();

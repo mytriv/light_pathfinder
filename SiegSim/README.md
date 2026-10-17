@@ -8,7 +8,7 @@ Open `index.html`, or visit [SiegSim on GitHub Pages](https://mytriv.github.io/l
 
 - **A / D** or **Left / Right:** move.
 - **W**, **Up**, or **Space:** jump.
-- **J** or **F:** attack in the direction you face. Left-click also attacks.
+- **J:** attack in the direction you face. Left-click also attacks.
 - Touch players get one **BONK** button plus movement and jump buttons.
 
 ## Changes
