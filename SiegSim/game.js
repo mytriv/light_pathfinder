@@ -18,7 +18,7 @@
     { name: 'USA', color: '#628de0' },
     { name: 'Britain', color: '#6487d0' }
   ];
-  const input = { left: false, right: false, jump: false, jumpQueued: false };
+  const input = { left: false, right: false, jump: false, jumpQueued: false, fire: false };
   let width = BASE_WIDTH;
   let height = 560;
   let floorY = 520;
@@ -147,16 +147,14 @@
 
   const keyMap = {
     ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right',
-    ArrowUp: 'jump', KeyW: 'jump', Space: 'jump'
+    ArrowUp: 'jump', KeyW: 'jump', Space: 'jump', KeyJ: 'fire'
   };
-  const attackKeys = new Set(['KeyJ']);
   window.addEventListener('keydown', event => {
     if (gameOver && (event.code === 'Enter' || event.code === 'KeyJ')) { event.preventDefault(); reset(); return; }
     const action = keyMap[event.code];
-    if (!action && !attackKeys.has(event.code)) return;
+    if (!action) return;
     event.preventDefault();
-    if (action) setControl(action, true);
-    else if (!event.repeat) startAttack();
+    setControl(action, true);
   });
   window.addEventListener('keyup', event => {
     const action = keyMap[event.code];
@@ -178,14 +176,26 @@
     button.addEventListener('pointercancel', release);
     button.addEventListener('lostpointercapture', () => setControl(action, false));
   });
-  document.querySelector('[data-action="attack"]').addEventListener('pointerdown', event => {
+  const fireButton = document.querySelector('[data-action="attack"]');
+  fireButton.addEventListener('pointerdown', event => {
     event.preventDefault();
-    startAttack();
+    if (gameOver) { reset(); return; }
+    fireButton.setPointerCapture(event.pointerId);
+    setControl('fire', true);
   });
-  document.querySelector('[data-action="attack"]').addEventListener('click', startAttack);
+  const releaseFire = event => { event.preventDefault(); setControl('fire', false); };
+  fireButton.addEventListener('pointerup', releaseFire);
+  fireButton.addEventListener('pointercancel', releaseFire);
+  fireButton.addEventListener('lostpointercapture', () => setControl('fire', false));
   canvas.addEventListener('pointerdown', event => {
-    if (event.pointerType === 'mouse' && event.button === 0) startAttack();
+    if (event.pointerType === 'mouse' && event.button === 0) {
+      if (gameOver) { reset(); return; }
+      canvas.setPointerCapture(event.pointerId);
+      setControl('fire', true);
+    }
   });
+  canvas.addEventListener('pointerup', event => { if (event.pointerType === 'mouse') setControl('fire', false); });
+  canvas.addEventListener('pointercancel', () => setControl('fire', false));
 
   function startAttack() {
     if (gameOver) { reset(); return; }
@@ -193,8 +203,8 @@
     const moving = Number(input.right) - Number(input.left);
     player.attackFacing = moving || player.facing;
     player.facing = player.attackFacing;
-    player.attackTime = 0.26;
-    player.attackCooldown = 0.38;
+    player.attackTime = 0.32;
+    player.attackCooldown = 0.36;
     const muzzleX = player.x + player.facing * 72;
     const muzzleY = player.feet - 55;
     projectiles.push({ x: muzzleX, y: muzzleY, vx: player.facing * 620, vy: -10, life: 1.35, owner: 'player', seed: elapsed });
@@ -251,6 +261,7 @@
     }
 
     const direction = Number(input.right) - Number(input.left);
+    const wasGrounded = player.onGround;
     const acceleration = player.onGround ? 2600 : 1550;
     const maxSpeed = 330;
     if (direction) {
@@ -294,10 +305,14 @@
       player.vy = 0;
       player.onGround = true;
     } else player.onGround = landed;
+    if (!wasGrounded && player.onGround) {
+      for (let i = 0; i < 4; i++) particles.push({ x: player.x - 12 + i * 8, y: player.feet - 3, vx: -45 + i * 30, vy: -55 - Math.random() * 30, life: 0.24, dust: true, text: '' });
+    }
 
     player.attackTime = Math.max(0, player.attackTime - dt);
     player.attackCooldown = Math.max(0, player.attackCooldown - dt);
     player.invulnerable = Math.max(0, player.invulnerable - dt);
+    if (input.fire && player.attackCooldown <= 0) startAttack();
     for (const enemy of enemies) {
       if (!enemy.alive) {
         enemy.dead = Math.max(0, enemy.dead - dt);
@@ -391,7 +406,7 @@
     enemies = enemies.filter(enemy => enemy.alive || enemy.dead > 0);
     for (const particle of particles) {
       particle.life -= dt;
-      if (particle.ember) { particle.x += particle.vx * dt; particle.y += particle.vy * dt; particle.vy += 360 * dt; }
+      if (particle.ember || particle.dust) { particle.x += particle.vx * dt; particle.y += particle.vy * dt; particle.vy += 360 * dt; }
     }
     particles = particles.filter(particle => particle.life > 0);
     if (waveCleared && waveBreak <= 0) {
@@ -502,19 +517,22 @@
     const facing = player.attackTime > 0 ? player.attackFacing : player.facing;
     ctx.save();
     ctx.globalAlpha = alpha;
-    ctx.translate(player.x, top + heightPx * 0.5);
+    const kickback = player.attackTime > 0 ? 3 : 0;
+    ctx.translate(player.x - facing * kickback, top + heightPx * 0.5);
     const attacking = player.attackTime > 0;
     const pose = attacking ? heroSprites.fire : heroSprites.ready;
     const spriteHeight = attacking ? 96 : heightPx;
     const spriteWidth = pose.naturalHeight ? spriteHeight * pose.naturalWidth / pose.naturalHeight : 70;
     ctx.scale(facing, 1);
-    if (jumping) ctx.rotate(-player.vy * 0.00007);
+    if (jumping) ctx.rotate(-player.vy * 0.0002);
     if (pose.complete && pose.naturalWidth) ctx.drawImage(pose, -spriteWidth / 2, -spriteHeight / 2, spriteWidth, spriteHeight);
     else {
       ctx.fillStyle = '#76513a'; ctx.fillRect(-20, -8, 40, 48);
       ctx.fillStyle = '#e2b487'; ctx.fillRect(-22, -52, 44, 42);
       ctx.fillStyle = '#1a1714'; ctx.fillRect(-20, -56, 42, 12);
     }
+    ctx.fillStyle = '#211711';
+    ctx.fillRect(-8, -18, 6, 3); ctx.fillRect(2, -18, 6, 3); ctx.fillRect(-2, -19, 4, 4);
     if (moving && !attacking) {
       const step = Math.sin(player.walkPhase) * 4;
       ctx.fillStyle = '#59402a'; ctx.fillRect(-14 + step, spriteHeight / 2 - 9, 12, 6); ctx.fillRect(2 - step, spriteHeight / 2 - 5, 13, 6);
@@ -526,7 +544,7 @@
       const muzzleY = player.feet - 55;
       const flicker = 0.72 + Math.sin(elapsed * 77) * 0.2;
       ctx.save();
-      ctx.globalAlpha = Math.min(1, player.attackTime / 0.1) * flicker;
+      ctx.globalAlpha = Math.min(1, player.attackTime / 0.12) * flicker;
       ctx.fillStyle = '#ff7738'; ctx.beginPath(); ctx.ellipse(muzzleX, muzzleY, 18, 13, facing * 0.3, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = '#ffe58a'; ctx.beginPath(); ctx.ellipse(muzzleX + facing * 5, muzzleY, 9, 7, 0, 0, Math.PI * 2); ctx.fill();
       ctx.restore();
@@ -569,8 +587,8 @@
     ctx.restore();
     for (const particle of particles) {
       ctx.globalAlpha = Math.min(1, particle.life * 2.2);
-      if (particle.ember) {
-        ctx.fillStyle = '#ff9a45'; ctx.fillRect(particle.x, particle.y, 4, 4);
+      if (particle.ember || particle.dust) {
+        ctx.fillStyle = particle.dust ? '#b79a73' : '#ff9a45'; ctx.fillRect(particle.x, particle.y, particle.dust ? 5 : 4, particle.dust ? 3 : 4);
         continue;
       }
       ctx.fillStyle = '#fff1bb';
