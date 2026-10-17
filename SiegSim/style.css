@@ -1,8 +1,9 @@
 :root { color-scheme: dark; font: 14px/1.4 system-ui, sans-serif; background: #111820; color: #f2eee3; }
 * { box-sizing: border-box; }
 html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
-body { width: 100%; height: 100vh; height: 100dvh; min-width: 300px; min-height: 0; display: flex; flex-direction: column; padding: max(8px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(44px, calc(env(safe-area-inset-bottom) + 32px)) max(10px, env(safe-area-inset-left)); }
-header { flex: 0 0 auto; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 0 2px 7px; }
+body { width: 100%; height: 100vh; height: 100dvh; min-width: 300px; min-height: 0; display: flex; flex-direction: column; padding: max(8px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) 0 max(10px, env(safe-area-inset-left)); }
+body::after { content: ""; flex: 0 0 max(42px, calc(env(safe-area-inset-bottom) + 34px)); }
+header { flex: 0 0 auto; min-height: 34px; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 0 2px 7px; }
 h1 { margin: 0; color: #f2bd60; font: 900 23px/1 Impact, "Arial Black", sans-serif; letter-spacing: .04em; text-transform: uppercase; }
 header p { margin: 0; color: #c5cbc4; font-size: 12px; }
 main { flex: 1 1 auto; min-width: 0; min-height: 0; display: grid; place-items: center; padding-bottom: 4px; }
@@ -13,16 +14,16 @@ canvas { display: block; width: 100%; height: 100%; max-height: 100%; object-fit
 .touch-controls button:active { background: #485147; }
 .touch-controls [data-action] { min-width: 96px; background: #80503c; }
 @media (pointer: coarse), (max-width: 760px) {
-  header { align-items: flex-start; flex-direction: column; gap: 2px; }
+  header { align-items: flex-start; flex-direction: column; gap: 2px; min-height: 50px; }
   .touch-controls { display: flex; }
-  .touch-controls { margin-bottom: 6px; }
   header p { font-size: 11px; }
+  body::after { flex-basis: max(58px, calc(env(safe-area-inset-bottom) + 50px)); }
 }
 @media (max-height: 420px) and (orientation: landscape) {
-  header { flex-direction: row; align-items: baseline; padding-bottom: 3px; }
+  header { flex-direction: row; align-items: baseline; min-height: 22px; padding-bottom: 3px; }
   h1 { font-size: 19px; }
   header p { font-size: 10px; }
-  body { padding-bottom: max(28px, calc(env(safe-area-inset-bottom) + 20px)); }
+  body::after { flex-basis: max(30px, calc(env(safe-area-inset-bottom) + 22px)); }
   .touch-controls { padding-top: 3px; }
   .touch-controls button { height: 32px; }
 }

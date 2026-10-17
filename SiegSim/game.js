@@ -11,6 +11,9 @@
   const heroSprites = { ready: new Image(), fire: new Image() };
   heroSprites.ready.src = 'assets/hero-ready.png';
   heroSprites.fire.src = 'assets/hero-fire.png';
+  const heroSheet = new Image();
+  heroSheet.src = 'assets/hero-animation-sheet.png';
+  const HERO_FRAME_SIZE = 256;
   const factions = [
     { name: 'Soviet', color: '#e54c42' },
     { name: 'China', color: '#ed5541' },
@@ -72,8 +75,8 @@
     player = {
       x: width * 0.27, feet: floorY, vx: 0, vy: 0, health: 100,
       facing: 1, onGround: true, coyote: 0, jumpHold: 0,
-      attackTime: 0, attackCooldown: 0, attackFacing: 1,
-      invulnerable: 0, walkPhase: 0
+      attackTime: 0, attackCooldown: 0, attackFacing: 1, burstShots: 0,
+      invulnerable: 0, walkPhase: 0, jumpTime: 0
     };
     createPlatforms();
     spawnWave();
@@ -203,12 +206,9 @@
     const moving = Number(input.right) - Number(input.left);
     player.attackFacing = moving || player.facing;
     player.facing = player.attackFacing;
-    player.attackTime = 0.32;
-    player.attackCooldown = 0.36;
-    const muzzleX = player.x + player.facing * 72;
-    const muzzleY = player.feet - 55;
-    projectiles.push({ x: muzzleX, y: muzzleY, vx: player.facing * 620, vy: -10, life: 1.35, owner: 'player', seed: elapsed });
-    for (let i = 0; i < 5; i++) particles.push({ x: muzzleX, y: muzzleY, vx: player.facing * (30 + Math.random() * 130), vy: -100 + Math.random() * 170, life: 0.18 + Math.random() * 0.18, text: '', ember: true });
+    player.attackTime = 0.36;
+    player.attackCooldown = 0.6;
+    player.burstShots = 0;
     player.vx *= 0.86;
   }
 
@@ -285,6 +285,7 @@
       player.onGround = false;
       player.coyote = 0;
       player.jumpHold = 0.14;
+      player.jumpTime = 0;
     }
     input.jumpQueued = false;
     if (input.jump && player.vy < -120 && player.jumpHold > 0) {
@@ -305,6 +306,8 @@
       player.vy = 0;
       player.onGround = true;
     } else player.onGround = landed;
+    if (player.onGround) player.jumpTime = 0;
+    else player.jumpTime += dt;
     if (!wasGrounded && player.onGround) {
       for (let i = 0; i < 4; i++) particles.push({ x: player.x - 12 + i * 8, y: player.feet - 3, vx: -45 + i * 30, vy: -55 - Math.random() * 30, life: 0.24, dust: true, text: '' });
     }
@@ -313,6 +316,13 @@
     player.attackCooldown = Math.max(0, player.attackCooldown - dt);
     player.invulnerable = Math.max(0, player.invulnerable - dt);
     if (input.fire && player.attackCooldown <= 0) startAttack();
+    if (player.attackTime > 0) {
+      const fireFrame = Math.min(5, Math.floor((0.36 - player.attackTime) / 0.06));
+      while (player.burstShots < 3 && fireFrame >= player.burstShots * 2 + 1) {
+        launchPlayerShot();
+        player.burstShots += 1;
+      }
+    }
     for (const enemy of enemies) {
       if (!enemy.alive) {
         enemy.dead = Math.max(0, enemy.dead - dt);
@@ -413,6 +423,13 @@
       waveBreak = 1.3;
       updateHud();
     }
+  }
+
+  function launchPlayerShot() {
+    const muzzleX = player.x + player.attackFacing * 72;
+    const muzzleY = player.feet - 55;
+    projectiles.push({ x: muzzleX, y: muzzleY, vx: player.attackFacing * 620, vy: -10, life: 1.35, owner: 'player', seed: elapsed });
+    for (let i = 0; i < 5; i++) particles.push({ x: muzzleX, y: muzzleY, vx: player.attackFacing * (30 + Math.random() * 130), vy: -100 + Math.random() * 170, life: 0.18 + Math.random() * 0.18, text: '', ember: true });
   }
 
   function drawCover(image, x, y, destWidth, destHeight) {
@@ -521,11 +538,20 @@
     ctx.translate(player.x - facing * kickback, top + heightPx * 0.5);
     const attacking = player.attackTime > 0;
     const pose = attacking ? heroSprites.fire : heroSprites.ready;
-    const spriteHeight = attacking ? 96 : heightPx;
-    const spriteWidth = pose.naturalHeight ? spriteHeight * pose.naturalWidth / pose.naturalHeight : 70;
+    const poseRow = attacking ? 3 : jumping ? 2 : moving ? 1 : -1;
+    let poseFrame = 0;
+    if (poseRow === 1) poseFrame = Math.floor((player.walkPhase % (Math.PI * 2)) / (Math.PI * 2) * 6);
+    if (poseRow === 2) poseFrame = Math.min(5, Math.floor(player.jumpTime / 0.12));
+    if (poseRow === 3) poseFrame = Math.min(5, Math.floor((0.36 - player.attackTime) / 0.06));
+    const useSheet = poseRow >= 0 && heroSheet.complete && heroSheet.naturalWidth >= HERO_FRAME_SIZE * 6;
+    const spriteHeight = useSheet ? 128 : attacking ? 96 : heightPx;
+    const spriteWidth = useSheet ? 128 : pose.naturalHeight ? spriteHeight * pose.naturalWidth / pose.naturalHeight : 70;
     ctx.scale(facing, 1);
     if (jumping) ctx.rotate(-player.vy * 0.0002);
-    if (pose.complete && pose.naturalWidth) ctx.drawImage(pose, -spriteWidth / 2, -spriteHeight / 2, spriteWidth, spriteHeight);
+    if (useSheet) {
+      ctx.drawImage(heroSheet, poseFrame * HERO_FRAME_SIZE, poseRow * HERO_FRAME_SIZE, HERO_FRAME_SIZE, HERO_FRAME_SIZE,
+        -spriteWidth / 2, -spriteHeight / 2, spriteWidth, spriteHeight);
+    } else if (pose.complete && pose.naturalWidth) ctx.drawImage(pose, -spriteWidth / 2, -spriteHeight / 2, spriteWidth, spriteHeight);
     else {
       ctx.fillStyle = '#76513a'; ctx.fillRect(-20, -8, 40, 48);
       ctx.fillStyle = '#e2b487'; ctx.fillRect(-22, -52, 44, 42);
@@ -539,7 +565,7 @@
     }
     ctx.restore();
 
-    if (attacking) {
+    if (attacking && !useSheet) {
       const muzzleX = player.x + facing * (spriteWidth / 2 + 2);
       const muzzleY = player.feet - 55;
       const flicker = 0.72 + Math.sin(elapsed * 77) * 0.2;
