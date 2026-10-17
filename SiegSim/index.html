@@ -2,57 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#111820">
-  <meta name="description" content="SiegSim: a tiny endless pixel brawler.">
-  <title>SiegSim — Endless arena</title>
+  <meta name="description" content="SiegSim, an endless pixel brawler.">
+  <title>SiegSim</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="shell">
-    <header class="topbar">
-      <div class="brand">
-        <span class="eyebrow">A tiny, ridiculous endless brawler</span>
-        <h1>SiegSim <span>ENDLESS</span></h1>
-      </div>
-      <div class="mission"><span class="mission-dot"></span><span id="message">Wave 1 is warming up…</span></div>
-    </header>
-
-    <section class="game-panel" aria-label="SiegSim game">
-      <div class="hud">
-        <div class="health-block">
-          <span class="hud-label">HEALTH</span>
-          <div class="health-track" role="progressbar" aria-label="Player health" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><span id="health-fill"></span></div>
-          <span id="health-value">100</span>
-        </div>
-        <div class="counter"><span class="hud-label">WAVE</span><strong id="wave-value">1</strong></div>
-        <div class="counter"><span class="hud-label">FOES</span><strong id="target-value">3</strong></div>
-        <div class="counter score"><span class="hud-label">SCORE</span><strong id="score-value">0</strong></div>
-        <button class="restart" id="restart" type="button" title="Restart round">Restart <span>↻</span></button>
-      </div>
-
-      <div class="canvas-frame">
-        <canvas id="game" width="1024" height="560" aria-label="Endless arcade arena. Move with A and D or arrow keys, jump with W, and attack in your facing direction with J."></canvas>
-        <div class="overlay hidden" id="overlay" aria-live="polite">
-          <div class="overlay-card">
-            <span class="eyebrow" id="overlay-kicker">THAT'S ENOUGH ARENA</span>
-            <h2 id="overlay-title">You have been bonked</h2>
-            <p id="overlay-copy">Your best run reached wave 1.</p>
-            <button id="play-again" type="button">Run it back <span>↻</span></button>
-          </div>
-        </div>
-      </div>
-
-      <div class="controls-row">
-        <div class="controls-copy"><span class="hud-label">CONTROLS</span><p><kbd>A</kbd><kbd>D</kbd> move <span class="divider">·</span> <kbd>W</kbd> / <kbd>Space</kbd> jump <span class="divider">·</span> <kbd>J</kbd> bonk where you face</p></div>
-        <div class="touch-controls" aria-label="Touch controls">
-          <div class="touch-move"><button data-hold="left" aria-label="Move left">←</button><button data-hold="right" aria-label="Move right">→</button><button data-hold="jump" aria-label="Jump">↑</button></div>
-          <button class="touch-hit" data-action="attack" aria-label="Attack in the direction you face">BONK</button>
-        </div>
-      </div>
-    </section>
-    <footer><span>Retro parody · Bonk silly countryballs</span><span>Endless waves · Local and GitHub Pages</span></footer>
-  </main>
+  <header><h1>SiegSim</h1><p>A / D move · W or Space jump · J punch in the direction you face</p></header>
+  <main><canvas id="game" width="1024" height="560" aria-label="SiegSim game. Move with A and D, jump with W or Space, and punch with J."></canvas></main>
+  <nav class="touch-controls" aria-label="Touch controls">
+    <div><button data-hold="left" aria-label="Move left">←</button><button data-hold="right" aria-label="Move right">→</button><button data-hold="jump" aria-label="Jump">↑</button></div>
+    <button data-action="attack" aria-label="Punch in the direction you face">PUNCH</button>
+  </nav>
   <script src="game.js"></script>
 </body>
 </html>

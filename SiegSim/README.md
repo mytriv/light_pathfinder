@@ -8,11 +8,11 @@ Open `index.html`, or visit [SiegSim on GitHub Pages](https://mytriv.github.io/l
 
 - **A / D** or **Left / Right:** move.
 - **W**, **Up**, or **Space:** jump.
-- **J:** attack in the direction you face. Left-click also attacks.
-- Touch players get one **BONK** button plus movement and jump buttons.
+- **J:** punch straight ahead in the direction you face. Left-click also attacks.
+- Touch screens get one punch button plus movement and jump buttons.
 
 ## Changes
 
-Combat now runs through endless escalating waves, with the opponent variants rotating between Soviet, China, North Korea, USA, and Britain countryballs. Movement accelerates quickly, eases to a stop, and has buffered jumps and coyote time. A single attack button faces the current movement direction and uses a readable swing animation. The game scales its canvas and playfield for desktop, phone, and landscape layouts.
+Combat runs through endless escalating waves, with opponent variants rotating between Soviet, China, North Korea, USA, and Britain countryballs. Each wave gets a new arrangement of jumpable platforms. Movement accelerates quickly, eases to a stop, and has buffered jumps and coyote time. The original GameMaker player sprites provide the idle, moving, and straight-punch poses. The page keeps only the game name and controls outside the responsive arena.
 
-The enemy sprites and dusk arena are newly generated pixel-art assets. The player is a hand-drawn, code-native pixel sprite. The original Windows executable and extracted files are not included in this browser folder.
+The enemy sprites and dusk arena are generated pixel-art assets. The original Windows executable is not included in this browser folder.

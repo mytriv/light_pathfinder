@@ -8,8 +8,11 @@
   enemySheet.src = 'assets/enemy-sheet.png';
   const arena = new Image();
   arena.src = 'assets/arena-dusk.png';
-  const hero = new Image();
-  hero.src = 'assets/hero.svg';
+  const heroSprites = {};
+  for (const [name, src] of Object.entries({ idle: 'hero-idle.png', left: 'hero-walk.png', right: 'hero-idle.png', punchRight: 'hero-punch-right.png', punchLeft: 'hero-punch-left.png' })) {
+    heroSprites[name] = new Image();
+    heroSprites[name].src = `assets/${src}`;
+  }
   const factions = [
     { name: 'Soviet', color: '#e54c42' },
     { name: 'China', color: '#ed5541' },
@@ -18,20 +21,6 @@
     { name: 'Britain', color: '#6487d0' }
   ];
   const input = { left: false, right: false, jump: false, jumpQueued: false };
-  const ui = {
-    message: document.getElementById('message'),
-    healthFill: document.getElementById('health-fill'),
-    healthTrack: document.querySelector('.health-track'),
-    healthValue: document.getElementById('health-value'),
-    targetValue: document.getElementById('target-value'),
-    waveValue: document.getElementById('wave-value'),
-    scoreValue: document.getElementById('score-value'),
-    overlay: document.getElementById('overlay'),
-    overlayKicker: document.getElementById('overlay-kicker'),
-    overlayTitle: document.getElementById('overlay-title'),
-    overlayCopy: document.getElementById('overlay-copy')
-  };
-
   let width = BASE_WIDTH;
   let height = 560;
   let floorY = 520;
@@ -46,6 +35,7 @@
   let lastTime = 0;
   let elapsed = 0;
   let hitFlash = 0;
+  let platforms = [];
 
   function readBest() {
     try { return Number(localStorage.getItem('siegsim-best-wave')) || 0; }
@@ -84,7 +74,7 @@
       attackTime: 0, attackCooldown: 0, attackFacing: 1,
       attackResolved: true, invulnerable: 0, walkPhase: 0
     };
-    ui.overlay.classList.add('hidden');
+    createPlatforms();
     spawnWave();
     updateHud();
   }
@@ -92,6 +82,7 @@
   function spawnWave() {
     const count = Math.min(12, 3 + Math.floor((wave - 1) * 0.7));
     enemies = [];
+    createPlatforms();
     const spawnSlots = wave < 4
       ? [0.55, 0.72, 0.88, 0.95, 0.62, 0.8, 0.5, 0.9, 0.66, 0.83, 0.96, 0.58]
       : [0.08, 0.92, 0.23, 0.77, 0.36, 0.64, 0.14, 0.86, 0.04, 0.96, 0.3, 0.7];
@@ -108,24 +99,23 @@
       });
     }
     waveBreak = 0;
-    ui.message.textContent = `Wave ${wave}: ${count} very serious opponents`;
     updateHud();
   }
 
-  function updateHud() {
-    const alive = enemies.filter(enemy => enemy.alive).length;
-    ui.healthFill.style.width = `${Math.max(0, player.health)}%`;
-    ui.healthFill.style.background = player.health < 30
-      ? 'linear-gradient(90deg,#be4c43,#e57c52)'
-      : 'linear-gradient(90deg,#e1674d,#f2bd60)';
-    ui.healthValue.textContent = String(Math.ceil(player.health));
-    ui.healthTrack.setAttribute('aria-valuenow', String(Math.ceil(player.health)));
-    ui.waveValue.textContent = String(wave);
-    ui.targetValue.textContent = String(alive);
-    ui.scoreValue.textContent = String(score);
-    if (!gameOver && waveBreak <= 0 && alive > 0) {
-      ui.message.textContent = `Wave ${wave} — ${alive} still bouncing`;
+  function createPlatforms() {
+    const count = 2 + Math.floor(Math.random() * 4);
+    const usableHeight = Math.max(150, floorY - 190);
+    platforms = [];
+    for (let i = 0; i < count; i++) {
+      const w = 110 + Math.random() * 115;
+      const x = 55 + Math.random() * Math.max(1, width - w - 110);
+      const y = floorY - 95 - Math.random() * usableHeight;
+      if (platforms.every(p => Math.abs(p.x - x) > 95 || Math.abs(p.y - y) > 70)) platforms.push({ x, y, w });
     }
+  }
+
+  function updateHud() {
+    // Compact status is drawn directly in the arena.
   }
 
   function setControl(action, down) {
@@ -140,6 +130,7 @@
   };
   const attackKeys = new Set(['KeyJ']);
   window.addEventListener('keydown', event => {
+    if (gameOver && (event.code === 'Enter' || event.code === 'KeyJ')) { event.preventDefault(); reset(); return; }
     const action = keyMap[event.code];
     if (!action && !attackKeys.has(event.code)) return;
     event.preventDefault();
@@ -176,7 +167,8 @@
   });
 
   function startAttack() {
-    if (gameOver || player.attackCooldown > 0) return;
+    if (gameOver) { reset(); return; }
+    if (player.attackCooldown > 0) return;
     const moving = Number(input.right) - Number(input.left);
     player.attackFacing = moving || player.facing;
     player.facing = player.attackFacing;
@@ -215,11 +207,6 @@
     gameOver = true;
     bestWave = Math.max(bestWave, wave);
     try { localStorage.setItem('siegsim-best-wave', String(bestWave)); } catch { /* storage may be disabled */ }
-    ui.overlay.classList.remove('hidden');
-    ui.overlayKicker.textContent = 'THE ARENA HAS HAD ENOUGH';
-    ui.overlayTitle.textContent = 'You got bonked';
-    ui.overlayCopy.textContent = `Score ${score.toLocaleString()} · Best run: wave ${bestWave}. The balls are already bragging.`;
-    ui.message.textContent = `Run ended on wave ${wave}`;
   }
 
   function update(dt) {
@@ -266,13 +253,20 @@
       player.vy -= 430 * dt;
       player.jumpHold -= dt;
     } else if (!input.jump) player.jumpHold = 0;
+    const oldFeet = player.feet;
     player.vy += 1720 * dt;
     player.feet += player.vy * dt;
+    let landed = false;
+    if (player.vy >= 0) for (const platform of platforms) {
+      if (oldFeet <= platform.y && player.feet >= platform.y && player.x + 12 > platform.x && player.x - 12 < platform.x + platform.w) {
+        player.feet = platform.y; player.vy = 0; landed = true; break;
+      }
+    }
     if (player.feet >= floorY) {
       player.feet = floorY;
       player.vy = 0;
       player.onGround = true;
-    } else player.onGround = false;
+    } else player.onGround = landed;
 
     player.attackTime = Math.max(0, player.attackTime - dt);
     player.attackCooldown = Math.max(0, player.attackCooldown - dt);
@@ -324,7 +318,6 @@
     particles = particles.filter(particle => particle.life > 0);
     if (waveCleared && waveBreak <= 0) {
       waveBreak = 1.3;
-      ui.message.textContent = `Wave ${wave} clear — take a breath`;
       updateHud();
     }
   }
@@ -356,6 +349,12 @@
     floorShade.addColorStop(0, '#26302b00'); floorShade.addColorStop(0.35, '#1c2724aa'); floorShade.addColorStop(1, '#111816ee');
     ctx.fillStyle = floorShade; ctx.fillRect(0, floorY - 72, width, height - floorY + 72);
     ctx.fillStyle = '#e6bb6e'; ctx.globalAlpha = 0.54; ctx.fillRect(0, floorY, width, 2); ctx.globalAlpha = 1;
+
+    for (const p of platforms) {
+      ctx.fillStyle = '#382d26'; ctx.fillRect(p.x, p.y, p.w, 12);
+      ctx.fillStyle = '#d7a259'; ctx.fillRect(p.x, p.y, p.w, 4);
+      ctx.fillStyle = '#f4d28b'; ctx.fillRect(p.x + 8, p.y + 5, Math.max(0, p.w - 16), 2);
+    }
 
     for (const enemy of enemies) drawEnemy(enemy);
     drawHero();
@@ -411,18 +410,30 @@
 
   function drawHero() {
     const jumping = !player.onGround;
-    const bob = player.onGround && Math.abs(player.vx) > 12 ? Math.abs(Math.sin(player.walkPhase)) * 3 : Math.sin(elapsed * 3) * 1.2;
+    const moving = player.onGround && Math.abs(player.vx) > 12;
+    const bob = moving ? Math.abs(Math.sin(player.walkPhase)) * 3 : Math.sin(elapsed * 3) * 1.2;
     const heightPx = 88;
-    const widthPx = 60;
+    const widthPx = 70;
     const top = player.feet - heightPx + bob;
     const alpha = player.invulnerable > 0 && Math.floor(elapsed * 20) % 2 === 0 ? 0.5 : 1;
     ctx.save();
     ctx.globalAlpha = alpha;
     ctx.translate(player.x, top + heightPx * 0.5);
-    ctx.scale(player.facing, 1);
-    if (player.attackTime > 0) ctx.rotate(-0.09);
-    else if (jumping) ctx.rotate(-player.vy * 0.00012);
-    if (hero.complete && hero.naturalWidth) ctx.drawImage(hero, -widthPx / 2, -heightPx / 2, widthPx, heightPx);
+    if (jumping) ctx.rotate(-player.vy * 0.00007);
+    const attacking = player.attackTime > 0;
+    const pose = attacking ? (player.attackFacing < 0 ? heroSprites.punchLeft : heroSprites.punchRight)
+      : moving ? (player.facing < 0 ? heroSprites.left : heroSprites.right)
+        : (player.facing < 0 ? heroSprites.left : heroSprites.right);
+    if (pose.complete && pose.naturalWidth) {
+      const punch = attacking ? Math.max(0, 1 - Math.abs(player.attackTime - 0.16) / 0.14) : 0;
+      const spriteWidth = attacking ? 100 + punch * 18 : widthPx;
+      ctx.drawImage(pose, -spriteWidth / 2, -heightPx / 2, spriteWidth, heightPx);
+      if (!attacking && moving) {
+        ctx.fillStyle = '#f1c47b';
+        ctx.globalAlpha *= 0.75;
+        ctx.fillRect(-12, -heightPx / 2 + 4 + Math.abs(Math.sin(player.walkPhase)) * 3, 8, 3);
+      }
+    }
     else {
       ctx.fillStyle = '#76513a'; ctx.fillRect(-16, -5, 32, 36);
       ctx.fillStyle = '#e2b487'; ctx.fillRect(-12, -30, 24, 24);
@@ -431,30 +442,26 @@
       ctx.fillRect(-4, -10, 10, 3);
       ctx.fillStyle = '#252326'; ctx.fillRect(-12, 30, 10, 9); ctx.fillRect(3, 30, 10, 9);
     }
-    if (player.attackTime > 0) {
-      const progress = 1 - player.attackTime / 0.3;
-      const reach = 16 + Math.sin(Math.min(1, progress / 0.7) * Math.PI) * 22;
-      ctx.fillStyle = '#e2b487'; ctx.fillRect(widthPx * 0.18 + reach, 3, 11, 9);
-      ctx.fillStyle = '#ffe49c'; ctx.fillRect(widthPx * 0.18 + reach + 6, 1, 6, 5);
-    }
     ctx.restore();
 
     if (player.attackTime > 0) {
       const progress = 1 - player.attackTime / 0.3;
+      const extension = Math.sin(Math.min(1, progress / 0.68) * Math.PI);
       ctx.save();
-      ctx.globalAlpha = Math.sin(Math.min(1, progress / 0.72) * Math.PI) * 0.9;
-      ctx.strokeStyle = '#fff0aa'; ctx.lineWidth = 5; ctx.lineCap = 'round';
-      ctx.beginPath();
-      const arcX = player.x + player.attackFacing * 45;
-      const arcY = top + 38;
-      ctx.arc(arcX, arcY, 29, player.attackFacing > 0 ? -1.15 : Math.PI + 0.15,
-        player.attackFacing > 0 ? 1.15 : Math.PI - 0.15, player.attackFacing < 0);
-      ctx.stroke();
+      ctx.globalAlpha = Math.min(1, extension * 1.5);
+      ctx.fillStyle = '#e8bb88';
+      ctx.fillRect(player.x + player.attackFacing * 23 - (player.attackFacing < 0 ? 40 + extension * 24 : 0), top + 34, 40 + extension * 24, 10);
+      ctx.fillStyle = '#f5d6a7';
+      ctx.fillRect(player.x + player.attackFacing * (61 + extension * 24) - (player.attackFacing < 0 ? 8 : 0), top + 32, 12, 14);
       ctx.restore();
     }
   }
 
   function drawParticles() {
+    ctx.save();
+    ctx.textAlign = 'left'; ctx.font = 'bold 18px system-ui, sans-serif'; ctx.fillStyle = '#fff1cf';
+    ctx.fillText(`SiegSim  ·  WAVE ${wave}  ·  HP ${Math.ceil(player.health)}  ·  ${score}`, 16, 28);
+    ctx.restore();
     for (const particle of particles) {
       ctx.globalAlpha = Math.min(1, particle.life * 2.2);
       ctx.fillStyle = '#fff1bb';
@@ -465,6 +472,12 @@
       ctx.shadowBlur = 0;
     }
     ctx.globalAlpha = 1;
+    if (gameOver) {
+      ctx.fillStyle = '#101719bb'; ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = '#fff1cf'; ctx.textAlign = 'center'; ctx.font = 'bold 38px system-ui, sans-serif';
+      ctx.fillText('BONKED!', width / 2, height / 2 - 12);
+      ctx.font = 'bold 18px system-ui, sans-serif'; ctx.fillText('Press J or Enter to restart', width / 2, height / 2 + 28);
+    }
   }
 
   function frame(time) {
@@ -475,8 +488,6 @@
     requestAnimationFrame(frame);
   }
 
-  document.getElementById('restart').addEventListener('click', reset);
-  document.getElementById('play-again').addEventListener('click', reset);
   reset();
   requestAnimationFrame(frame);
 })();
