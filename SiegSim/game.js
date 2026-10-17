@@ -4,6 +4,7 @@
   const canvas = document.getElementById('game');
   const ctx = canvas.getContext('2d');
   const BASE_WIDTH = 1024;
+  const BASE_HEIGHT = 576;
   const enemySheet = new Image();
   enemySheet.src = 'assets/enemy-sheet.png';
   const arena = new Image();
@@ -23,8 +24,8 @@
   ];
   const input = { left: false, right: false, jump: false, jumpQueued: false, fire: false };
   let width = BASE_WIDTH;
-  let height = 560;
-  let floorY = 520;
+  let height = BASE_HEIGHT;
+  let floorY = height - 40;
   let player;
   let enemies = [];
   let particles = [];
@@ -46,11 +47,10 @@
   }
 
   function resizeCanvas() {
-    const rect = canvas.getBoundingClientRect();
-    if (!rect.width || !rect.height) return;
+    if (!canvas.clientWidth || !canvas.clientHeight) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     width = BASE_WIDTH;
-    height = Math.max(380, BASE_WIDTH * rect.height / rect.width);
+    height = BASE_HEIGHT;
     floorY = height - 40;
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
@@ -318,7 +318,7 @@
     if (input.fire && player.attackCooldown <= 0) startAttack();
     if (player.attackTime > 0) {
       const fireFrame = Math.min(5, Math.floor((0.36 - player.attackTime) / 0.06));
-      while (player.burstShots < 3 && fireFrame >= player.burstShots * 2 + 1) {
+      while (player.burstShots < 3 && fireFrame >= player.burstShots * 2) {
         launchPlayerShot();
         player.burstShots += 1;
       }
@@ -429,7 +429,6 @@
     const muzzleX = player.x + player.attackFacing * 72;
     const muzzleY = player.feet - 55;
     projectiles.push({ x: muzzleX, y: muzzleY, vx: player.attackFacing * 620, vy: -10, life: 1.35, owner: 'player', seed: elapsed });
-    for (let i = 0; i < 5; i++) particles.push({ x: muzzleX, y: muzzleY, vx: player.attackFacing * (30 + Math.random() * 130), vy: -100 + Math.random() * 170, life: 0.18 + Math.random() * 0.18, text: '', ember: true });
   }
 
   function drawCover(image, x, y, destWidth, destHeight) {
@@ -549,19 +548,18 @@
     ctx.scale(facing, 1);
     if (jumping) ctx.rotate(-player.vy * 0.0002);
     if (useSheet) {
-      ctx.drawImage(heroSheet, poseFrame * HERO_FRAME_SIZE, poseRow * HERO_FRAME_SIZE, HERO_FRAME_SIZE, HERO_FRAME_SIZE,
-        -spriteWidth / 2, -spriteHeight / 2, spriteWidth, spriteHeight);
+      // The generated sheet's muzzle glow spills into the next cell. Trim that
+      // spill from the non-flash firing poses without scaling the hero itself.
+      const trimLeft = poseRow === 3 && poseFrame % 2 === 1 ? 26 : 0;
+      const frameWidth = HERO_FRAME_SIZE - trimLeft;
+      const targetWidth = spriteWidth * frameWidth / HERO_FRAME_SIZE;
+      ctx.drawImage(heroSheet, poseFrame * HERO_FRAME_SIZE + trimLeft, poseRow * HERO_FRAME_SIZE, frameWidth, HERO_FRAME_SIZE,
+        -spriteWidth / 2 + spriteWidth * trimLeft / HERO_FRAME_SIZE, -spriteHeight / 2, targetWidth, spriteHeight);
     } else if (pose.complete && pose.naturalWidth) ctx.drawImage(pose, -spriteWidth / 2, -spriteHeight / 2, spriteWidth, spriteHeight);
     else {
       ctx.fillStyle = '#76513a'; ctx.fillRect(-20, -8, 40, 48);
       ctx.fillStyle = '#e2b487'; ctx.fillRect(-22, -52, 44, 42);
       ctx.fillStyle = '#1a1714'; ctx.fillRect(-20, -56, 42, 12);
-    }
-    ctx.fillStyle = '#211711';
-    ctx.fillRect(-8, -18, 6, 3); ctx.fillRect(2, -18, 6, 3); ctx.fillRect(-2, -19, 4, 4);
-    if (moving && !attacking) {
-      const step = Math.sin(player.walkPhase) * 4;
-      ctx.fillStyle = '#59402a'; ctx.fillRect(-14 + step, spriteHeight / 2 - 9, 12, 6); ctx.fillRect(2 - step, spriteHeight / 2 - 5, 13, 6);
     }
     ctx.restore();
 
@@ -594,10 +592,21 @@
     for (const shot of projectiles) {
       ctx.save();
       if (shot.owner === 'player') {
-        const flicker = 0.8 + Math.sin(elapsed * 50 + shot.seed) * 0.2;
-        ctx.globalAlpha = flicker;
-        ctx.fillStyle = '#ff6d33'; ctx.beginPath(); ctx.ellipse(shot.x - Math.sign(shot.vx) * 6, shot.y, 14, 7, Math.atan2(shot.vy, shot.vx), 0, Math.PI * 2); ctx.fill();
-        ctx.fillStyle = '#fff0a0'; ctx.beginPath(); ctx.arc(shot.x, shot.y, 5, 0, Math.PI * 2); ctx.fill();
+        ctx.translate(shot.x, shot.y);
+        ctx.rotate((elapsed - shot.seed) * 12 * Math.sign(shot.vx));
+        ctx.lineJoin = 'miter';
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#312923';
+        ctx.fillStyle = '#c6c8bf';
+        ctx.beginPath();
+        ctx.moveTo(-3, -3); ctx.lineTo(-3, -14); ctx.lineTo(4, -14); ctx.lineTo(4, -8);
+        ctx.lineTo(1, -8); ctx.lineTo(1, -3); ctx.lineTo(14, -3); ctx.lineTo(14, 4);
+        ctx.lineTo(8, 4); ctx.lineTo(8, 1); ctx.lineTo(3, 1); ctx.lineTo(3, 14);
+        ctx.lineTo(-4, 14); ctx.lineTo(-4, 8); ctx.lineTo(-1, 8); ctx.lineTo(-1, 3);
+        ctx.lineTo(-14, 3); ctx.lineTo(-14, -4); ctx.lineTo(-8, -4); ctx.lineTo(-8, -1);
+        ctx.lineTo(-3, -1); ctx.closePath();
+        ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#f0d394'; ctx.fillRect(-2, -2, 4, 4);
       } else {
         ctx.fillStyle = '#4bc1ce'; ctx.beginPath(); ctx.arc(shot.x, shot.y, 8, 0, Math.PI * 2); ctx.fill();
         ctx.fillStyle = '#e9fbdf'; ctx.fillRect(shot.x - 2, shot.y - 2, 4, 4);
