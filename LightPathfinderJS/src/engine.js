@@ -299,8 +299,11 @@ export class PathfinderEngine {
           if(choiceStack.at(-1)?.indent===command.indent) choiceStack.pop();
         } else if(command.code===113) {
           break;
+        } else if(command.code===225) {
+          this.startScreenShake(Number(p[0]||0),Number(p[1]||0),Number(p[2]||0));
         } else if(command.code===353) {
-          this.gameOver=true;
+          const bossChoiceGameOver=eventMapId===2&&event.id===3;
+          this.finishGameOver(bossChoiceGameOver?'Помер від розриву ануса':'',bossChoiceGameOver);
           break;
         } else if(command.code===0&&command.indent===0) break;
       }
@@ -354,7 +357,27 @@ export class PathfinderEngine {
       ? ['Батя: Я ж сказав не повертатися, хуєсосина.','Тепер ти звідси вже не вийдеш.']
       : ['Лу́па: Ні, тільки не знову...','Треба було тікати минулого разу.'];
     for(const line of lines) await this.showMessage([line]);
+    this.finishGameOver(mapId===2?'Помер від розриву ануса':'',mapId===2);
+  }
+
+  finishGameOver(message='',shake=false) {
     this.gameOver=true;
+    this.gameOverMessage=message;
+    if(shake) this.startScreenShake(8,3,40);
+  }
+
+  startScreenShake(power,speed,durationFrames) {
+    this.screenShake={power:Math.max(0,power),speed:Math.max(1,speed),startedAt:performance.now(),duration:Math.max(0,durationFrames)*1000/60};
+  }
+
+  screenShakeOffset(timestamp) {
+    const shake=this.screenShake;
+    if(!shake||shake.duration<=0) return {x:0,y:0};
+    const elapsed=timestamp-shake.startedAt;
+    if(elapsed>=shake.duration) { this.screenShake=null; return {x:0,y:0}; }
+    const strength=shake.power*(1-elapsed/shake.duration);
+    const phase=elapsed*shake.speed*0.045;
+    return {x:Math.sin(phase)*strength,y:Math.cos(phase*1.17)*strength*0.35};
   }
 
   handleMenuInput(code) {
@@ -528,8 +551,11 @@ export class PathfinderEngine {
 
   draw(timestamp) {
     const ctx=this.ctx; ctx.clearRect(0,0,SCREEN_W,SCREEN_H); ctx.fillStyle='#10141a';ctx.fillRect(0,0,SCREEN_W,SCREEN_H);
-    if(this.gameOver) { this.drawGameOver(ctx); return; }
-    if(this.gameEnded) { this.drawGameEnded(ctx); return; }
+    const shake=this.screenShakeOffset(timestamp);
+    const isShaking=Boolean(shake.x||shake.y);
+    if(isShaking) { ctx.save();ctx.translate(shake.x,shake.y); }
+    if(this.gameOver) { this.drawGameOver(ctx); if(isShaking) ctx.restore(); return; }
+    if(this.gameEnded) { this.drawGameEnded(ctx); if(isShaking) ctx.restore(); return; }
     if(this.battle) { this.drawBattle(ctx); this.drawHud(ctx); return; }
     const position=this.player.moving?this.movementPosition(timestamp):{x:this.player.x,y:this.player.y};
     const camera={x:Math.max(0,Math.min(this.map.width*TILE-SCREEN_W,position.x*TILE-SCREEN_W/2+TILE/2)),y:Math.max(0,Math.min(this.map.height*TILE-SCREEN_H,position.y*TILE-SCREEN_H/2+TILE/2))};
@@ -545,6 +571,7 @@ export class PathfinderEngine {
     ctx.drawImage(this.overlayCanvas,-camera.x,-camera.y);
     this.drawHud(ctx);
     if(this.menu) this.drawMenu(ctx);
+    if(isShaking) ctx.restore();
   }
 
   movementPosition(timestamp) {
@@ -601,7 +628,9 @@ export class PathfinderEngine {
   }
 
   drawGameOver(ctx) {
-    ctx.fillStyle='#050609';ctx.fillRect(0,0,SCREEN_W,SCREEN_H);ctx.textAlign='center';ctx.fillStyle='#c9b77d';ctx.font='bold 38px serif';ctx.fillText('GAME OVER',SCREEN_W/2,SCREEN_H/2);ctx.fillStyle='#aeb4bd';ctx.font='14px monospace';ctx.fillText('Refresh the page to start again',SCREEN_W/2,SCREEN_H/2+38);ctx.textAlign='left';
+    ctx.fillStyle='#050609';ctx.fillRect(0,0,SCREEN_W,SCREEN_H);ctx.textAlign='center';ctx.fillStyle='#c9b77d';ctx.font='bold 38px serif';ctx.fillText('GAME OVER',SCREEN_W/2,SCREEN_H/2-18);
+    if(this.gameOverMessage) {ctx.fillStyle='#f3eee2';ctx.font='bold 18px sans-serif';ctx.fillText(this.gameOverMessage,SCREEN_W/2,SCREEN_H/2+20);}
+    ctx.fillStyle='#aeb4bd';ctx.font='14px monospace';ctx.fillText('Refresh the page to start again',SCREEN_W/2,SCREEN_H/2+58);ctx.textAlign='left';
   }
 
   drawGameEnded(ctx) {
