@@ -8,11 +8,9 @@
   enemySheet.src = 'assets/enemy-sheet.png';
   const arena = new Image();
   arena.src = 'assets/arena-dusk.png';
-  const heroSprites = {};
-  for (const [name, src] of Object.entries({ idle: 'hero-idle.png', left: 'hero-walk.png', right: 'hero-idle.png', punchRight: 'hero-punch-right.png', punchLeft: 'hero-punch-left.png' })) {
-    heroSprites[name] = new Image();
-    heroSprites[name].src = `assets/${src}`;
-  }
+  const heroSprites = { ready: new Image(), fire: new Image() };
+  heroSprites.ready.src = 'assets/hero-ready.png';
+  heroSprites.fire.src = 'assets/hero-fire.png';
   const factions = [
     { name: 'Soviet', color: '#e54c42' },
     { name: 'China', color: '#ed5541' },
@@ -36,6 +34,8 @@
   let elapsed = 0;
   let hitFlash = 0;
   let platforms = [];
+  let hazards = [];
+  let projectiles = [];
 
   function readBest() {
     try { return Number(localStorage.getItem('siegsim-best-wave')) || 0; }
@@ -68,11 +68,12 @@
     gameOver = false;
     hitFlash = 0;
     particles = [];
+    projectiles = [];
     player = {
       x: width * 0.27, feet: floorY, vx: 0, vy: 0, health: 100,
       facing: 1, onGround: true, coyote: 0, jumpHold: 0,
       attackTime: 0, attackCooldown: 0, attackFacing: 1,
-      attackResolved: true, invulnerable: 0, walkPhase: 0
+      invulnerable: 0, walkPhase: 0
     };
     createPlatforms();
     spawnWave();
@@ -83,6 +84,7 @@
     const count = Math.min(12, 3 + Math.floor((wave - 1) * 0.7));
     enemies = [];
     createPlatforms();
+    createHazards();
     const spawnSlots = wave < 4
       ? [0.55, 0.72, 0.88, 0.95, 0.62, 0.8, 0.5, 0.9, 0.66, 0.83, 0.96, 0.58]
       : [0.08, 0.92, 0.23, 0.77, 0.36, 0.64, 0.14, 0.86, 0.04, 0.96, 0.3, 0.7];
@@ -90,12 +92,15 @@
       const faction = factions[(wave - 1 + i) % factions.length];
       const x = width * spawnSlots[i % spawnSlots.length];
       enemies.push({
-        x, vx: 0, hp: 2 + Math.floor((wave - 1) / 5),
+        x, feet: floorY, vy: 0, onGround: true, jumpCooldown: 0.8 + Math.random() * 3, jumpTargetX: null,
+        vx: 0, hp: 2 + Math.floor((wave - 1) / 5),
         maxHp: 2 + Math.floor((wave - 1) / 5),
         faction: faction.name, factionIndex: factions.indexOf(faction),
         color: faction.color, hit: 0, hitCooldown: 0, stun: 0, dead: 0,
         alive: true, facing: x < player.x ? 1 : -1,
-        seed: i * 1.7 + wave * 0.8, attackCooldown: 1.25 + i * 0.42
+        seed: i * 1.7 + wave * 0.8, attackCooldown: 1.25 + i * 0.42,
+        shooter: wave >= 10 && (i % (wave >= 15 ? 2 : 3) === 0),
+        shotCooldown: 1.8 + Math.random() * 1.8
       });
     }
     waveBreak = 0;
@@ -104,13 +109,29 @@
 
   function createPlatforms() {
     const count = 2 + Math.floor(Math.random() * 4);
-    const usableHeight = Math.max(150, floorY - 190);
+    const usableHeight = Math.min(65, Math.max(40, floorY - 220));
     platforms = [];
     for (let i = 0; i < count; i++) {
       const w = 110 + Math.random() * 115;
       const x = 55 + Math.random() * Math.max(1, width - w - 110);
-      const y = floorY - 95 - Math.random() * usableHeight;
+      const y = floorY - 65 - Math.random() * usableHeight;
       if (platforms.every(p => Math.abs(p.x - x) > 95 || Math.abs(p.y - y) > 70)) platforms.push({ x, y, w });
+    }
+  }
+
+  function createHazards() {
+    hazards = [];
+    if (wave < 5) return;
+    const count = Math.min(4, Math.floor(wave / 5));
+    for (let i = 0; i < count; i++) {
+      const onPlatform = platforms.length && Math.random() < 0.55;
+      const platform = onPlatform ? platforms[Math.floor(Math.random() * platforms.length)] : null;
+      const y = platform ? platform.y : floorY;
+      const hazardWidth = 74 + Math.random() * 68;
+      const x = platform
+        ? platform.x + 8 + Math.random() * Math.max(1, platform.w - hazardWidth - 16)
+        : 60 + Math.random() * Math.max(1, BASE_WIDTH - hazardWidth - 120);
+      hazards.push({ x, y, width: hazardWidth, damage: 12 });
     }
   }
 
@@ -172,35 +193,41 @@
     const moving = Number(input.right) - Number(input.left);
     player.attackFacing = moving || player.facing;
     player.facing = player.attackFacing;
-    player.attackTime = 0.3;
-    player.attackCooldown = 0.34;
-    player.attackResolved = false;
+    player.attackTime = 0.26;
+    player.attackCooldown = 0.38;
+    const muzzleX = player.x + player.facing * 72;
+    const muzzleY = player.feet - 55;
+    projectiles.push({ x: muzzleX, y: muzzleY, vx: player.facing * 620, vy: -10, life: 1.35, owner: 'player', seed: elapsed });
+    for (let i = 0; i < 5; i++) particles.push({ x: muzzleX, y: muzzleY, vx: player.facing * (30 + Math.random() * 130), vy: -100 + Math.random() * 170, life: 0.18 + Math.random() * 0.18, text: '', ember: true });
     player.vx *= 0.86;
   }
 
-  function hitTarget() {
-    const inReach = enemies.filter(enemy => {
-      if (!enemy.alive || enemy.hitCooldown > 0) return false;
-      const dx = (enemy.x - player.x) * player.attackFacing;
-      const verticalGap = Math.abs((floorY - 36) - (player.feet - 35));
-      return dx > 8 && dx < 112 && verticalGap < 66;
-    }).sort((a, b) => Math.abs(a.x - player.x) - Math.abs(b.x - player.x));
-    const enemy = inReach[0];
-    if (!enemy) return;
+  function hitEnemy(enemy, direction) {
     enemy.hp -= 1;
     enemy.hit = 0.24;
     enemy.hitCooldown = 0.28;
     enemy.stun = 0.3;
-    enemy.vx = player.attackFacing * 260;
+    enemy.vx = direction * 260;
     score += 100;
-    particles.push({ x: enemy.x, y: floorY - 66, life: 0.55, text: enemy.hp <= 0 ? 'PLOP!' : 'BONK!' });
+    particles.push({ x: enemy.x, y: enemy.feet - 66, life: 0.55, text: enemy.hp <= 0 ? 'PLOP!' : 'TOAST!' });
     if (enemy.hp <= 0) {
       enemy.alive = false;
       enemy.dead = 0.38;
       score += 250 + wave * 20;
-      particles.push({ x: enemy.x, y: floorY - 108, life: 0.75, text: enemy.faction });
+      particles.push({ x: enemy.x, y: enemy.feet - 108, life: 0.75, text: enemy.faction });
     }
     updateHud();
+  }
+
+  function hurtPlayer(damage, direction) {
+    if (player.invulnerable > 0) return;
+    player.health = Math.max(0, player.health - damage);
+    player.invulnerable = 0.88;
+    player.vx = direction * 300;
+    player.vy = -230;
+    player.onGround = false;
+    hitFlash = 0.14;
+    if (player.health <= 0) finish();
   }
 
   function finish() {
@@ -271,11 +298,6 @@
     player.attackTime = Math.max(0, player.attackTime - dt);
     player.attackCooldown = Math.max(0, player.attackCooldown - dt);
     player.invulnerable = Math.max(0, player.invulnerable - dt);
-    if (player.attackTime > 0 && player.attackTime <= 0.18 && !player.attackResolved) {
-      player.attackResolved = true;
-      hitTarget();
-    }
-
     for (const enemy of enemies) {
       if (!enemy.alive) {
         enemy.dead = Math.max(0, enemy.dead - dt);
@@ -284,6 +306,8 @@
       enemy.hit = Math.max(0, enemy.hit - dt);
       enemy.hitCooldown = Math.max(0, enemy.hitCooldown - dt);
       enemy.attackCooldown = Math.max(0, enemy.attackCooldown - dt);
+      enemy.jumpCooldown -= dt;
+      enemy.shotCooldown -= dt;
       if (enemy.stun > 0) {
         enemy.stun = Math.max(0, enemy.stun - dt);
         enemy.vx *= Math.max(0, 1 - dt * 3.5);
@@ -291,30 +315,84 @@
         const distance = player.x - enemy.x;
         const chaseSpeed = Math.min(148, 78 + (wave - 1) * 5);
         const desired = Math.abs(distance) < 44 ? 0 : Math.sign(distance) * chaseSpeed;
-        enemy.vx += Math.sign(desired - enemy.vx) * Math.min(Math.abs(desired - enemy.vx), 520 * dt);
+        if (wave >= 3 && enemy.onGround && enemy.jumpCooldown <= 0) {
+          const reachable = platforms.filter(p => p.y < enemy.feet - 60 && Math.abs((p.x + p.w / 2) - enemy.x) < 165);
+          if (reachable.length) {
+            const target = reachable.reduce((best, p) => Math.abs(p.x + p.w / 2 - player.x) < Math.abs(best.x + best.w / 2 - player.x) ? p : best);
+            enemy.jumpTargetX = target.x + target.w / 2;
+            enemy.vx = Math.sign(enemy.jumpTargetX - enemy.x) * Math.min(220, chaseSpeed + 80);
+            enemy.vy = -720;
+            enemy.onGround = false;
+            enemy.jumpCooldown = 2.2 + Math.random() * 2.8;
+          }
+        }
+        if (enemy.onGround) {
+          enemy.jumpTargetX = null;
+          enemy.vx += Math.sign(desired - enemy.vx) * Math.min(Math.abs(desired - enemy.vx), 520 * dt);
+        } else if (enemy.jumpTargetX !== null) {
+          const steer = Math.sign(enemy.jumpTargetX - enemy.x) * 220;
+          enemy.vx += Math.sign(steer - enemy.vx) * Math.min(Math.abs(steer - enemy.vx), 420 * dt);
+        }
       }
       enemy.x += enemy.vx * dt;
       enemy.x = Math.max(32, Math.min(width - 32, enemy.x));
       enemy.facing = enemy.x < player.x ? 1 : -1;
 
-      const touching = Math.abs(enemy.x - player.x) < 48 && Math.abs(player.feet - floorY) < 54;
+      const enemyOldFeet = enemy.feet;
+      enemy.vy += 1720 * dt;
+      enemy.feet += enemy.vy * dt;
+      let enemyLanded = false;
+      if (enemy.vy >= 0) for (const platform of platforms) {
+        if (enemyOldFeet <= platform.y && enemy.feet >= platform.y && enemy.x + 24 > platform.x && enemy.x - 24 < platform.x + platform.w) {
+          enemy.feet = platform.y; enemy.vy = 0; enemyLanded = true; break;
+        }
+      }
+      if (enemy.feet >= floorY) { enemy.feet = floorY; enemy.vy = 0; enemy.onGround = true; }
+      else enemy.onGround = enemyLanded;
+
+      if (enemy.shooter && enemy.shotCooldown <= 0) {
+        const dx = player.x - enemy.x, dy = (player.feet - 52) - (enemy.feet - 48);
+        const length = Math.max(1, Math.hypot(dx, dy));
+        const speed = Math.min(390, 275 + wave * 3);
+        projectiles.push({ x: enemy.x + enemy.facing * 34, y: enemy.feet - 48, vx: dx / length * speed, vy: dy / length * speed, life: 2.8, owner: 'enemy', seed: elapsed });
+        enemy.shotCooldown = Math.max(0.9, 2.8 - wave * 0.055) + Math.random() * 0.8;
+      }
+
+      const touching = Math.abs(enemy.x - player.x) < 48 && Math.abs((enemy.feet - 42) - (player.feet - 45)) < 64;
       if (touching && player.invulnerable <= 0 && enemy.attackCooldown <= 0) {
-        player.health = Math.max(0, player.health - 5);
-        player.invulnerable = 0.88;
-        player.vx = (player.x < enemy.x ? -1 : 1) * 360;
-        player.vy = -230;
-        player.onGround = false;
+        hurtPlayer(5, player.x < enemy.x ? -1 : 1);
         enemy.attackCooldown = 1.45;
-        hitFlash = 0.14;
         particles.push({ x: player.x, y: player.feet - 74, life: 0.38, text: 'BONKED!' });
         updateHud();
-        if (player.health <= 0) finish();
       }
     }
 
+    for (const hazard of hazards) {
+      if (player.onGround && player.x + 16 > hazard.x && player.x - 16 < hazard.x + hazard.width && Math.abs(player.feet - hazard.y) < 13 && player.invulnerable <= 0) {
+        hurtPlayer(hazard.damage, player.x < hazard.x + hazard.width / 2 ? -1 : 1);
+        particles.push({ x: player.x, y: player.feet - 30, life: 0.5, text: 'OUCH!' });
+      }
+    }
+
+    for (const shot of projectiles) {
+      shot.x += shot.vx * dt; shot.y += shot.vy * dt; shot.life -= dt;
+      if (shot.owner === 'player') {
+        const target = enemies.find(enemy => enemy.alive && Math.abs(shot.x - enemy.x) < 34 && Math.abs(shot.y - (enemy.feet - 44)) < 40);
+        if (target) { hitEnemy(target, Math.sign(shot.vx)); shot.life = 0; }
+      } else if (Math.abs(shot.x - player.x) < 24 && Math.abs(shot.y - (player.feet - 50)) < 30) {
+        hurtPlayer(8, shot.vx < 0 ? -1 : 1);
+        particles.push({ x: player.x, y: player.feet - 50, life: 0.4, text: 'PFFT!' });
+        shot.life = 0;
+      }
+    }
+    projectiles = projectiles.filter(shot => shot.life > 0 && shot.x > -30 && shot.x < width + 30 && shot.y > -30 && shot.y < height + 30);
+
     const waveCleared = enemies.length > 0 && enemies.every(enemy => !enemy.alive);
     enemies = enemies.filter(enemy => enemy.alive || enemy.dead > 0);
-    for (const particle of particles) particle.life -= dt;
+    for (const particle of particles) {
+      particle.life -= dt;
+      if (particle.ember) { particle.x += particle.vx * dt; particle.y += particle.vy * dt; particle.vy += 360 * dt; }
+    }
     particles = particles.filter(particle => particle.life > 0);
     if (waveCleared && waveBreak <= 0) {
       waveBreak = 1.3;
@@ -355,9 +433,11 @@
       ctx.fillStyle = '#d7a259'; ctx.fillRect(p.x, p.y, p.w, 4);
       ctx.fillStyle = '#f4d28b'; ctx.fillRect(p.x + 8, p.y + 5, Math.max(0, p.w - 16), 2);
     }
+    drawHazards();
 
     for (const enemy of enemies) drawEnemy(enemy);
     drawHero();
+    drawProjectiles();
     drawParticles();
     if (hitFlash > 0) {
       ctx.fillStyle = `rgba(222, 86, 67, ${hitFlash * 0.23})`;
@@ -379,23 +459,27 @@
     const bob = enemy.alive ? Math.sin(elapsed * 5 + enemy.seed) * 2 : 0;
     const spriteWidth = 74;
     const spriteHeight = 88;
-    const top = floorY - spriteHeight + bob;
+    const top = enemy.feet - spriteHeight + bob;
     ctx.save();
     ctx.globalAlpha = fade;
     if (!enemy.alive) {
-      ctx.translate(enemy.x, floorY - spriteHeight / 2);
+      ctx.translate(enemy.x, enemy.feet - spriteHeight / 2);
       ctx.rotate((1 - fade) * 1.9);
-      ctx.translate(-enemy.x, -(floorY - spriteHeight / 2));
+      ctx.translate(-enemy.x, -(enemy.feet - spriteHeight / 2));
     }
     if (enemySheet.complete && enemySheet.naturalWidth) {
       const cellWidth = enemySheet.naturalWidth / 5;
       ctx.drawImage(enemySheet, enemy.factionIndex * cellWidth, 0, cellWidth, enemySheet.naturalHeight,
         enemy.x - spriteWidth / 2, top, spriteWidth, spriteHeight);
     } else {
-      ctx.fillStyle = enemy.color; ctx.beginPath(); ctx.arc(enemy.x, floorY - 43, 32, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = enemy.color; ctx.beginPath(); ctx.arc(enemy.x, enemy.feet - 43, 32, 0, Math.PI * 2); ctx.fill();
       ctx.strokeStyle = '#15191c'; ctx.lineWidth = 4; ctx.stroke();
-      ctx.fillStyle = '#fff'; ctx.fillRect(enemy.x - 14, floorY - 50, 8, 8); ctx.fillRect(enemy.x + 6, floorY - 50, 8, 8);
-      ctx.fillStyle = '#172023'; ctx.fillRect(enemy.x - 11, floorY - 48, 4, 5); ctx.fillRect(enemy.x + 9, floorY - 48, 4, 5);
+      ctx.fillStyle = '#fff'; ctx.fillRect(enemy.x - 14, enemy.feet - 50, 8, 8); ctx.fillRect(enemy.x + 6, enemy.feet - 50, 8, 8);
+      ctx.fillStyle = '#172023'; ctx.fillRect(enemy.x - 11, enemy.feet - 48, 4, 5); ctx.fillRect(enemy.x + 9, enemy.feet - 48, 4, 5);
+    }
+    if (enemy.alive && enemy.shooter) {
+      ctx.fillStyle = '#352a25'; ctx.fillRect(enemy.x + enemy.facing * 13 - (enemy.facing < 0 ? 25 : 0), enemy.feet - 48, 25, 8);
+      ctx.fillStyle = '#f3b467'; ctx.fillRect(enemy.x + enemy.facing * 34 - (enemy.facing < 0 ? 4 : 0), enemy.feet - 46, 5, 4);
     }
     if (enemy.alive && enemy.hp < enemy.maxHp) {
       ctx.fillStyle = '#242b2c'; ctx.fillRect(enemy.x - 23, top - 5, 46, 5);
@@ -403,7 +487,7 @@
     }
     if (enemy.hit > 0) {
       ctx.globalAlpha = fade * enemy.hit / 0.24 * 0.65;
-      ctx.fillStyle = '#fff0c8'; ctx.beginPath(); ctx.arc(enemy.x, floorY - 44, 38, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fff0c8'; ctx.beginPath(); ctx.arc(enemy.x, enemy.feet - 44, 38, 0, Math.PI * 2); ctx.fill();
     }
     ctx.restore();
   }
@@ -412,47 +496,68 @@
     const jumping = !player.onGround;
     const moving = player.onGround && Math.abs(player.vx) > 12;
     const bob = moving ? Math.abs(Math.sin(player.walkPhase)) * 3 : Math.sin(elapsed * 3) * 1.2;
-    const heightPx = 88;
-    const widthPx = 70;
+    const heightPx = 105;
     const top = player.feet - heightPx + bob;
     const alpha = player.invulnerable > 0 && Math.floor(elapsed * 20) % 2 === 0 ? 0.5 : 1;
+    const facing = player.attackTime > 0 ? player.attackFacing : player.facing;
     ctx.save();
     ctx.globalAlpha = alpha;
     ctx.translate(player.x, top + heightPx * 0.5);
-    if (jumping) ctx.rotate(-player.vy * 0.00007);
     const attacking = player.attackTime > 0;
-    const pose = attacking ? (player.attackFacing < 0 ? heroSprites.punchLeft : heroSprites.punchRight)
-      : moving ? (player.facing < 0 ? heroSprites.left : heroSprites.right)
-        : (player.facing < 0 ? heroSprites.left : heroSprites.right);
-    if (pose.complete && pose.naturalWidth) {
-      const punch = attacking ? Math.max(0, 1 - Math.abs(player.attackTime - 0.16) / 0.14) : 0;
-      const spriteWidth = attacking ? 100 + punch * 18 : widthPx;
-      ctx.drawImage(pose, -spriteWidth / 2, -heightPx / 2, spriteWidth, heightPx);
-      if (!attacking && moving) {
-        ctx.fillStyle = '#f1c47b';
-        ctx.globalAlpha *= 0.75;
-        ctx.fillRect(-12, -heightPx / 2 + 4 + Math.abs(Math.sin(player.walkPhase)) * 3, 8, 3);
-      }
-    }
+    const pose = attacking ? heroSprites.fire : heroSprites.ready;
+    const spriteHeight = attacking ? 96 : heightPx;
+    const spriteWidth = pose.naturalHeight ? spriteHeight * pose.naturalWidth / pose.naturalHeight : 70;
+    ctx.scale(facing, 1);
+    if (jumping) ctx.rotate(-player.vy * 0.00007);
+    if (pose.complete && pose.naturalWidth) ctx.drawImage(pose, -spriteWidth / 2, -spriteHeight / 2, spriteWidth, spriteHeight);
     else {
-      ctx.fillStyle = '#76513a'; ctx.fillRect(-16, -5, 32, 36);
-      ctx.fillStyle = '#e2b487'; ctx.fillRect(-12, -30, 24, 24);
-      ctx.fillStyle = '#211e20'; ctx.fillRect(-13, -32, 26, 7); ctx.fillRect(2, -25, 12, 4);
-      ctx.fillStyle = '#252329'; ctx.fillRect(-7, -20, 4, 3); ctx.fillRect(5, -20, 4, 3);
-      ctx.fillRect(-4, -10, 10, 3);
-      ctx.fillStyle = '#252326'; ctx.fillRect(-12, 30, 10, 9); ctx.fillRect(3, 30, 10, 9);
+      ctx.fillStyle = '#76513a'; ctx.fillRect(-20, -8, 40, 48);
+      ctx.fillStyle = '#e2b487'; ctx.fillRect(-22, -52, 44, 42);
+      ctx.fillStyle = '#1a1714'; ctx.fillRect(-20, -56, 42, 12);
+    }
+    if (moving && !attacking) {
+      const step = Math.sin(player.walkPhase) * 4;
+      ctx.fillStyle = '#59402a'; ctx.fillRect(-14 + step, spriteHeight / 2 - 9, 12, 6); ctx.fillRect(2 - step, spriteHeight / 2 - 5, 13, 6);
     }
     ctx.restore();
 
-    if (player.attackTime > 0) {
-      const progress = 1 - player.attackTime / 0.3;
-      const extension = Math.sin(Math.min(1, progress / 0.68) * Math.PI);
+    if (attacking) {
+      const muzzleX = player.x + facing * (spriteWidth / 2 + 2);
+      const muzzleY = player.feet - 55;
+      const flicker = 0.72 + Math.sin(elapsed * 77) * 0.2;
       ctx.save();
-      ctx.globalAlpha = Math.min(1, extension * 1.5);
-      ctx.fillStyle = '#e8bb88';
-      ctx.fillRect(player.x + player.attackFacing * 23 - (player.attackFacing < 0 ? 40 + extension * 24 : 0), top + 34, 40 + extension * 24, 10);
-      ctx.fillStyle = '#f5d6a7';
-      ctx.fillRect(player.x + player.attackFacing * (61 + extension * 24) - (player.attackFacing < 0 ? 8 : 0), top + 32, 12, 14);
+      ctx.globalAlpha = Math.min(1, player.attackTime / 0.1) * flicker;
+      ctx.fillStyle = '#ff7738'; ctx.beginPath(); ctx.ellipse(muzzleX, muzzleY, 18, 13, facing * 0.3, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ffe58a'; ctx.beginPath(); ctx.ellipse(muzzleX + facing * 5, muzzleY, 9, 7, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function drawHazards() {
+    for (const hazard of hazards) {
+      const baseY = hazard.y - 4;
+      ctx.strokeStyle = '#c5c0a8'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(hazard.x, baseY); ctx.lineTo(hazard.x + hazard.width, baseY); ctx.stroke();
+      ctx.strokeStyle = '#e6d2a0'; ctx.lineWidth = 2;
+      for (let x = hazard.x + 7; x < hazard.x + hazard.width - 4; x += 18) {
+        ctx.beginPath(); ctx.moveTo(x - 4, baseY - 7); ctx.lineTo(x + 3, baseY + 6); ctx.lineTo(x + 8, baseY - 7); ctx.stroke();
+      }
+      ctx.fillStyle = '#c93e35'; ctx.fillRect(hazard.x, baseY + 7, hazard.width, 3);
+    }
+  }
+
+  function drawProjectiles() {
+    for (const shot of projectiles) {
+      ctx.save();
+      if (shot.owner === 'player') {
+        const flicker = 0.8 + Math.sin(elapsed * 50 + shot.seed) * 0.2;
+        ctx.globalAlpha = flicker;
+        ctx.fillStyle = '#ff6d33'; ctx.beginPath(); ctx.ellipse(shot.x - Math.sign(shot.vx) * 6, shot.y, 14, 7, Math.atan2(shot.vy, shot.vx), 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#fff0a0'; ctx.beginPath(); ctx.arc(shot.x, shot.y, 5, 0, Math.PI * 2); ctx.fill();
+      } else {
+        ctx.fillStyle = '#4bc1ce'; ctx.beginPath(); ctx.arc(shot.x, shot.y, 8, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#e9fbdf'; ctx.fillRect(shot.x - 2, shot.y - 2, 4, 4);
+      }
       ctx.restore();
     }
   }
@@ -464,6 +569,10 @@
     ctx.restore();
     for (const particle of particles) {
       ctx.globalAlpha = Math.min(1, particle.life * 2.2);
+      if (particle.ember) {
+        ctx.fillStyle = '#ff9a45'; ctx.fillRect(particle.x, particle.y, 4, 4);
+        continue;
+      }
       ctx.fillStyle = '#fff1bb';
       ctx.font = '900 13px ui-monospace, monospace';
       ctx.textAlign = 'center';
