@@ -10,11 +10,12 @@
   const arena = new Image();
   arena.src = 'assets/arena-dusk.png';
   const heroSprites = { ready: new Image(), fire: new Image() };
-  heroSprites.ready.src = 'assets/hero-ready.png';
-  heroSprites.fire.src = 'assets/hero-fire.png';
-  const heroSheet = new Image();
-  heroSheet.src = 'assets/hero-animation-sheet.png';
-  const HERO_FRAME_SIZE = 256;
+  heroSprites.ready.src = 'assets/hero-idle.png';
+  heroSprites.fire.src = 'assets/hero-rifle.png';
+  const heroSpriteBounds = {
+    ready: { x: 300, y: 191, width: 618, height: 920 },
+    fire: { x: 133, y: 191, width: 1075, height: 905 }
+  };
   const factions = [
     { name: 'Soviet', color: '#e54c42' },
     { name: 'China', color: '#ed5541' },
@@ -537,25 +538,15 @@
     ctx.translate(player.x - facing * kickback, top + heightPx * 0.5);
     const attacking = player.attackTime > 0;
     const pose = attacking ? heroSprites.fire : heroSprites.ready;
-    const poseRow = attacking ? 3 : jumping ? 2 : moving ? 1 : -1;
-    let poseFrame = 0;
-    if (poseRow === 1) poseFrame = Math.floor((player.walkPhase % (Math.PI * 2)) / (Math.PI * 2) * 6);
-    if (poseRow === 2) poseFrame = Math.min(5, Math.floor(player.jumpTime / 0.12));
-    if (poseRow === 3) poseFrame = Math.min(5, Math.floor((0.36 - player.attackTime) / 0.06));
-    const useSheet = poseRow >= 0 && heroSheet.complete && heroSheet.naturalWidth >= HERO_FRAME_SIZE * 6;
-    const spriteHeight = useSheet ? 128 : attacking ? 96 : heightPx;
-    const spriteWidth = useSheet ? 128 : pose.naturalHeight ? spriteHeight * pose.naturalWidth / pose.naturalHeight : 70;
+    const bounds = attacking ? heroSpriteBounds.fire : heroSpriteBounds.ready;
+    const spriteHeight = attacking ? 96 : heightPx;
+    const spriteWidth = spriteHeight * bounds.width / bounds.height;
     ctx.scale(facing, 1);
     if (jumping) ctx.rotate(-player.vy * 0.0002);
-    if (useSheet) {
-      // The generated sheet's muzzle glow spills into the next cell. Trim that
-      // spill from the non-flash firing poses without scaling the hero itself.
-      const trimLeft = poseRow === 3 && poseFrame % 2 === 1 ? 26 : 0;
-      const frameWidth = HERO_FRAME_SIZE - trimLeft;
-      const targetWidth = spriteWidth * frameWidth / HERO_FRAME_SIZE;
-      ctx.drawImage(heroSheet, poseFrame * HERO_FRAME_SIZE + trimLeft, poseRow * HERO_FRAME_SIZE, frameWidth, HERO_FRAME_SIZE,
-        -spriteWidth / 2 + spriteWidth * trimLeft / HERO_FRAME_SIZE, -spriteHeight / 2, targetWidth, spriteHeight);
-    } else if (pose.complete && pose.naturalWidth) ctx.drawImage(pose, -spriteWidth / 2, -spriteHeight / 2, spriteWidth, spriteHeight);
+    if (pose.complete && pose.naturalWidth) {
+      ctx.drawImage(pose, bounds.x, bounds.y, bounds.width, bounds.height,
+        -spriteWidth / 2, -spriteHeight / 2, spriteWidth, spriteHeight);
+    }
     else {
       ctx.fillStyle = '#76513a'; ctx.fillRect(-20, -8, 40, 48);
       ctx.fillStyle = '#e2b487'; ctx.fillRect(-22, -52, 44, 42);
@@ -563,7 +554,7 @@
     }
     ctx.restore();
 
-    if (attacking && !useSheet) {
+    if (attacking) {
       const muzzleX = player.x + facing * (spriteWidth / 2 + 2);
       const muzzleY = player.feet - 55;
       const flicker = 0.72 + Math.sin(elapsed * 77) * 0.2;
