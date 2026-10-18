@@ -1,9 +1,8 @@
-import { PathfinderEngine } from './engine.js';
+import { GameShell } from './game-shell.js';
 
 const errorBox=document.querySelector('#error');
 try {
-  const engine=new PathfinderEngine(document.querySelector('#game'));
-  await engine.start();
+  new GameShell();
 } catch(error) {
   errorBox.hidden=false;
   errorBox.textContent=`The original XP map could not start.\n${error.stack||error.message}`;

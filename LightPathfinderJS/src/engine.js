@@ -1,5 +1,9 @@
 import { composeXpAutotile } from './autotile.js';
 import { loadJson, mapTileId, tableValue } from './data.js';
+import { StoryExpansion } from './story-expansion.js';
+import { NpcMotion } from './npc-motion.js';
+import { dialogueEntries, dialoguePages, originalEventSpeaker } from './dialogue.js';
+import {tr,mapLabel,localizeCanvas} from './i18n.js';
 
 const TILE = 32;
 const SCREEN_W = 640;
@@ -22,7 +26,7 @@ const getImage = path => {
 export class PathfinderEngine {
   constructor(canvas) {
     this.canvas = canvas;
-    this.ctx = canvas.getContext('2d');
+    this.ctx = localizeCanvas(canvas.getContext('2d'));
     this.ctx.imageSmoothingEnabled = false;
     this.tileCache = new Map();
     this.images = new Map();
@@ -38,22 +42,28 @@ export class PathfinderEngine {
     this.lastTimestamp = 0;
     this.renderedAutotileFrame = -1;
     this.autorunStarted = new Set();
+    this.npcMotion=new NpcMotion(this);
+    this.inputAbort=new AbortController();
   }
 
-  async start() {
+  async start({loadSaved=true}={}) {
     [this.system,this.actors,this.tilesets,this.mapInfos,this.classes,this.items,this.skills,this.weapons,this.armors] = await Promise.all([
       loadJson('System'),loadJson('Actors'),loadJson('Tilesets'),loadJson('MapInfos'),loadJson('Classes'),loadJson('Items'),loadJson('Skills'),loadJson('Weapons'),loadJson('Armors')
     ]);
-    const saved=this.readSave();
+    const saved=loadSaved?this.readSave():null;
     this.mapId = Number(saved?.mapId||this.system.start_map_id||1);
     this.switches=saved?.switches||[];
     this.variables=saved?.variables||[];
     this.selfSwitches=new Map(saved?.selfSwitches||[]);
     this.story=saved?.story||{bossDefeated:false,orgyVisited:false};
+    this.expansion=new StoryExpansion(this);
     this.player = {x:Number(saved?.player?.x??this.system.start_x??0),y:Number(saved?.player?.y??this.system.start_y??0),direction:Number(saved?.player?.direction||2),pattern:1,moving:null};
     const actor = this.actors[(this.system.party_members||[])[0]||1];
     this.actor=actor;
-    this.player.characterName = actor?.character_name;
+    const hasClothes=this.selfSwitches.get('9:1:A')||this.selfSwitches.get('9:2:A');
+    this.player.characterName = saved?.player?.characterName||(this.story.bossDefeated&&!hasClothes?'gallery_10517_34_1007':actor?.character_name);
+    this.player.battlerName=saved?.player?.battlerName||actor?.battler_name;
+    if(this.player.battlerName)actor.battler_name=this.player.battlerName;
     const baseHp=Number(actor?.parameters?.data?.[6]||500);
     this.party={hp:Number(saved?.party?.hp??baseHp),maxHp:baseHp,sp:Number(saved?.party?.sp??actor?.parameters?.data?.[7]??500),maxSp:Number(actor?.parameters?.data?.[7]||500),name:actor?.name||'Лупа',level:Number(saved?.party?.level||actor?.initial_level||1),gold:Number(saved?.party?.gold||0)};
     this.inventory=saved?.inventory||{items:{},weapons:{},armors:{}};
@@ -61,14 +71,18 @@ export class PathfinderEngine {
     await this.loadMap(this.mapId, this.player.x, this.player.y, this.player.direction);
     this.rebuildMap(0);
     this.bindInput();
-    document.querySelector('#map-name').textContent = this.mapName;
+    document.querySelector('#map-name').textContent = mapLabel(this.mapId,this.mapName);
     if(!saved) this.refreshAutorun();
-    if(this.mapId===2&&this.story.bossDefeated) await this.showStoryGameOver(2);
-    requestAnimationFrame(t=>this.frame(t));
+    this.frameRequest=requestAnimationFrame(t=>this.frame(t));
+    if(this.mapId===2&&this.story.bossDefeated) void this.showStoryGameOver(2);
+    if(this.mapId>=11&&this.mapId<=13) {
+      const event=this.map.events[1];void this.runEvent(event,this.activePage(event));
+    }
   }
 
   async loadGraphics() {
     const urls = new Set();
+    urls.add('assets/Graphics/Fogs/001-Fog01.png');
     urls.add(`assets/Graphics/Tilesets/${this.tileset.tileset_name}.png`);
     for (const name of this.tileset.autotile_names||[]) if(name) urls.add(`assets/Graphics/Autotiles/${name}.png`);
     for (const event of Object.values(this.map.events||{})) {
@@ -79,21 +93,34 @@ export class PathfinderEngine {
   }
 
   async loadMap(mapId, x, y, direction=this.player.direction) {
-    const map=await loadJson(`Map${String(mapId).padStart(3,'0')}`);
+    this.mapLoading=true;
+    try {
+    const map=this.expansion?.createMap(Number(mapId))||await loadJson(`Map${String(mapId).padStart(3,'0')}`);
     const tileset=this.tilesets[map.tileset_id];
     if(!tileset) throw new Error(`Map ${mapId} references missing XP tileset ${map.tileset_id}`);
     this.map=map; this.mapId=Number(mapId); this.tileset=tileset;
     this.player.x=Number(x); this.player.y=Number(y); this.player.direction=Number(direction)||this.player.direction||2;
     this.player.moving=null; this.player.pattern=1;
     this.tileCache.clear();
+    this.expansion?.prepareMap();
+    this.npcMotion.reset();
     await this.loadGraphics();
-    this.mapName=this.mapInfos?.[String(this.mapId)]?.name||`Map ${this.mapId}`;
-    document.querySelector('#map-name').textContent=this.mapName;
+    this.mapName=map.expansionName||this.mapInfos?.[String(this.mapId)]?.name||`Map ${this.mapId}`;
+    document.querySelector('#map-name').textContent=mapLabel(this.mapId,this.mapName);
     this.rebuildMap(Math.floor((performance.now()||0)/450));
+    } finally {this.mapLoading=false;}
+  }
+
+  async setPlayerGraphic(characterName,battlerName=this.player.battlerName) {
+    const path=`assets/Graphics/Characters/${characterName}.png`;
+    if(characterName&&!this.images.has(path))this.images.set(path,await getImage(path));
+    this.player.characterName=characterName;this.player.battlerName=battlerName;
+    this.actor.character_name=characterName;this.actor.battler_name=battlerName;
   }
 
   bindInput() {
-    this.canvas.addEventListener('click',event=>{
+    const listen=(target,type,handler)=>target.addEventListener(type,handler,{signal:this.inputAbort.signal});
+    listen(this.canvas,'click',event=>{
       if(this.menu) {
         const rect=this.canvas.getBoundingClientRect(),x=(event.clientX-rect.left)*this.canvas.width/rect.width,y=(event.clientY-rect.top)*this.canvas.height/rect.height;
         if(this.menu.message) { this.menu.message='';return; }
@@ -107,8 +134,9 @@ export class PathfinderEngine {
       const index=Math.floor((y-(SCREEN_H-174))/38);
       if(x>=18&&x<=SCREEN_W-18&&index>=0&&index<this.dialog.choices.length) this.selectChoice(index);
     });
-    window.addEventListener('keydown',event=>{
-      if(this.gameOver) { event.preventDefault(); return; }
+    listen(window,'keydown',event=>{
+      if(event.target?.closest?.('.language-control'))return;
+      if(this.gameOver||this.gameEnded) { event.preventDefault(); return; }
       if(this.menu) { event.preventDefault(); if(!event.repeat)this.handleMenuInput(event.code); return; }
       if(this.dialog?.choices) {
         if(event.code==='ArrowUp'||event.code==='ArrowDown') {
@@ -120,7 +148,7 @@ export class PathfinderEngine {
         if(['Enter','Space','KeyZ'].includes(event.code)) { event.preventDefault(); if(!event.repeat)this.selectChoice(this.dialog.choiceIndex); return; }
         return;
       }
-      if(!this.dialog&&!this.battle&&(event.code==='Escape'||event.code==='KeyX')) { event.preventDefault(); this.openMenu(); return; }
+      if(!this.dialog&&!this.battle&&!this.runningEvent&&(event.code==='Escape'||event.code==='KeyX')) { event.preventDefault(); this.openMenu(); return; }
       if (DIR_KEYS.has(event.code)) {
         event.preventDefault(); this.inputDirection=DIR_KEYS.get(event.code); this.keys.add(event.code); return;
       }
@@ -129,24 +157,39 @@ export class PathfinderEngine {
         if(this.dialog) this.advanceDialog(); else this.interact();
       }
     });
-    window.addEventListener('keyup',event=>{
+    listen(window,'keyup',event=>{
       this.keys.delete(event.code);
       if(DIR_KEYS.get(event.code)===this.inputDirection) {
         this.inputDirection=0;
         for(const key of this.keys) if(DIR_KEYS.has(key)) this.inputDirection=DIR_KEYS.get(key);
       }
     });
-    window.addEventListener('blur',()=>{this.keys.clear();this.inputDirection=0;});
+    listen(window,'blur',()=>{this.keys.clear();this.inputDirection=0;});
   }
 
   frame(timestamp) {
+    if(this.disposed)return;
     const now=timestamp||0;
     this.update(now);
     this.draw(now);
-    requestAnimationFrame(t=>this.frame(t));
+    this.frameRequest=requestAnimationFrame(t=>this.frame(t));
+  }
+
+  dispose() {
+    this.disposed=true;this.inputAbort.abort();cancelAnimationFrame(this.frameRequest);
+    this.keys.clear();this.inputDirection=0;
+    this.expansion?.dispose();
+  }
+
+  finishGame({crash=false,ending=0,message=''}={}) {
+    this.gameEnded=true;this.menu=null;this.inputDirection=0;this.keys?.clear();
+    this.terminalState={crash,ending,message};
+    this.onFinish?.(this.terminalState);
   }
 
   update(now) {
+    if(this.mapLoading)return;
+    this.npcMotion.update(now);
     if(this.player.moving && now-this.player.moving.start>=this.player.moving.duration) {
       const arrived=this.player.moving.to;
       this.player.x=arrived.x; this.player.y=arrived.y; this.player.moving=null; this.player.pattern=1;
@@ -155,7 +198,7 @@ export class PathfinderEngine {
         if(page&&page.trigger===1&&event.x===this.player.x&&event.y===this.player.y) this.runEvent(event,page);
       }
     }
-    if(!this.player.moving&&!this.dialog&&!this.menu&&this.inputDirection) this.tryMove(this.inputDirection,now);
+    if(!this.player.moving&&!this.dialog&&!this.menu&&!this.runningEvent&&!this.gameOver&&!this.gameEnded&&this.inputDirection) this.tryMove(this.inputDirection,now);
     const frame=Math.floor(now/450);
     if(frame!==this.renderedAutotileFrame) this.rebuildMap(frame);
   }
@@ -163,10 +206,15 @@ export class PathfinderEngine {
   tryMove(direction, now) {
     this.player.direction=direction;
     const [dx,dy]=DIRS[direction],x=this.player.x,y=this.player.y,nx=x+dx,ny=y+dy;
+    // A doorway is an action hotspot even when its wall tile is impassable.
+    const doorway=Object.values(this.map.events||{}).find(event=>event.entryTouch&&(
+      event.x===nx&&event.y===ny||event.x===x&&event.y===y&&event.touchExitDirection===direction
+    ));
+    if(doorway&&!this.runningEvent) {this.runEvent(doorway,this.activePage(doorway));return;}
     if(!this.isPassable(x,y,direction)||!this.isPassable(nx,ny,OPPOSITE[direction])) return;
     for(const event of Object.values(this.map.events||{})) {
       const page=this.activePage(event); if(!page) continue;
-      if(event.x===nx&&event.y===ny) {
+      if(this.npcMotion.occupies(event,nx,ny)) {
         if(page.trigger===1) { this.runEvent(event,page); return; }
         const graphic=page.graphic||{};
         const hasGraphic=Boolean(graphic.character_name)||Number(graphic.tile_id||0)>0;
@@ -181,6 +229,7 @@ export class PathfinderEngine {
 
   isPassable(x,y,direction) {
     if(x<0||y<0||x>=this.map.width||y>=this.map.height) return false;
+    if(this.map.expansionName) return x>0&&x<19&&y>2&&y<14&&!this.map.blocked?.some(([bx,by])=>bx===x&&by===y);
     const bit=1<<({2:0,4:1,6:2,8:3}[direction]);
     for(let z=2;z>=0;z--) {
       const id=mapTileId(this.map,x,y,z); if(!id) continue;
@@ -206,7 +255,11 @@ export class PathfinderEngine {
 
   interact() {
     const [dx,dy]=DIRS[this.player.direction],x=this.player.x+dx,y=this.player.y+dy;
-    const events=Object.values(this.map.events||{});
+    // Decorative events can share a door tile. They must not swallow its action.
+    const events=Object.values(this.map.events||{}).filter(event=>{
+      const page=this.activePage(event);
+      return page?.trigger===0&&(event.storyKey||(page.list||[]).some(command=>command.code!==0));
+    });
     const event=events.find(e=>e.x===x&&e.y===y)||events.find(e=>e.x===this.player.x&&e.y===this.player.y);
     const page=event&&this.activePage(event);
     if(page&&page.trigger===0) this.runEvent(event,page);
@@ -215,9 +268,11 @@ export class PathfinderEngine {
   async runEvent(event,page) {
     if(this.runningEvent) return;
     this.runningEvent=true;
+    this.currentEvent=event;
     const eventMapId=this.mapId;
     if(eventMapId===4&&event.id===7) this.story.orgyVisited=true;
     try {
+      if(await this.expansion.handleEvent(event)) return;
       const list=page.list||[];
       const choiceStack=[];
       let battleResult=null;
@@ -232,7 +287,7 @@ export class PathfinderEngine {
         if(command.code===101) {
           const lines=[];
           while(list[i+1]?.code===401) lines.push(String(list[++i].parameters?.[0]||''));
-          await this.showMessage([String(p[0]||''),...lines].filter(Boolean));
+          await this.showMessage([String(p[0]||''),...lines].filter(Boolean),{speaker:originalEventSpeaker(eventMapId,event,page)});
         } else if(command.code===102) {
           const options=(p[0]||[]).map(String);
           if(!options.length) continue;
@@ -250,7 +305,7 @@ export class PathfinderEngine {
           choiceStack.push({indent:command.indent});
           i=marker;
         } else if(command.code===123) {
-          const letter=String(p[0]||'A'); this.selfSwitches.set(`${this.mapId}:${event.id}:${letter}`,Number(p[1]||0)===0);
+          const letter=String(p[0]||'A'); this.selfSwitches.set(`${eventMapId}:${event.id}:${letter}`,Number(p[1]||0)===0);
         } else if(command.code===352) {
           const saved=this.saveGame();
           await this.showMessage([saved?'Гру збережено.':'Не вдалося зберегти гру в цьому браузері.']);
@@ -267,6 +322,8 @@ export class PathfinderEngine {
           this.inventory[kind][id]=Math.max(0,Number(this.inventory[kind][id]||0)+delta);
         } else if(command.code===339) {
           this.forcedAction={subject:Number(p[0]),target:Number(p[1]),action:Number(p[2]),skillId:Number(p[3])};
+        } else if(command.code===322) {
+          if(Number(p[0])===Number((this.system.party_members||[])[0]||1))await this.setPlayerGraphic(String(p[1]||''),String(p[3]||''));
         } else if(command.code===337) {
           this.forcedAnimationId=Number(p[2]||0);
         } else if(command.code===301) {
@@ -294,7 +351,6 @@ export class PathfinderEngine {
             break;
           }
           await this.loadMap(destination.mapId,destination.x,destination.y,destination.direction||this.player.direction);
-          if((eventMapId===2&&event.id===3&&this.story.bossDefeated)||(eventMapId===4&&event.id===7&&this.story.orgyVisited)) this.saveGame();
         } else if(command.code===404) {
           if(choiceStack.at(-1)?.indent===command.indent) choiceStack.pop();
         } else if(command.code===113) {
@@ -308,7 +364,10 @@ export class PathfinderEngine {
         } else if(command.code===0&&command.indent===0) break;
       }
     } finally {
+      if((eventMapId===2&&event.id===3&&this.story.bossDefeated)||(eventMapId===4&&event.id===7&&this.story.orgyVisited))this.saveGame();
+      this.expansion.refresh();
       this.runningEvent=false;
+      this.currentEvent=null;
       this.refreshAutorun();
     }
   }
@@ -330,8 +389,29 @@ export class PathfinderEngine {
     for(const key of this.autorunStarted) if(key.startsWith(`${this.mapId}:`)&&!active.has(key)) this.autorunStarted.delete(key);
   }
 
-  showMessage(lines) {
-    return new Promise(resolve=>{this.dialog={lines,index:0,resolve};});
+  showMessage(lines,{speaker='Система'}={}) {
+    // Keep every word of long source dialogue; display at most three rows per page.
+    this.ctx.save();this.ctx.font='18px sans-serif';
+    const sourceEntries=dialogueEntries(lines,speaker);
+    const pages=this.localizedDialoguePages(sourceEntries);
+    this.ctx.restore();
+    return new Promise(resolve=>{this.dialog={sourceEntries,pages,lines:pages.map(page=>page.text),speaker:pages[0].speaker,index:0,resolve};});
+  }
+
+  localizedDialoguePages(entries) {
+    this.ctx.save();this.ctx.font='18px sans-serif';
+    const pages=entries.flatMap((entry,entryIndex)=>dialoguePages([{speaker:tr(entry.speaker),text:tr(entry.text)}],text=>this.wrapText(this.ctx,text,SCREEN_W-76)).map((page,part)=>({...page,entryIndex,part})));
+    this.ctx.restore();return pages;
+  }
+  refreshLanguage() {
+    const d=this.dialog;
+    if(d?.choices) {d.choices=d.sourceChoices.map(choice=>tr(choice));d.speaker=tr(this.party?.name||'Лупа');}
+    else if(d?.sourceEntries) {
+      const old=d.pages[d.index],pages=this.localizedDialoguePages(d.sourceEntries),matching=pages.map((page,index)=>({...page,index})).filter(page=>page.entryIndex===old.entryIndex);
+      d.pages=pages;d.lines=pages.map(page=>page.text);d.index=matching[Math.min(old.part,matching.length-1)]?.index||0;d.speaker=pages[d.index].speaker;
+    }
+    document.querySelector('#map-name').textContent=mapLabel(this.mapId,this.mapName);
+    this.expansion.refresh();
   }
 
   readSave() {
@@ -345,7 +425,7 @@ export class PathfinderEngine {
   }
 
   saveGame() {
-    const state={mapId:this.mapId,player:{x:this.player.x,y:this.player.y,direction:this.player.direction},party:{hp:this.party.hp,sp:this.party.sp,level:this.party.level,gold:this.party.gold},inventory:this.inventory,equipment:this.equipment,switches:this.switches,variables:this.variables,selfSwitches:[...this.selfSwitches],story:this.story};
+    const state={mapId:this.mapId,player:{x:this.player.x,y:this.player.y,direction:this.player.direction,characterName:this.player.characterName,battlerName:this.player.battlerName},party:{hp:this.party.hp,sp:this.party.sp,level:this.party.level,gold:this.party.gold},inventory:this.inventory,equipment:this.equipment,switches:this.switches,variables:this.variables,selfSwitches:[...this.selfSwitches],story:this.story};
     try { localStorage.setItem('light-pathfinder-save-v1',JSON.stringify(state)); return true; }
     catch { return false; }
   }
@@ -364,6 +444,7 @@ export class PathfinderEngine {
     this.gameOver=true;
     this.gameOverMessage=message;
     if(shake) this.startScreenShake(8,3,40);
+    this.finishGame({message});
   }
 
   startScreenShake(power,speed,durationFrames) {
@@ -410,7 +491,7 @@ export class PathfinderEngine {
       m.returnIndex=m.index;m.slot=m.index===0?'weapon':`armor${m.index-1}`;m.scene='equipment-list';m.index=0;
     } else if(m.scene==='equipment-list') this.equipMenuItem(this.menuEntries()[m.index]);
     else if(m.scene==='end-confirm') {
-      if(m.index===0) { this.menu=null;this.gameEnded=true; }
+      if(m.index===0) { this.menu=null;this.onTitle?this.onTitle():this.finishGame(); }
       else { m.scene='main';m.index=0; }
     }
   }
@@ -494,12 +575,12 @@ export class PathfinderEngine {
   advanceDialog() {
     if(!this.dialog) return;
     if(this.dialog.choices) { this.selectChoice(this.dialog.choiceIndex); return; }
-    if(this.dialog.index<this.dialog.lines.length-1) this.dialog.index++;
+    if(this.dialog.index<this.dialog.lines.length-1) {this.dialog.index++;this.dialog.speaker=this.dialog.pages[this.dialog.index].speaker;}
     else { const done=this.dialog.resolve; this.dialog=null; done(); }
   }
 
   showChoices(choices,cancelType) {
-    return new Promise(resolve=>{this.dialog={choices,choiceIndex:0,cancelType,resolve};});
+    return new Promise(resolve=>{this.dialog={choices:choices.map(choice=>tr(choice)),sourceChoices:choices,speaker:tr(this.party?.name||'Лупа'),choiceIndex:0,cancelType,resolve};});
   }
 
   selectChoice(index) {
@@ -563,12 +644,13 @@ export class PathfinderEngine {
     const sprites=[];
     for(const event of Object.values(this.map.events||{})) {
       const page=this.activePage(event),g=page?.graphic;
-      if(g?.character_name||Number(g?.tile_id||0)>0) sprites.push({x:event.x,y:event.y,name:g.character_name,pattern:Number(g.pattern||1),direction:Number(g.direction||2),above:Boolean(page.always_on_top)});
+      if(g?.character_name||Number(g?.tile_id||0)>0) sprites.push({...this.npcMotion.sprite(event,page,timestamp),name:g.character_name,above:Boolean(page.always_on_top)});
     }
     sprites.push({x:position.x,y:position.y,name:this.player.characterName,pattern:this.player.pattern,direction:this.player.direction,above:false,isPlayer:true});
     sprites.sort((a,b)=>Number(a.above)-Number(b.above)||a.y-b.y);
     for(const sprite of sprites) this.drawCharacter(ctx,sprite,camera,timestamp);
     ctx.drawImage(this.overlayCanvas,-camera.x,-camera.y);
+    this.expansion.draw(ctx,timestamp);
     this.drawHud(ctx);
     if(this.menu) this.drawMenu(ctx);
     if(isShaking) ctx.restore();
@@ -586,28 +668,38 @@ export class PathfinderEngine {
     if(!image) return;
     const cellW=image.width/4,cellH=image.height/4;
     const moving=sprite.isPlayer&&this.player.moving;
-    const pattern=moving?this.player.pattern:Math.min(3,sprite.pattern||1);
+    const pattern=moving?this.player.pattern:Math.min(3,sprite.pattern??1);
     const row=({2:0,4:1,6:2,8:3})[sprite.direction]||0;
     const x=sprite.x*TILE-camera.x+(TILE-cellW)/2,y=sprite.y*TILE-camera.y+TILE-cellH;
     ctx.drawImage(image,pattern*cellW,row*cellH,cellW,cellH,x,y,cellW,cellH);
   }
 
   drawHud(ctx) {
-    ctx.fillStyle='#0b1016d9';ctx.fillRect(8,8,220,26);ctx.fillStyle='#e7d3a7';ctx.font='13px monospace';ctx.fillText(`Map ${this.mapId}: ${this.mapName}`,16,26);
+    ctx.fillStyle='#0b1016d9';ctx.fillRect(8,8,220,26);ctx.fillStyle='#e7d3a7';ctx.font='13px monospace';ctx.fillText(`Map ${this.mapId}: ${mapLabel(this.mapId,this.mapName)}`,16,26);
     if(!this.dialog) return;
+    this.drawDialogueSpeaker(ctx,this.dialog.speaker||'Система',this.dialog.choices?SCREEN_H-190:SCREEN_H-150);
     if(this.dialog.choices) {
       ctx.fillStyle='#080b10ed';ctx.fillRect(18,SCREEN_H-190,SCREEN_W-36,172);ctx.strokeStyle='#c7a96b';ctx.lineWidth=2;ctx.strokeRect(18,SCREEN_H-190,SCREEN_W-36,172);
       ctx.font='18px sans-serif';
       this.dialog.choices.forEach((choice,i)=>{const y=SCREEN_H-156+i*38;ctx.fillStyle=i===this.dialog.choiceIndex?'#f3d27a':'#f3eee2';ctx.fillText(`${i===this.dialog.choiceIndex?'▶':' '} ${choice}`,38,y);});
-      ctx.fillStyle='#c5cbd4';ctx.font='12px monospace';ctx.fillText('Click or use ↑ / ↓ + Enter',SCREEN_W-235,SCREEN_H-36);
+      ctx.fillStyle='#c5cbd4';ctx.font='12px monospace';ctx.fillText(document.documentElement.classList.contains('touch-game')?'Торкнись відповіді':'Click or use ↑ / ↓ + Enter',SCREEN_W-235,SCREEN_H-36);
       return;
     }
     const lines=this.dialog.lines[this.dialog.index]||'';
-    ctx.fillStyle='#080b10ed';ctx.fillRect(18,SCREEN_H-132,SCREEN_W-36,114);ctx.strokeStyle='#c7a96b';ctx.lineWidth=2;ctx.strokeRect(18,SCREEN_H-132,SCREEN_W-36,114);
+    ctx.fillStyle='#080b10ed';ctx.fillRect(18,SCREEN_H-150,SCREEN_W-36,132);ctx.strokeStyle='#c7a96b';ctx.lineWidth=2;ctx.strokeRect(18,SCREEN_H-150,SCREEN_W-36,132);
     ctx.fillStyle='#f3eee2';ctx.font='18px sans-serif';
     const wrapped=this.wrapText(ctx,lines,SCREEN_W-76);
-    wrapped.slice(0,3).forEach((line,i)=>ctx.fillText(line,38,SCREEN_H-92+i*24));
-    ctx.fillStyle='#c5cbd4';ctx.font='12px monospace';ctx.fillText('Enter / Z  ·  continue',SCREEN_W-190,SCREEN_H-36);
+    wrapped.slice(0,3).forEach((line,i)=>ctx.fillText(line,38,SCREEN_H-112+i*24));
+    ctx.fillStyle='#c5cbd4';ctx.font='12px monospace';ctx.fillText(document.documentElement.classList.contains('touch-game')?'Дія — далі':'Enter / Z  ·  continue',SCREEN_W-190,SCREEN_H-36);
+  }
+
+  drawDialogueSpeaker(ctx,speaker,boxTop) {
+    speaker=tr(speaker);
+    ctx.save();ctx.font='bold 17px sans-serif';
+    const width=Math.min(SCREEN_W-60,Math.max(90,ctx.measureText(speaker).width+32));
+    ctx.fillStyle='#101722';ctx.fillRect(30,boxTop-28,width,28);
+    ctx.strokeStyle='#c7a96b';ctx.lineWidth=2;ctx.strokeRect(30,boxTop-28,width,28);
+    ctx.fillStyle='#f3d27a';ctx.fillText(speaker,46,boxTop-8);ctx.restore();
   }
 
   drawBattle(ctx) {
@@ -634,7 +726,7 @@ export class PathfinderEngine {
   }
 
   drawGameEnded(ctx) {
-    ctx.fillStyle='#070a0f';ctx.fillRect(0,0,SCREEN_W,SCREEN_H);ctx.textAlign='center';ctx.fillStyle='#e7d3a7';ctx.font='bold 30px serif';ctx.fillText('Game End',SCREEN_W/2,SCREEN_H/2);ctx.fillStyle='#aeb4bd';ctx.font='14px monospace';ctx.fillText('Refresh the page to play again',SCREEN_W/2,SCREEN_H/2+34);ctx.textAlign='left';
+    ctx.fillStyle='#070a0f';ctx.fillRect(0,0,SCREEN_W,SCREEN_H);ctx.textAlign='center';ctx.fillStyle='#e7d3a7';ctx.font='bold 30px serif';ctx.fillText(this.terminalState?.crash?'500 · Internal Server Error':'Гра завершена',SCREEN_W/2,SCREEN_H/2);ctx.textAlign='left';
   }
 
   drawMenu(ctx) {
@@ -644,12 +736,12 @@ export class PathfinderEngine {
     ctx.fillStyle='#e7d3a7';ctx.font='bold 17px sans-serif';ctx.fillText('Menu',34,48);
     const entries=this.menuEntries(),baseY=78;
     ctx.font='16px sans-serif';
-    entries.forEach((entry,i)=>{const label=typeof entry==='string'?entry:entry.label||entry.data?.name||'';const y=baseY+i*36;if(i===m.index){ctx.fillStyle='#c7a96b55';ctx.fillRect(28,y-20,176,30);}ctx.fillStyle=i===m.index?'#f3d27a':'#f3eee2';ctx.fillText(`${i===m.index?'▶':' '} ${label}`,38,y);});
+    entries.forEach((entry,i)=>{const label=tr(typeof entry==='string'?entry:entry.label||entry.data?.name||'');const y=baseY+i*36;if(i===m.index){ctx.fillStyle='#c7a96b55';ctx.fillRect(28,y-20,176,30);}ctx.fillStyle=i===m.index?'#f3d27a':'#f3eee2';ctx.fillText(`${i===m.index?'▶':' '} ${label}`,38,y);});
     ctx.fillStyle='#d9dce1';ctx.font='14px sans-serif';
     if(m.scene==='main') {
       ctx.font='bold 18px sans-serif';ctx.fillText(this.party.name,250,55);ctx.font='15px sans-serif';
       ctx.fillText(`Рівень ${this.party.level}`,250,90);ctx.fillText(`${this.system.words?.hp||'HP'}  ${this.party.hp} / ${this.party.maxHp}`,250,122);ctx.fillText(`${this.system.words?.sp||'SP'}  ${this.party.sp} / ${this.party.maxSp}`,250,152);ctx.fillText(`${this.system.words?.gold||'Gold'}  ${this.party.gold}`,250,182);
-      ctx.fillStyle='#c5cbd4';ctx.font='13px monospace';ctx.fillText('↑ / ↓ Select   Enter Confirm   Esc Cancel',250,426);
+      ctx.fillStyle='#c5cbd4';ctx.font='13px monospace';ctx.fillText(document.documentElement.classList.contains('touch-game')?'Дія — обрати · Назад':'↑ / ↓ Select   Enter Confirm   Esc Cancel',250,426);
     } else if(m.scene==='status') {
       const row=this.party.level*6,params=this.actor.parameters?.data||[];
       ctx.font='bold 18px sans-serif';ctx.fillText(`${this.party.name}  ·  Рівень ${this.party.level}`,250,55);ctx.font='15px sans-serif';
@@ -671,11 +763,13 @@ export class PathfinderEngine {
       ctx.font='bold 18px sans-serif';ctx.fillText('Видалити збереження?',250,58);ctx.font='15px sans-serif';ctx.fillStyle='#c5cbd4';ctx.fillText('Поточна гра не завершиться.',250,94);
       ctx.fillText('Після перезавантаження почнеться нова гра.',250,120);
     }
-    if(m.message) {box(94,190,452,88);ctx.fillStyle='#f3eee2';ctx.font='17px sans-serif';ctx.fillText(m.message,116,232);ctx.fillStyle='#c5cbd4';ctx.font='12px monospace';ctx.fillText('Enter to continue',116,258);}
-    ctx.fillStyle='#c5cbd4';ctx.font='12px monospace';ctx.fillText('Enter: confirm   Esc / X: back',34,444);
+    if(m.message) {box(94,190,452,88);ctx.fillStyle='#f3eee2';ctx.font='17px sans-serif';ctx.fillText(m.message,116,232);ctx.fillStyle='#c5cbd4';ctx.font='12px monospace';ctx.fillText(document.documentElement.classList.contains('touch-game')?'Дія — далі':'Enter to continue',116,258);}
+    ctx.fillStyle='#c5cbd4';ctx.font='12px monospace';ctx.fillText(document.documentElement.classList.contains('touch-game')?'Дія — обрати · Назад':'Enter: confirm   Esc / X: back',34,444);
   }
 
   wrapText(ctx,text,maxWidth) {
+    text=tr(text);
+    if(String(text).includes('\n')) return String(text).split('\n').flatMap(line=>this.wrapText(ctx,line,maxWidth));
     const words=String(text).split(/\s+/),lines=[];let line='';
     for(const word of words){const next=line?`${line} ${word}`:word;if(ctx.measureText(next).width>maxWidth&&line){lines.push(line);line=word;}else line=next;}
     if(line)lines.push(line);return lines;

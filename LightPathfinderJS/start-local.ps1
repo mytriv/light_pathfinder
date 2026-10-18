@@ -1,18 +1,33 @@
+param([switch]$NoBrowser)
+
 $ErrorActionPreference = 'Stop'
 $root = [System.IO.Path]::GetFullPath($PSScriptRoot)
-$listener = [System.Net.Sockets.TcpListener]::new([System.Net.IPAddress]::Parse('127.0.0.1'), 8011)
+$listener = $null
 $mime = @{
   '.html'='text/html; charset=utf-8'; '.js'='text/javascript; charset=utf-8';
   '.css'='text/css; charset=utf-8'; '.json'='application/json; charset=utf-8';
-  '.png'='image/png'; '.jpg'='image/jpeg'; '.ogg'='audio/ogg'
+  '.png'='image/png'; '.svg'='image/svg+xml'; '.jpg'='image/jpeg'; '.ogg'='audio/ogg'
 }
 
 try {
-  $listener.Start()
-  $url='http://127.0.0.1:8011/'
+  # Bind directly: checking a port first would leave a race with another launch.
+  foreach ($attempt in 0..20) {
+    $candidatePort = if ($attempt -eq 20) { 0 } else { 8011 + $attempt }
+    $listener = [System.Net.Sockets.TcpListener]::new([System.Net.IPAddress]::Parse('127.0.0.1'), $candidatePort)
+    try { $listener.Start(); break }
+    catch {
+      $listener.Stop()
+      $socketError = $_.Exception
+      while ($socketError.InnerException) { $socketError = $socketError.InnerException }
+      if ($socketError -isnot [System.Net.Sockets.SocketException] -or $socketError.SocketErrorCode -ne [System.Net.Sockets.SocketError]::AddressAlreadyInUse -or $attempt -eq 20) { throw }
+    }
+  }
+  $port = $listener.LocalEndpoint.Port
+  $url="http://127.0.0.1:$port/"
+  if ($port -ne 8011) { Write-Host "Port 8011 is busy; using port $port instead." }
   Write-Host "Light Pathfinder JS slice: $url"
   Write-Host 'Keep this window open while playing. Press Ctrl+C to stop the local server.'
-  Start-Process $url
+  if (-not $NoBrowser) { Start-Process $url }
   while ($true) {
     $client=$listener.AcceptTcpClient()
     try {
@@ -27,6 +42,7 @@ try {
         if ($parts.Count -lt 2 -or $parts[0] -ne 'GET') { throw 'Only GET requests are supported' }
         $requestPath=[System.Uri]::UnescapeDataString(($parts[1] -split '\?',2)[0])
         if ($requestPath -eq '/') { $requestPath='/index.html' }
+        if ($requestPath -eq '/500.html') { $status='500 Internal Server Error' }
         $relative=$requestPath.TrimStart('/').Replace('/',[System.IO.Path]::DirectorySeparatorChar)
         $file=[System.IO.Path]::GetFullPath((Join-Path $root $relative))
         if (-not $file.StartsWith($root+[System.IO.Path]::DirectorySeparatorChar,[System.StringComparison]::OrdinalIgnoreCase)) { throw 'Path is outside the project folder' }
@@ -47,4 +63,4 @@ try {
       $stream.Flush(); $reader.Dispose()
     } finally { $client.Close() }
   }
-} finally { $listener.Stop() }
+} finally { if ($listener) { $listener.Stop() } }
