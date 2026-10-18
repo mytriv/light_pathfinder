@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111820">
+  <meta name="description" content="SiegSim, an endless pixel brawler.">
+  <title>SiegSim</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><h1>SiegSim</h1><p>A / D move · W or Space jump · J throw in the direction you face</p></header>
+  <main><canvas id="game" width="1024" height="576" aria-label="SiegSim game. Move with A and D, jump with W or Space, and throw with J."></canvas></main>
+  <nav class="touch-controls" aria-label="Touch controls">
+    <div><button data-hold="left" aria-label="Move left">←</button><button data-hold="right" aria-label="Move right">→</button><button data-hold="jump" aria-label="Jump">↑</button></div>
+    <button data-action="attack" aria-label="Throw in the direction you face">THROW</button>
+  </nav>
+  <script src="game.js"></script>
+</body>
+</html>

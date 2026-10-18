@@ -1,0 +1,3223 @@
+[
+  null,
+  {
+    "_class": "RPG::Skill",
+    "int_f": 50,
+    "animation1_id": 2,
+    "name": "Heal",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "045-Skill02",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "105-Heal01",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 3,
+    "element_set": [
+
+    ],
+    "power": -150,
+    "animation2_id": 15,
+    "hit": 100,
+    "id": 1,
+    "str_f": 0,
+    "description": "Restores HP to one ally.",
+    "variance": 15,
+    "sp_cost": 80
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 50,
+    "icon_name": "045-Skill02",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "name": "Greater Heal",
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 0,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "106-Heal02",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 3,
+    "dex_f": 0,
+    "power": -300,
+    "element_set": [
+
+    ],
+    "hit": 100,
+    "animation2_id": 16,
+    "description": "Restores HP to one ally.",
+    "str_f": 0,
+    "id": 2,
+    "sp_cost": 160,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 50,
+    "icon_name": "045-Skill02",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "name": "Mass Heal",
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 0,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "107-Heal03",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 4,
+    "dex_f": 0,
+    "power": -300,
+    "element_set": [
+
+    ],
+    "hit": 100,
+    "animation2_id": 17,
+    "description": "Restores HP to all allies.",
+    "str_f": 0,
+    "id": 3,
+    "sp_cost": 320,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Remedy",
+    "minus_state_set": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "eva_f": 0,
+    "icon_name": "045-Skill02",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "113-Remedy01",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 3,
+    "element_set": [
+
+    ],
+    "power": 0,
+    "animation2_id": 24,
+    "hit": 100,
+    "id": 4,
+    "str_f": 0,
+    "description": "Restores states to one ally.",
+    "variance": 15,
+    "sp_cost": 60
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "icon_name": "045-Skill02",
+    "eva_f": 0,
+    "minus_state_set": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "name": "Greater Remedy",
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 0,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "114-Remedy02",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 4,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "hit": 100,
+    "animation2_id": 24,
+    "description": "Restores states to all allies.",
+    "str_f": 0,
+    "id": 5,
+    "sp_cost": 120,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "name": "Raise",
+    "icon_name": "045-Skill02",
+    "eva_f": 0,
+    "minus_state_set": [
+      1
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 0,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "116-Raise02",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 5,
+    "dex_f": 0,
+    "power": -50,
+    "element_set": [
+
+    ],
+    "animation2_id": 26,
+    "hit": 100,
+    "id": 6,
+    "description": "Revives one ally.",
+    "str_f": 0,
+    "sp_cost": 240,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Fire",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+      1
+    ],
+    "power": 140,
+    "animation2_id": 27,
+    "hit": 100,
+    "id": 7,
+    "str_f": 0,
+    "description": "Delas fire damage on one enemy.",
+    "variance": 15,
+    "sp_cost": 75
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "icon_name": "044-Skill01",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "name": "Greater Fire",
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 180,
+    "element_set": [
+      1
+    ],
+    "hit": 100,
+    "animation2_id": 28,
+    "description": "Delas fire damage on one enemy.",
+    "str_f": 0,
+    "id": 8,
+    "sp_cost": 150,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "icon_name": "044-Skill01",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "name": "Mass Fire",
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 2,
+    "dex_f": 0,
+    "power": 180,
+    "element_set": [
+      1
+    ],
+    "hit": 100,
+    "animation2_id": 29,
+    "description": "Delas fire damage on all enemies.",
+    "str_f": 0,
+    "id": 9,
+    "sp_cost": 300,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "icon_name": "044-Skill01",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "name": "Ice",
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 140,
+    "element_set": [
+      2
+    ],
+    "hit": 100,
+    "animation2_id": 30,
+    "description": "Delas ice damage on one enemy.",
+    "str_f": 0,
+    "id": 10,
+    "sp_cost": 75,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Greater Ice",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+      2
+    ],
+    "power": 180,
+    "animation2_id": 31,
+    "hit": 100,
+    "id": 11,
+    "str_f": 0,
+    "description": "Delas ice damage on one enemy.",
+    "variance": 15,
+    "sp_cost": 150
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Mass Ice",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 2,
+    "element_set": [
+      2
+    ],
+    "power": 180,
+    "animation2_id": 32,
+    "hit": 100,
+    "id": 12,
+    "str_f": 0,
+    "description": "Delas ice damage on all enemies.",
+    "variance": 15,
+    "sp_cost": 300
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Thunder",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+      3
+    ],
+    "power": 140,
+    "animation2_id": 33,
+    "hit": 100,
+    "id": 13,
+    "str_f": 0,
+    "description": "Delas thunder damage on one enemy.",
+    "variance": 15,
+    "sp_cost": 75
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "icon_name": "044-Skill01",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "name": "Greater Thunder",
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 180,
+    "element_set": [
+      3
+    ],
+    "hit": 100,
+    "animation2_id": 34,
+    "description": "Delas thunder damage on one enemy.",
+    "str_f": 0,
+    "id": 14,
+    "sp_cost": 150,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "icon_name": "044-Skill01",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "name": "Mass Thunder",
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 2,
+    "dex_f": 0,
+    "power": 180,
+    "element_set": [
+      3
+    ],
+    "hit": 100,
+    "animation2_id": 35,
+    "description": "Delas thunder damage on all enemies.",
+    "str_f": 0,
+    "id": 15,
+    "sp_cost": 300,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "icon_name": "044-Skill01",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "name": "Water",
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 140,
+    "element_set": [
+      4
+    ],
+    "hit": 100,
+    "animation2_id": 36,
+    "description": "Delas water damage on one enemy.",
+    "str_f": 0,
+    "id": 16,
+    "sp_cost": 75,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Greater Water",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+      4
+    ],
+    "power": 180,
+    "animation2_id": 37,
+    "hit": 100,
+    "id": 17,
+    "str_f": 0,
+    "description": "Delas water damage on one enemy.",
+    "variance": 15,
+    "sp_cost": 150
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Mass Water",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 2,
+    "element_set": [
+      4
+    ],
+    "power": 180,
+    "animation2_id": 38,
+    "hit": 100,
+    "id": 18,
+    "str_f": 0,
+    "description": "Delas water damage on all enemies.",
+    "variance": 15,
+    "sp_cost": 300
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "icon_name": "044-Skill01",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "name": "Earth",
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 140,
+    "element_set": [
+      5
+    ],
+    "hit": 100,
+    "animation2_id": 39,
+    "description": "Delas earth damage on one enemy.",
+    "str_f": 0,
+    "id": 19,
+    "sp_cost": 75,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Greater Earth",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+      5
+    ],
+    "power": 180,
+    "animation2_id": 40,
+    "hit": 100,
+    "id": 20,
+    "str_f": 0,
+    "description": "Delas earth damage on one enemy.",
+    "variance": 15,
+    "sp_cost": 150
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Mass Earth",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 2,
+    "element_set": [
+      5
+    ],
+    "power": 180,
+    "animation2_id": 41,
+    "hit": 100,
+    "id": 21,
+    "str_f": 0,
+    "description": "Delas earth damage on all enemies.",
+    "variance": 15,
+    "sp_cost": 300
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "icon_name": "044-Skill01",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "name": "Wind",
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 140,
+    "element_set": [
+      6
+    ],
+    "hit": 100,
+    "animation2_id": 42,
+    "description": "Delas wind damage on one enemy.",
+    "str_f": 0,
+    "id": 22,
+    "sp_cost": 75,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Greater Wind",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+      6
+    ],
+    "power": 180,
+    "animation2_id": 43,
+    "hit": 100,
+    "id": 23,
+    "str_f": 0,
+    "description": "Delas wind damage on one enemy.",
+    "variance": 15,
+    "sp_cost": 150
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Mass Wind",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 2,
+    "element_set": [
+      6
+    ],
+    "power": 180,
+    "animation2_id": 44,
+    "hit": 100,
+    "id": 24,
+    "str_f": 0,
+    "description": "Delas wind damage on all enemies.",
+    "variance": 15,
+    "sp_cost": 300
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Light",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+      7
+    ],
+    "power": 160,
+    "animation2_id": 45,
+    "hit": 100,
+    "id": 25,
+    "str_f": 0,
+    "description": "Delas light damage on one enemy.",
+    "variance": 15,
+    "sp_cost": 80
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "icon_name": "044-Skill01",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "name": "Greater Light",
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 200,
+    "element_set": [
+      7
+    ],
+    "hit": 100,
+    "animation2_id": 46,
+    "description": "Delas light damage on one enemy.",
+    "str_f": 0,
+    "id": 26,
+    "sp_cost": 160,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "icon_name": "044-Skill01",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "name": "Mass Light",
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 2,
+    "dex_f": 0,
+    "power": 200,
+    "element_set": [
+      7
+    ],
+    "hit": 100,
+    "animation2_id": 47,
+    "description": "Delas light damage on all enemies.",
+    "str_f": 0,
+    "id": 27,
+    "sp_cost": 320,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "icon_name": "044-Skill01",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "name": "Darkness",
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 160,
+    "element_set": [
+      8
+    ],
+    "hit": 100,
+    "animation2_id": 48,
+    "description": "Delas darkness damage on one enemy.",
+    "str_f": 0,
+    "id": 28,
+    "sp_cost": 80,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Greater Darkness",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+      8
+    ],
+    "power": 200,
+    "animation2_id": 49,
+    "hit": 100,
+    "id": 29,
+    "str_f": 0,
+    "description": "Delas darkness damage on one enemy.",
+    "variance": 15,
+    "sp_cost": 160
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Mass Darkness",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 2,
+    "element_set": [
+      8
+    ],
+    "power": 200,
+    "animation2_id": 50,
+    "hit": 100,
+    "id": 30,
+    "str_f": 0,
+    "description": "Delas darkness damage on all enemies.",
+    "variance": 15,
+    "sp_cost": 320
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "name": "Burst",
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 180,
+    "animation2_id": 51,
+    "hit": 100,
+    "id": 31,
+    "str_f": 0,
+    "description": "Delas non-elemental damage on one enemy.",
+    "variance": 15,
+    "sp_cost": 200
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "044-Skill01",
+    "name": "Radiate",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 0,
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 2,
+    "element_set": [
+
+    ],
+    "power": 220,
+    "hit": 100,
+    "animation2_id": 52,
+    "str_f": 0,
+    "description": "Delas non-elemental damage on all enemies.",
+    "id": 32,
+    "variance": 15,
+    "sp_cost": 400
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "name": "Venom",
+    "icon_name": "046-Skill03",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+      3
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 53,
+    "hit": 100,
+    "id": 33,
+    "description": "Set Venom state to one enemy.",
+    "str_f": 0,
+    "sp_cost": 30,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "046-Skill03",
+    "name": "Mass Venom",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "plus_state_set": [
+      3
+    ],
+    "atk_f": 0,
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 2,
+    "element_set": [
+
+    ],
+    "power": 0,
+    "hit": 100,
+    "animation2_id": 53,
+    "str_f": 0,
+    "description": "Set Venom state to all enemies.",
+    "id": 34,
+    "variance": 15,
+    "sp_cost": 60
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "046-Skill03",
+    "name": "Dazzle",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "plus_state_set": [
+      4
+    ],
+    "atk_f": 0,
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 0,
+    "hit": 100,
+    "animation2_id": 54,
+    "str_f": 0,
+    "description": "Set Dazzle state to one enemy.",
+    "id": 35,
+    "variance": 15,
+    "sp_cost": 35
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "name": "Mass Dazzle",
+    "icon_name": "046-Skill03",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+      4
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 2,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 54,
+    "hit": 100,
+    "id": 36,
+    "description": "Set Dazzle state to all enemies.",
+    "str_f": 0,
+    "sp_cost": 70,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "name": "Mute",
+    "icon_name": "046-Skill03",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+      5
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 54,
+    "hit": 100,
+    "id": 37,
+    "description": "Set Mute state to one enemy.",
+    "str_f": 0,
+    "sp_cost": 40,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "046-Skill03",
+    "name": "Mass Mute",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "plus_state_set": [
+      5
+    ],
+    "atk_f": 0,
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 2,
+    "element_set": [
+
+    ],
+    "power": 0,
+    "hit": 100,
+    "animation2_id": 54,
+    "str_f": 0,
+    "description": "Set Mute state to all enemies.",
+    "id": 38,
+    "variance": 15,
+    "sp_cost": 80
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "046-Skill03",
+    "name": "Confuse",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "plus_state_set": [
+      6
+    ],
+    "atk_f": 0,
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 0,
+    "hit": 100,
+    "animation2_id": 56,
+    "str_f": 0,
+    "description": "Set Confuse state to one enemy.",
+    "id": 39,
+    "variance": 15,
+    "sp_cost": 45
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "name": "Mass Confuse",
+    "icon_name": "046-Skill03",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+      6
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 2,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 56,
+    "hit": 100,
+    "id": 40,
+    "description": "Set Confuse state to all enemies.",
+    "str_f": 0,
+    "sp_cost": 90,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "name": "Sleep",
+    "icon_name": "046-Skill03",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+      7
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 57,
+    "hit": 100,
+    "id": 41,
+    "description": "Set Sleep state to one enemy.",
+    "str_f": 0,
+    "sp_cost": 50,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "046-Skill03",
+    "name": "Mass Sleep",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "plus_state_set": [
+      7
+    ],
+    "atk_f": 0,
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 2,
+    "element_set": [
+
+    ],
+    "power": 0,
+    "hit": 100,
+    "animation2_id": 57,
+    "str_f": 0,
+    "description": "Set Sleep state to all enemies.",
+    "id": 42,
+    "variance": 15,
+    "sp_cost": 100
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "name": "Paralyze",
+    "icon_name": "046-Skill03",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+      8
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 58,
+    "hit": 100,
+    "id": 43,
+    "description": "Set Paralyze state to one enemy.",
+    "str_f": 0,
+    "sp_cost": 55,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "046-Skill03",
+    "name": "Mass Paralyze",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "plus_state_set": [
+      8
+    ],
+    "atk_f": 0,
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 2,
+    "element_set": [
+
+    ],
+    "power": 0,
+    "hit": 100,
+    "animation2_id": 58,
+    "str_f": 0,
+    "description": "Set Paralyze state to all enemies.",
+    "id": 44,
+    "variance": 15,
+    "sp_cost": 110
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "047-Skill04",
+    "name": "Weaken",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "plus_state_set": [
+      9
+    ],
+    "atk_f": 0,
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 0,
+    "hit": 100,
+    "animation2_id": 59,
+    "str_f": 0,
+    "description": "Down STR of one enemy.",
+    "id": 45,
+    "variance": 15,
+    "sp_cost": 30
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "name": "Mass Weaken",
+    "icon_name": "047-Skill04",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+      9
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 2,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 59,
+    "hit": 100,
+    "id": 46,
+    "description": "Down STR of all enemies.",
+    "str_f": 0,
+    "sp_cost": 65,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "name": "Clumsy",
+    "icon_name": "047-Skill04",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+      10
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 60,
+    "hit": 100,
+    "id": 47,
+    "description": "Down DEX of one enemy.",
+    "str_f": 0,
+    "sp_cost": 30,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "047-Skill04",
+    "name": "Mass Clumsy",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "plus_state_set": [
+      10
+    ],
+    "atk_f": 0,
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 2,
+    "element_set": [
+
+    ],
+    "power": 0,
+    "hit": 100,
+    "animation2_id": 60,
+    "str_f": 0,
+    "description": "Down DEX of all enemies.",
+    "id": 48,
+    "variance": 15,
+    "sp_cost": 65
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "name": "Delay",
+    "icon_name": "047-Skill04",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+      11
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 61,
+    "hit": 100,
+    "id": 49,
+    "description": "Down AGI of one enemy.",
+    "str_f": 0,
+    "sp_cost": 30,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "047-Skill04",
+    "name": "Mass Delay",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "plus_state_set": [
+      11
+    ],
+    "atk_f": 0,
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 2,
+    "element_set": [
+
+    ],
+    "power": 0,
+    "hit": 100,
+    "animation2_id": 61,
+    "str_f": 0,
+    "description": "Down AGI of all enemies.",
+    "id": 50,
+    "variance": 15,
+    "sp_cost": 65
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "name": "Feeble",
+    "icon_name": "047-Skill04",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+      12
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 62,
+    "hit": 100,
+    "id": 51,
+    "description": "Down INT of one enemy.",
+    "str_f": 0,
+    "sp_cost": 30,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "047-Skill04",
+    "name": "Mass Feeble",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "plus_state_set": [
+      12
+    ],
+    "atk_f": 0,
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 2,
+    "element_set": [
+
+    ],
+    "power": 0,
+    "hit": 100,
+    "animation2_id": 62,
+    "str_f": 0,
+    "description": "Down INT of all enemies.",
+    "id": 52,
+    "variance": 15,
+    "sp_cost": 65
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 100,
+    "animation1_id": 2,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 0,
+    "icon_name": "048-Skill05",
+    "name": "Sharp",
+    "mdef_f": 100,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "plus_state_set": [
+      13
+    ],
+    "atk_f": 0,
+    "pdef_f": 0,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 3,
+    "element_set": [
+
+    ],
+    "power": 0,
+    "hit": 100,
+    "animation2_id": 63,
+    "str_f": 0,
+    "description": "Up ATK of one ally.",
+    "id": 53,
+    "variance": 15,
+    "sp_cost": 180
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "name": "Barrier",
+    "icon_name": "048-Skill05",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+      14
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 3,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 64,
+    "hit": 100,
+    "id": 54,
+    "description": "Up PDEF of one ally.",
+    "str_f": 0,
+    "sp_cost": 170,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "name": "Resist",
+    "icon_name": "048-Skill05",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+      15
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 3,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 65,
+    "hit": 100,
+    "id": 55,
+    "description": "Up MDEF of one ally.",
+    "str_f": 0,
+    "sp_cost": 160,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 2,
+    "int_f": 100,
+    "name": "Blink",
+    "icon_name": "048-Skill05",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+      16
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 3,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 66,
+    "hit": 100,
+    "id": 56,
+    "description": "Up EVA of one ally.",
+    "str_f": 0,
+    "sp_cost": 150,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 1,
+    "int_f": 0,
+    "name": "Cross Cut",
+    "icon_name": "050-Skill07",
+    "eva_f": 100,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 100,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 20,
+    "element_set": [
+      9
+    ],
+    "hit": 100,
+    "animation2_id": 67,
+    "id": 57,
+    "description": "Fighter's special move. More effective to undeads.",
+    "str_f": 100,
+    "sp_cost": 100,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Feint Attack",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 100,
+    "plus_state_set": [
+      2
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 40,
+    "animation2_id": 68,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Fighter's special move. Add state: Stun.",
+    "id": 58,
+    "variance": 15,
+    "sp_cost": 150
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Hurricane",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 100,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+      6
+    ],
+    "power": 60,
+    "animation2_id": 69,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Fighter's special move. Wind damage.",
+    "id": 59,
+    "variance": 15,
+    "sp_cost": 200
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Spiral Blade",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 120,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 80,
+    "animation2_id": 70,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Fighter's final secret. Deals big damage.",
+    "id": 60,
+    "variance": 15,
+    "sp_cost": 300
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Leg Sweep",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 100,
+    "plus_state_set": [
+      2
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 20,
+    "animation2_id": 71,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Lancer's special move. Add state: Stun.",
+    "id": 61,
+    "variance": 15,
+    "sp_cost": 100
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 1,
+    "int_f": 0,
+    "name": "Beast Slayer",
+    "icon_name": "050-Skill07",
+    "eva_f": 100,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 100,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 40,
+    "element_set": [
+      12
+    ],
+    "hit": 100,
+    "animation2_id": 72,
+    "id": 62,
+    "description": "Lancer's special move. More effective to beasts.",
+    "str_f": 100,
+    "sp_cost": 150,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Thunder Pierce",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 100,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+      3
+    ],
+    "power": 60,
+    "animation2_id": 73,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Lancer's special move. Thunder damage.",
+    "id": 63,
+    "variance": 15,
+    "sp_cost": 200
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Screw Thrust",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 120,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 80,
+    "animation2_id": 74,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Lancer's final secret. Deals big damage.",
+    "id": 64,
+    "variance": 15,
+    "sp_cost": 300
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 1,
+    "int_f": 0,
+    "name": "Power Break",
+    "icon_name": "050-Skill07",
+    "eva_f": 100,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+      9
+    ],
+    "atk_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 100,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 20,
+    "element_set": [
+
+    ],
+    "hit": 100,
+    "animation2_id": 75,
+    "id": 65,
+    "description": "Warrior's special move. Add state: Weaken.",
+    "str_f": 100,
+    "sp_cost": 100,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Mind Break",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 100,
+    "plus_state_set": [
+      12
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 40,
+    "animation2_id": 76,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Warrior's special move. Add state: Feeble.",
+    "id": 66,
+    "variance": 15,
+    "sp_cost": 150
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 1,
+    "int_f": 0,
+    "name": "Aqua Buster",
+    "icon_name": "050-Skill07",
+    "eva_f": 100,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 100,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 60,
+    "element_set": [
+      11
+    ],
+    "hit": 100,
+    "animation2_id": 77,
+    "id": 67,
+    "description": "Warrior's special move. More effective to aquatics.",
+    "str_f": 100,
+    "sp_cost": 200,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Rolling Axe",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 120,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 80,
+    "animation2_id": 78,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Warrior's final secret. Deals big damage.",
+    "id": 68,
+    "variance": 15,
+    "sp_cost": 300
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Poison Edge",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 100,
+    "plus_state_set": [
+      3
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 20,
+    "animation2_id": 79,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Thief's special move. Add state: Venom.",
+    "id": 69,
+    "variance": 15,
+    "sp_cost": 100
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 1,
+    "int_f": 0,
+    "name": "Eagle Claw",
+    "icon_name": "050-Skill07",
+    "eva_f": 100,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 100,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 40,
+    "element_set": [
+      10
+    ],
+    "hit": 100,
+    "animation2_id": 80,
+    "id": 70,
+    "description": "Thief's special move. More effective to snakes.",
+    "str_f": 100,
+    "sp_cost": 150,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 1,
+    "int_f": 0,
+    "name": "Illusion",
+    "icon_name": "050-Skill07",
+    "eva_f": 100,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+      4
+    ],
+    "atk_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 100,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 60,
+    "element_set": [
+
+    ],
+    "hit": 100,
+    "animation2_id": 81,
+    "id": 71,
+    "description": "Thief's special move. Add state: Dazzle.",
+    "str_f": 100,
+    "sp_cost": 200,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Deadly Dance",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 120,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 80,
+    "animation2_id": 82,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Thief's final secret. Deals big damage.",
+    "id": 72,
+    "variance": 15,
+    "sp_cost": 300
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 1,
+    "int_f": 0,
+    "name": "Bird Killer",
+    "icon_name": "050-Skill07",
+    "eva_f": 100,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 0,
+    "occasion": 1,
+    "agi_f": 0,
+    "plus_state_set": [
+
+    ],
+    "atk_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 100,
+    "scope": 1,
+    "dex_f": 0,
+    "power": 20,
+    "element_set": [
+      14
+    ],
+    "hit": 100,
+    "animation2_id": 83,
+    "id": 73,
+    "description": "Hunter's special move. More effective to birds.",
+    "str_f": 100,
+    "sp_cost": 100,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Mute Arrow",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 100,
+    "plus_state_set": [
+      5
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 40,
+    "animation2_id": 83,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Hunter's special move. Add state: Mute.",
+    "id": 74,
+    "variance": 15,
+    "sp_cost": 150
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Paralyze Arrow",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 100,
+    "plus_state_set": [
+      8
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 60,
+    "animation2_id": 83,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Hunter's special move. Add state: Paralyze.",
+    "id": 75,
+    "variance": 15,
+    "sp_cost": 200
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Sidewinder",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 120,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 80,
+    "animation2_id": 86,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Hunter's final secret. Deals big damage.",
+    "id": 76,
+    "variance": 15,
+    "sp_cost": 300
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Silver Bullet",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 100,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+      13
+    ],
+    "power": 20,
+    "animation2_id": 87,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Gunner's special move. More effective to goblins.",
+    "id": 77,
+    "variance": 15,
+    "sp_cost": 100
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Burinig Shot",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 100,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+      1
+    ],
+    "power": 40,
+    "animation2_id": 88,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Gunner's special move. Fire damage.",
+    "id": 78,
+    "variance": 15,
+    "sp_cost": 150
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Frost Shot",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 100,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+      2
+    ],
+    "power": 60,
+    "animation2_id": 89,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Gunner's special move. Ice damage.",
+    "id": 79,
+    "variance": 15,
+    "sp_cost": 200
+  },
+  {
+    "_class": "RPG::Skill",
+    "int_f": 0,
+    "animation1_id": 1,
+    "minus_state_set": [
+
+    ],
+    "eva_f": 100,
+    "icon_name": "050-Skill07",
+    "name": "Crescent Force",
+    "mdef_f": 0,
+    "common_event_id": 0,
+    "agi_f": 0,
+    "occasion": 1,
+    "atk_f": 120,
+    "plus_state_set": [
+
+    ],
+    "pdef_f": 100,
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "dex_f": 0,
+    "scope": 1,
+    "element_set": [
+
+    ],
+    "power": 80,
+    "animation2_id": 90,
+    "hit": 100,
+    "str_f": 100,
+    "description": "Gunner's final secret. Deals big damage.",
+    "id": 80,
+    "variance": 15,
+    "sp_cost": 300
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 80,
+    "int_f": 100,
+    "name": "Відпетушений",
+    "icon_name": "007-Weapon07",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 2,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+      1,
+      2,
+      3
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 60,
+      "name": "009-System09",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 4,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+      1
+    ],
+    "animation2_id": 4,
+    "hit": 100,
+    "id": 81,
+    "description": "Тебе відпетушили і запхали бутилку в сраку",
+    "str_f": 0,
+    "sp_cost": 1000,
+    "variance": 15
+  },
+  {
+    "_class": "RPG::Skill",
+    "animation1_id": 0,
+    "int_f": 100,
+    "name": "",
+    "icon_name": "",
+    "eva_f": 0,
+    "minus_state_set": [
+
+    ],
+    "common_event_id": 0,
+    "mdef_f": 100,
+    "occasion": 1,
+    "agi_f": 0,
+    "atk_f": 0,
+    "plus_state_set": [
+
+    ],
+    "menu_se": {
+      "_class": "RPG::AudioFile",
+      "volume": 80,
+      "name": "",
+      "pitch": 100
+    },
+    "pdef_f": 0,
+    "scope": 0,
+    "dex_f": 0,
+    "power": 0,
+    "element_set": [
+
+    ],
+    "animation2_id": 0,
+    "hit": 100,
+    "id": 82,
+    "description": "",
+    "str_f": 0,
+    "sp_cost": 0,
+    "variance": 15
+  }
+]

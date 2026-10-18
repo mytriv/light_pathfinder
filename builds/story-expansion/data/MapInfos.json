@@ -1,0 +1,83 @@
+{
+  "5": {
+    "_class": "RPG::MapInfo",
+    "scroll_x": 320,
+    "name": "kidhaus",
+    "expanded": false,
+    "order": 5,
+    "scroll_y": 240,
+    "parent_id": 1
+  },
+  "6": {
+    "_class": "RPG::MapInfo",
+    "scroll_x": 320,
+    "name": "Tavern",
+    "expanded": false,
+    "order": 7,
+    "scroll_y": 240,
+    "parent_id": 7
+  },
+  "1": {
+    "_class": "RPG::MapInfo",
+    "scroll_x": 640,
+    "name": "Batya",
+    "expanded": true,
+    "order": 1,
+    "scroll_y": 320,
+    "parent_id": 0
+  },
+  "7": {
+    "_class": "RPG::MapInfo",
+    "scroll_x": 640,
+    "name": "Sluha",
+    "expanded": true,
+    "order": 6,
+    "scroll_y": 320,
+    "parent_id": 0
+  },
+  "2": {
+    "_class": "RPG::MapInfo",
+    "scroll_x": 320,
+    "name": "house",
+    "expanded": false,
+    "order": 2,
+    "scroll_y": 240,
+    "parent_id": 1
+  },
+  "8": {
+    "_class": "RPG::MapInfo",
+    "scroll_x": 320,
+    "name": "Bordel",
+    "expanded": false,
+    "order": 8,
+    "scroll_y": 240,
+    "parent_id": 7
+  },
+  "3": {
+    "_class": "RPG::MapInfo",
+    "scroll_x": 640,
+    "name": "Batya_fake",
+    "expanded": false,
+    "order": 3,
+    "scroll_y": 320,
+    "parent_id": 1
+  },
+  "9": {
+    "_class": "RPG::MapInfo",
+    "scroll_x": 320,
+    "name": "storehaus",
+    "expanded": false,
+    "order": 9,
+    "scroll_y": 240,
+    "parent_id": 7
+  },
+  "4": {
+    "_class": "RPG::MapInfo",
+    "scroll_x": 320,
+    "name": "orgi",
+    "expanded": false,
+    "order": 4,
+    "scroll_y": 240,
+    "parent_id": 1
+  }
+}

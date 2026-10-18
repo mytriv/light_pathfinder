@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Light Pathfinder — За дзеркалом</title>
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <main class="shell">
+    <header><strong>LIGHT PATHFINDER</strong><span id="map-name">Завантаження…</span><label class="language-control"><span data-i18n="Мова">Мова</span><select id="game-language" aria-label="Мова / Language"><option value="uk">Українська</option><option value="en">English</option></select></label></header>
+    <div class="game-stage">
+      <canvas id="game" width="640" height="480" tabindex="-1" aria-label="Light Pathfinder game view"></canvas>
+      <section id="front-screen" aria-label="Меню гри" data-i18n-aria="Меню гри"></section>
+    </div>
+    <div id="play-tools" hidden>
+    <nav id="mobile-controls" aria-label="Сенсорне керування" data-i18n-aria="Сенсорне керування">
+      <div class="direction-pad">
+        <button type="button" data-key="ArrowUp" aria-label="Вгору" data-i18n-aria="Вгору">▲</button>
+        <button type="button" data-key="ArrowLeft" aria-label="Вліво" data-i18n-aria="Вліво">◀</button>
+        <button type="button" data-key="ArrowDown" aria-label="Вниз" data-i18n-aria="Вниз">▼</button>
+        <button type="button" data-key="ArrowRight" aria-label="Вправо" data-i18n-aria="Вправо">▶</button>
+      </div>
+      <div class="touch-actions">
+        <button type="button" data-key="Enter" data-i18n="Дія / Далі">Дія / Далі</button>
+        <button type="button" data-key="Escape" data-i18n="Меню / Назад">Меню / Назад</button>
+      </div>
+    </nav>
+    <footer><span data-i18n="Рух: стрілки / WASD">Рух: стрілки / WASD</span><span data-i18n="Взаємодія: Enter / Z · Меню: Esc / X">Взаємодія: Enter / Z · Меню: Esc / X</span></footer>
+    <section class="story-bar" aria-label="Сюжетне доповнення">
+      <button id="journal-toggle" type="button" aria-expanded="false" aria-controls="journal" data-i18n="Журнал завдань">Журнал завдань</button>
+      <span id="story-status" aria-live="polite"></span>
+      <label><input id="story-audio" type="checkbox"> <span data-i18n="Звукові ефекти">Звукові ефекти</span></label>
+    </section>
+    <aside id="journal" hidden><h2 data-i18n="За дзеркалом">За дзеркалом</h2><p id="journal-content"></p></aside>
+    </div>
+    <div id="error" role="alert" hidden></div>
+  </main>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

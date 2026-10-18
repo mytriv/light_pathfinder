@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111820">
+  <meta name="description" content="Browser games from the Light Pathfinder project.">
+  <title>Light Pathfinder — Games</title>
+  <style>
+    :root{color-scheme:dark;font-family:system-ui,sans-serif;background:#111820;color:#eef2eb;font-synthesis:none}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -15%,#354955,#18232a 52%,#111820 86%)}main{width:min(960px,calc(100% - 32px));margin:0 auto;padding:clamp(34px,8vh,86px) 0 36px}header{margin-bottom:30px}p{color:#aebbb7;line-height:1.65}h1{margin:7px 0;font-size:clamp(36px,8vw,64px);line-height:.98;letter-spacing:-.045em}.kicker{color:#efbc62;font:700 11px ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px}.card{display:flex;flex-direction:column;min-height:210px;padding:22px;border:1px solid #40515a;border-radius:12px;background:linear-gradient(145deg,#26343c,#1a242b 74%);text-decoration:none;color:inherit;transition:transform .15s,border-color .15s,background .15s}.card:hover,.card:focus-visible{transform:translateY(-3px);border-color:#e4ad59;background:linear-gradient(145deg,#30434a,#202c32 74%);outline:none}.card small{color:#e3ad59;font:700 10px ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}.card h2{margin:14px 0 8px;font-size:24px}.card p{margin:0 0 22px;font-size:14px}.card span{margin-top:auto;color:#f0d197;font-size:13px;font-weight:700}footer{margin-top:30px;color:#879595;font:11px ui-monospace,monospace}@media(max-width:520px){main{width:calc(100% - 20px)}.card{min-height:180px;padding:18px}}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="kicker">Light Pathfinder Project</div>
+      <h1>Pick a game.</h1>
+      <p>Three browser builds, each in its own folder. The original RPG Maker XP project is kept alongside them for reference.</p>
+    </header>
+    <section class="grid" aria-label="Games">
+      <a class="card" href="LightPathfinder/">
+        <small>Story RPG · HTML5</small>
+        <h2>Light Pathfinder</h2>
+        <p>Explore the original maps in the JavaScript browser port.</p>
+        <span>Play Light Pathfinder →</span>
+      </a>
+      <a class="card" href="LightPathfinderJS/">
+        <small>Story RPG · JavaScript</small>
+        <h2>Light Pathfinder JS</h2>
+        <p>Try the separate, lightweight custom-engine build.</p>
+        <span>Play the custom build →</span>
+      </a>
+      <a class="card" href="SiegSim/">
+        <small>Arcade · Endless</small>
+        <h2>SiegSim</h2>
+        <p>A silly pixel brawler with countryball opponents and endless waves.</p>
+        <span>Enter the arena →</span>
+      </a>
+    </section>
+    <footer>Original RPG Maker XP source and project metadata are preserved in the <a href="https://github.com/mytriv/light_pathfinder/tree/main/Original/" style="color:#d9c89e">Original</a> folder.</footer>
+  </main>
+</body>
+</html>
